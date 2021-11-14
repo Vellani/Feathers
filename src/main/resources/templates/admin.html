@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link href="..\static\bootstrap\css\bootstrap.min.css" rel="stylesheet" />
+    <link href="..\static\css\sidebars.css" rel="stylesheet" />
+    <link href="..\static\css\list-groups.css" rel="stylesheet" />
+    <link href="..\static\css\features.css" rel="stylesheet" />
+    <link href="..\static\css\hero.css" rel="stylesheet" />
+
+    <title>Feathers Logbook</title>
+  </head>
+
+  <!-- HEADER -->
+  <header class="p-1 bg-dark text-white" style="width: 100%; z-index: 5; position: sticky; top: 0">
+    <div class="d-flex align-items-center justify-content-center justify-content-lg-start">
+      <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+        <svg class="bi me-2" width="80" height="60" role="img" aria-label="Bootstrap">
+          <use xlink:href="..\static\svg\feathers-logo.svg#feathers_logo" />
+        </svg>
+      </a>
+
+      <h3 class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 d-none d-lg-block">Feathers Logbook</h3>
+
+      <button href="/sign-in" type="button" class="btn btn-outline-light me-2">Login</button>
+      <button href="/register" type="button" class="btn btn-warning">Sign-up</button>
+
+      <div class="text-end ml-auto">
+        <div class="dropdown">
+          <a href="/" class="d-flex align-items-center justify-content-center p-3 link-light text-decoration-none" id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
+            <svg class="bi me-2" width="35" height="35" role="img" aria-label="Bootstrap">
+              <use xlink:href="..\static\svg\svgmaster.svg#account" />
+            </svg>
+          </a>
+
+          <ul class="dropdown-menu dropdown-menu-dark mx-0 border-0 shadow" aria-labelledby="dropdownUser3" style="width: 220px">
+            <li>
+              <a class="dropdown-item d-flex gap-2 align-items-center" href="#">
+                <svg class="bi" width="16" height="16">
+                  <use xlink:href="..\static\svg\svgmaster.svg#table" />
+                </svg>
+                Logbook
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item d-flex gap-2 align-items-center" href="#">
+                <svg class="bi" width="16" height="16">
+                  <use xlink:href="..\static\svg\svgmaster.svg#speedometer" />
+                </svg>
+                Dashboard
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item d-flex gap-2 align-items-center" href="#">
+                <svg class="bi" width="16" height="16">
+                  <use xlink:href="..\static\svg\svgmaster.svg#gear-fill" />
+                </svg>
+                Account Settings
+              </a>
+            </li>
+          
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
+            <li>
+              <a class="dropdown-item d-flex gap-2 align-items-center" href="#">
+                <svg class="bi" width="16" height="16">
+                  <use xlink:href="..\static\svg\svgmaster.svg#home" />
+                </svg>
+                Logout
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <body>
+    <main>
+      <!-- OTHER -->
+      <div class="logbook-container w-100 h-100vh d-inline-block overflow-auto">
+        <div class="container px-4 py-0" id="icon-grid">
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-4">
+            <div class="col">
+              <div class="card card-cover text-white bg-dark rounded-5 shadow-lg">
+                <div class="d-flex align-items-center m-3">
+                  <svg class="bi text-muted me-3" width="1.75em" height="1.75em">
+                    <use xlink:href="..\static\svg\svgmaster.svg#users" />
+                  </svg>
+                  <div>
+                    <p class="fw-bold mb-0">Total Accounts: 53</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card card-cover text-white bg-dark rounded-5 shadow-lg">
+                <div class="d-flex align-items-center m-3">
+                  <svg class="bi text-muted me-3" width="1.75em" height="1.75em">
+                    <use xlink:href="..\static\svg\svgmaster.svg#plane" />
+                  </svg>
+                  <div>
+                    <p class="fw-bold mb-0">Total Flight Logs: 5938</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col"></div>
+            <div class="col">
+                <div class="card card-cover text-white bg-dark rounded-5 shadow-lg">
+                  <div class="d-flex align-items-center m-3">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Username" 
+                        aria-label="Username" aria-describedby="button-addon2">
+                        <button class="btn btn-warning" type="button" id="button-addon2">Find</button>
+                      </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+
+        <div class="container px-4 py-1">
+          <div class="list-group">
+
+            <!-- This is a single user card -->
+            <div class="d-flex list-group-item list-group-item-action row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4
+            align-items-center" 
+            aria-current="true">
+                
+                <div class="col">
+                    <h3>Username</h3>
+                    <article>email@email.com</article>
+                </div>
+                <div class="col">
+                    <select class="form-select" aria-label="Select Account Level">
+                        <option selected value="1">User</option>
+                        <option value="2">VIP</option>
+                        <option value="3">Admin</option>
+                      </select>
+                </div>
+                <div class="col"></div>
+                <div class="col d-flex justify-content-end">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-outline-secondary dropdown-toggle" 
+                        data-bs-toggle="dropdown" aria-expanded="false">Actions</button>
+                        <ul class="dropdown-menu dropdown-menu-dark mx-0 border-0 shadow">
+                          <li>
+                            <a class="dropdown-item d-flex gap-2 align-items-center" href="#">
+                              <svg class="bi" width="16" height="16">
+                                <use xlink:href="..\static\svg\svgmaster.svg#edit" />
+                              </svg>
+                              Save Changes
+                            </a>
+                          </li>
+                          <li>
+                            <hr class="dropdown-divider" />
+                          </li>
+                          <li>
+                            <a class="dropdown-item d-flex gap-2 align-items-center" href="#">
+                              <svg class="bi" width="16" height="16">
+                                <use xlink:href="..\static\svg\svgmaster.svg#trash" />
+                              </svg>
+                              Delete
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                </div>
+
+                
+            </div>
+
+          
+
+          </div>
+        </div>
+
+
+      </div>
+    </main>
+
+    <script src="..\static\bootstrap\js\bootstrap.bundle.min.js"></script>
+    <script src="..\static\js\sidebars.js"></script>
+  </body>
+</html>

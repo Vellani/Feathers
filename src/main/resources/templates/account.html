@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link href="..\static\bootstrap\css\bootstrap.min.css" rel="stylesheet" />
+    <link href="..\static\css\sidebars.css" rel="stylesheet" />
+    <link href="..\static\css\list-groups.css" rel="stylesheet" />
+    <link href="..\static\css\features.css" rel="stylesheet" />
+    <link href="..\static\css\hero.css" rel="stylesheet" />
+
+    <title>Feathers Logbook</title>
+  </head>
+
+  <!-- HEADER -->
+  <header class="p-1 bg-dark text-white" style="width: 100%; z-index: 5; position: sticky; top: 0">
+    <div class="d-flex align-items-center justify-content-center justify-content-lg-start">
+      <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+        <svg class="bi me-2" width="80" height="60" role="img" aria-label="Bootstrap">
+          <use xlink:href="..\static\svg\feathers-logo.svg#feathers_logo" />
+        </svg>
+      </a>
+
+      <h3 class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 d-none d-lg-block">Feathers Logbook</h3>
+
+      <button href="/sign-in" type="button" class="btn btn-outline-light me-2">Login</button>
+      <button href="/register" type="button" class="btn btn-warning">Sign-up</button>
+
+      <div class="text-end ml-auto">
+        <div class="dropdown">
+          <a href="/" class="d-flex align-items-center justify-content-center p-3 link-light text-decoration-none" id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
+            <svg class="bi me-2" width="35" height="35" role="img" aria-label="Bootstrap">
+              <use xlink:href="..\static\svg\svgmaster.svg#account" />
+            </svg>
+          </a>
+
+          <ul class="dropdown-menu dropdown-menu-dark mx-0 border-0 shadow" aria-labelledby="dropdownUser3" style="width: 220px">
+            <li>
+              <a class="dropdown-item d-flex gap-2 align-items-center" href="#">
+                <svg class="bi" width="16" height="16">
+                  <use xlink:href="..\static\svg\svgmaster.svg#table" />
+                </svg>
+                Logbook
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item d-flex gap-2 align-items-center" href="#">
+                <svg class="bi" width="16" height="16">
+                  <use xlink:href="..\static\svg\svgmaster.svg#speedometer" />
+                </svg>
+                Dashboard
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item d-flex gap-2 align-items-center" href="#">
+                <svg class="bi" width="16" height="16">
+                  <use xlink:href="..\static\svg\svgmaster.svg#gear-fill" />
+                </svg>
+                Account Settings
+              </a>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
+            <li>
+              <a class="dropdown-item d-flex gap-2 align-items-center" href="#">
+                <svg class="bi" width="16" height="16">
+                  <use xlink:href="..\static\svg\svgmaster.svg#home" />
+                </svg>
+                Logout
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <body>
+    <main>
+      <div class="hero-container rounded bg-white">
+        <div class="row" style="max-width: 100%">
+
+          <div class="col-md-4">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" /><span class="font-weight-bold">Edogaru</span><span class="text-black-50">edogaru@mail.com.my</span><span> </span>
+            </div>
+          </div>
+          
+          <div class="col-md-4">
+            <div class="p-3 py-5">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="text-right">Profile Settings</h4>
+              </div>
+              <div class="row mt-2">
+                <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control" placeholder="first name" value="" /></div>
+                <div class="col-md-6"><label class="labels">Surname</label><input type="text" class="form-control" value="" placeholder="surname" /></div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text" class="form-control" placeholder="enter phone number" value="" /></div>
+                <div class="col-md-12"><label class="labels">Address Line 1</label><input type="text" class="form-control" placeholder="enter address line 1" value="" /></div>
+                <div class="col-md-12"><label class="labels">Address Line 2</label><input type="text" class="form-control" placeholder="enter address line 2" value="" /></div>
+                <div class="col-md-12"><label class="labels">Postcode</label><input type="text" class="form-control" placeholder="enter address line 2" value="" /></div>
+                <div class="col-md-12"><label class="labels">State</label><input type="text" class="form-control" placeholder="enter address line 2" value="" /></div>
+                <div class="col-md-12"><label class="labels">Area</label><input type="text" class="form-control" placeholder="enter address line 2" value="" /></div>
+                <div class="col-md-12"><label class="labels">Email ID</label><input type="text" class="form-control" placeholder="enter email id" value="" /></div>
+                <div class="col-md-12"><label class="labels">Education</label><input type="text" class="form-control" placeholder="education" value="" /></div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-md-6"><label class="labels">Country</label><input type="text" class="form-control" placeholder="country" value="" /></div>
+                <div class="col-md-6"><label class="labels">State/Region</label><input type="text" class="form-control" value="" placeholder="state" /></div>
+              </div>
+              <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save Profile</button></div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </main>
+
+    <script src="..\static\bootstrap\js\bootstrap.bundle.min.js"></script>
+    <script src="..\static\js\sidebars.js"></script>
+  </body>
+</html>

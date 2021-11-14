@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<!-- Visited Aerodromes, Aircraft, Yearly, Monthly, Totals -->
+
+<html>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link href="..\static\bootstrap\css\bootstrap.min.css" rel="stylesheet" />
+    <link href="..\static\css\sidebars.css" rel="stylesheet" />
+    <link href="..\static\css\list-groups.css" rel="stylesheet" />
+    <link href="..\static\css\features.css" rel="stylesheet" />
+    <link href="..\static\css\hero.css" rel="stylesheet" />
+
+    <title>Feathers Logbook</title>
+  </head>
+
+  <!-- HEADER  --> 
+  <header class="p-1 bg-dark text-white" style="width: 100%; z-index: 5; position: sticky; top: 0">
+    <div class="d-flex align-items-center justify-content-center justify-content-lg-start">
+      <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+        <svg class="bi me-2" width="80" height="60" role="img" aria-label="Bootstrap">
+          <use xlink:href="..\static\image\svg\feathers-logo.svg#feathers_logo" />
+        </svg>
+      </a>
+
+      <h3 class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 d-none d-lg-block">Feathers Logbook</h3>
+
+      <button href="/sign-in" type="button" class="btn btn-outline-light me-2">Login</button>
+      <button href="/register" type="button" class="btn btn-warning">Sign-up</button>
+
+      <div class="text-end ml-auto">
+        <div class="dropdown">
+          <a href="/" class="d-flex align-items-center justify-content-center p-3 link-light text-decoration-none" id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
+            <svg class="bi me-2" width="35" height="35" role="img" aria-label="Bootstrap">
+              <use xlink:href="..\static\image\svg\svgmaster.svg#account" />
+            </svg>
+          </a>
+
+          <ul class="dropdown-menu dropdown-menu-dark mx-0 border-0 shadow" aria-labelledby="dropdownUser3" style="width: 220px">
+            <li>
+              <a class="dropdown-item d-flex gap-2 align-items-center" href="#">
+                <svg class="bi" width="16" height="16">
+                  <use xlink:href="..\static\image\svg\svgmaster.svg#table" />
+                </svg>
+                Logbook
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item d-flex gap-2 align-items-center" href="#">
+                <svg class="bi" width="16" height="16">
+                  <use xlink:href="..\static\image\svg\svgmaster.svg#speedometer" />
+                </svg>
+                Dashboard
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item d-flex gap-2 align-items-center" href="#">
+                <svg class="bi" width="16" height="16">
+                  <use xlink:href="..\static\image\svg\svgmaster.svg#gear-fill" />
+                </svg>
+                Account Settings
+              </a>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
+            <li>
+              <a class="dropdown-item d-flex gap-2 align-items-center" href="#">
+                <svg class="bi" width="16" height="16">
+                  <use xlink:href="..\static\image\svg\svgmaster.svg#home" />
+                </svg>
+                Logout
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <body>
+    <main>
+      <div class="logbook-container w-100 h-100vh d-inline-block overflow-auto">
+        <div class="container px-4 py-0" id="icon-grid">
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 g-4 py-4">
+            
+            <!-- this is the first view for statistics -->
+            <div class="col">
+              <div class="card card-cover text-white bg-dark rounded-5 shadow-lg">
+                <div class="d-flex align-items-center m-3">
+                  <svg class="bi text-muted me-3" width="1.75em" height="1.75em">
+                    <use xlink:href="..\static\image\svg\svgmaster.svg#toggles2" />
+                  </svg>
+                  <div>
+                    <p class="fw-bold mb-0">Total Flights: 630</p>
+                    <p class="fw-bold mb-0">Total Flight Time: 4000:34</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- This is the View containing the aircraft -->
+            <div class="col">
+              <div class="card card-cover text-white bg-dark rounded-5 shadow-lg">
+                <div class="d-flex align-items-center m-3">
+                  <div class="list-group w-100">
+                    <!-- This is the add new aircraft card -->
+                    <div class="list-group-item list-group-item-action d-flex justify-content-end" aria-current="true">
+                      <button href="" type="button" class="btn btn-warning">Add New Aircraft</button>
+                    </div>
+
+                    <!-- This is a Card for each Aircraft -->
+                    <div class="list-group-item list-group-item-action" aria-current="true">
+                      <div class="d-flex justify-content-between">
+                        <div class="row w-100 d-flex align-items-center" style="margin: 0">
+                          <div style="width: auto">
+                            <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.publicdomainpictures.net%2Fpictures%2F180000%2Fvelka%2Fairplane-1465641579esW.jpg&f=1&nofb=1" alt="twbs" width="45" height="45" class="rounded-circle flex-shrink-0" />
+                          </div>
+                          <div class="col-4 flex-fill">
+                            <div class="d-flex gap-2 w-100 justify-content-between">
+                              <div>
+                                <p class="mb-0">LZ-SPE (P28U)</p>
+                                <p class="mb-0 opacity-75">Flight Time: 3330:10</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="btn-group" style="width: auto">
+                            <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">?</button>
+                            <ul class="dropdown-menu dropdown-menu-dark mx-0 border-0 shadow">
+                              <li>
+                                <a class="dropdown-item d-flex gap-2 align-items-center" href="#">
+                                  <svg class="bi" width="16" height="16">
+                                    <use xlink:href="..\static\image\svg\svgmaster.svg#gear-fill" />
+                                  </svg>
+                                  View/Edit
+                                </a>
+                              </li>
+                              <li>
+                                <hr class="dropdown-divider" />
+                              </li>
+                              <li>
+                                <a class="dropdown-item d-flex gap-2 align-items-center" href="#">
+                                  <svg class="bi" width="16" height="16">
+                                    <use xlink:href="..\static\image\svg\svgmaster.svg#trash" />
+                                  </svg>
+                                  Delete
+                                </a>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- This is the view for all aerodromes -->
+            <div class="col">
+              <div class="card card-cover text-white bg-dark rounded-5 shadow-lg">
+                <div class="d-flex align-items-center m-3">
+                  <div class="list-group w-100">
+                    <!-- remove this if there are aerodromes -->
+                    <div class="list-group-item list-group-item-action d-flex justify-content-center" aria-current="true">
+                      <h5>There seems to be nothing here</h5>
+                    </div>
+
+                    <!-- This is a Card for each aerodrome -->
+                    <div class="list-group-item list-group-item-action" aria-current="true">
+                      <div class="d-flex justify-content-between">
+                        <div class="row w-100 d-flex align-items-center" style="margin: 0">
+                          <div style="width: auto">
+                            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.downloadclipart.net%2Flarge%2F8751-flag-of-eu-design.png&f=1&nofb=1" alt="twbs" width="45" height="45" class="rounded-circle flex-shrink-0" />
+                          </div>
+                          <div class="col-4 flex-fill">
+                            <div class="d-flex gap-2 w-100 justify-content-between">
+                              <div>
+                                <p class="mb-0">Sofia (LBSF)</p>
+                                <p class="mb-0 opacity-75">Times visited: 23</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="..\static\bootstrap\js\bootstrap.bundle.min.js"></script>
+    <script src="..\static\js\sidebars.js"></script>
+  </body>
+</html>

@@ -1,0 +1,19 @@
+.hero-container {
+  background-image: url(/image/png/dotted-worldmap.png);
+  background-repeat: no-repeat;
+  background-position: center ;
+  background-size: contain;
+  z-index: 0;
+  transition: inherit;
+}
+
+.logbook-container {
+  background-image: url(/image/png/dot-pattern.png);
+  background-repeat: no-repeat;
+  background-position: top ;
+  min-height: 100%;
+  position: absolute;
+  background-size: cover;
+  z-index: 0;
+  transition: inherit;
+}

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <title>Feathers Logbook</title>
+    <th:block th:replace="fragments/common :: main-css"></th:block>
+    <th:block th:replace="fragments/common :: lg-sb"></th:block>
+</head>
+
+<body>
+<!-- HEADER -->
+<header th:replace="fragments/common :: header"></header>
+<main>
+
+    <!-- OTHER -->
+    <div class="logbook-container w-100 h-100vh d-inline-block overflow-auto">
+
+        <!-- TODO this -->
+        <div class="container px-4 py-0" id="icon-grid">
+
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-4">
+                <div class="col">
+                    <div class="card card-cover text-white bg-dark rounded-5 shadow-lg">
+                        <div class="d-flex align-items-center m-3">
+                            <svg class="bi text-muted me-3" height="1.75em" width="1.75em">
+                                <use xlink:href="/image/svg/svgmaster.svg#toggles2"/>
+                            </svg>
+                            <div>
+                                <p class="fw-bold mb-0">Total Flight: 630</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card card-cover text-white bg-dark rounded-5 shadow-lg">
+                        <div class="d-flex align-items-center m-3">
+                            <svg class="bi text-muted me-3" height="1.75em" width="1.75em">
+                                <use xlink:href="/image/svg/svgmaster.svg#toggles2"/>
+                            </svg>
+                            <div>
+                                <p class="fw-bold mb-0">Total Flight Hours: 1022:23</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card card-cover text-white bg-dark rounded-5 shadow-lg">
+                        <div class="d-flex align-items-center m-3">
+                            <svg class="bi text-muted me-3" height="1.75em" width="1.75em">
+                                <use xlink:href="/image/svg/svgmaster.svg#toggles2"/>
+                            </svg>
+                            <div>
+                                <p class="fw-bold mb-0">Total Landings: 250</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <!--<a th:href="@{/profile/log-add}" class="btn btn-warning rounded-5" type="button">Add New Flight</a>-->
+                    <a class="btn btn-warning rounded-5" th:href="@{/profile/log/add}" type="button">Add new Flight</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="container px-4 py-1">
+            <div class="list-group">
+
+                <div th:each="o : ${allUserLogs}" aria-current="true"
+                     class="d-flex flex-wrap list-group-item list-group-item-action row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 align-items-center">
+                    <div class="col d-flex flex-column align-items-start">
+                        <div class="d-flex align-items-center">
+                            <img th:src="'/image/flags/svg/' + *{o.getDepartureFlag()} + '.svg'" alt="" height="25" width="25" style="margin-right: 0.5rem"/>
+                            <div th:text="*{o.getDepartureAerodrome()}" class="d-flex gap-1 align-items-center"></div>
+                        </div>
+<!--                        <div>LBSF</div>-->
+                        <div th:text="*{o.getDepartureTime()}" class="opacity-75"><!-- 11:11 --></div>
+                    </div>
+
+                    <div class="col d-flex flex-column align-items-end">
+                        <div class="d-flex align-items-center">
+                            <div th:text="*{o.getArrivalAerodrome()}" class="d-flex gap-1 align-items-center"></div>
+                            <img th:src="'/image/flags/svg/' + *{o.getArrivalFlag()} + '.svg'" alt="" height="25" width="25" style="margin-left: 0.5rem"/>
+                        </div>
+<!--                        <div>LBSF</div>-->
+                        <div th:text="*{o.getArrivalTime()}" class="opacity-75"></div>
+                    </div>
+
+                    <div class="col d-flex flex-column align-items-end">
+                        <div th:text="*{o.getRegistration()}" ></div>
+                        <div th:text="*{o.getAircraftModel()}" class="opacity-75"></div>
+                    </div>
+
+                    <div class="col d-flex justify-content-end">
+                        <div class="btn-group">
+                            <button th:text="*{o.getDateOfLog()}" aria-expanded="false" class="btn btn-outline-secondary dropdown-toggle"
+                                    data-bs-toggle="dropdown" id="dropdownMenuButton1" type="button">
+<!--                                11.11.2021 -->
+                            </button>
+                            <ul aria-labelledby="dropdownMenuButton1"
+                                class="dropdown-menu dropdown-menu-dark mx-0 border-0 shadow">
+                                <li>
+                                    <a class="dropdown-item d-flex gap-2 align-items-center" th:href="@{/profile/log{id}(id = *{o.getId()})}">
+                                        <svg class="bi" height="16" width="16">
+                                            <use xlink:href="/image/svg/svgmaster.svg#gear-fill"/>
+                                        </svg>
+                                        View/Edit
+                                    </a>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider"/>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item d-flex gap-2 align-items-center" th:href="@{/profile/log/delete/{id}(id = *{o.getId()})}">
+                                        <svg class="bi" height="16" width="16">
+                                            <use xlink:href="/image/svg/svgmaster.svg#trash"/>
+                                        </svg>
+                                        Delete
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer th:replace="fragments/common :: footer"></footer>
+</body>
+
+<script crossorigin="anonymous" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</html>

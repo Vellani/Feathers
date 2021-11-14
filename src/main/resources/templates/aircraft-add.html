@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+
+  <th:block th:replace="fragments/common :: main-css"></th:block>
+  <script crossorigin="anonymous"
+          integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <title>Feathers Logbook</title>
+</head>
+
+<body class="hero-container text-center">
+<header th:replace="fragments/common :: header"></header>
+
+    <main>
+      <div class="row" style="max-width: 100%; margin-top: 5rem">
+        <div class="col-md-4">
+          <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+            <img class="rounded-circle" width="250px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" />
+          </div>
+        </div>
+
+        <div class="col-md-4 d-flex flex-column">
+          <h4 class="mb-3">Aircraft Data</h4>
+
+          <div th:if="${registrationExists}" class="form-seperated form-floating">
+            <div class="alert alert-danger" role="alert">Registration already exists!</div>
+          </div>
+
+
+          <form th:object="${aircraftAddBindingModel}" th:method="POST" th:action="@{/aircraft/add}" class="d-flex flex-column align-items-center">
+
+
+            <div class="row">
+              <div class="input-group mt-3">
+                <input th:field="*{registration}" type="text" class="form-control" placeholder="Registration" required />
+                <span class="input-group-text"></span>
+                <input th:field="*{icaoModelName}" type="text" class="form-control" placeholder="Model Name" required />
+              </div>
+              <div th:if="${#fields.hasErrors('registration')}" th:errorclass="error" th:errors="*{registration}" style="color: red" />
+              <div th:if="${#fields.hasErrors('icaoModelName')}" th:errorclass="error" th:errors="*{icaoModelName}" style="color: red" />
+
+              <div class="input-group mt-3">
+                <span class="input-group-text">Engines</span>
+                <input th:field="*{numberOfEngines}" type="number" class="form-control" style="max-width: 80px" />
+                <span class="input-group-text">Type</span>
+                <select th:field="*{aircraftClass}" class="form-select" required>
+                  <option th:each="o : ${T(com.example.feathers.model.entity.enums.AircraftClassEnum).values()}" th:value="${o}" th:text="${o}"></option>
+                </select>
+              </div>
+              <div th:if="${#fields.hasErrors('numberOfEngines')}" th:errorclass="error" th:errors="*{numberOfEngines}" style="color: red"/>
+
+              <div class="input-group mt-3">
+                <input type="file" accept=".png, .jpg" class="form-control" id="inputGroupFile02" />
+                <label class="input-group-text" for="inputGroupFile02">Picture</label>
+              </div>
+
+              <div class="col mt-3">
+                <textarea th:field="*{owner}" type="text" class="form-control" placeholder="Other information..."></textarea>
+              </div>
+
+              <div class="row-cols-1 mt-3">
+                <button class="col-md-4 btn btn-warning btn-lg" type="submit">Submit</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+<footer th:replace="fragments/common :: footer"></footer>
+</body>
+</html>
