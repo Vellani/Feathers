@@ -1,13 +1,7 @@
 package com.example.feathers.model.entity;
 
-import com.example.feathers.model.entity.enums.UserRolesEnum;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.Table;
-import javax.validation.constraints.Size;
-import java.time.LocalDate;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -17,7 +11,7 @@ public class UserEntity extends BaseEntity {
     private String username;
     private String email;
     private String password;
-    private UserRolesEnum accountLevel;
+    private Set<UserRoleEntity> roles;
 
     // Essential - Profile
     private String licenseNumber;
@@ -27,17 +21,19 @@ public class UserEntity extends BaseEntity {
     private String lastName;
     private String address;
 
+    private Set<ReviewEntity> reviews;
+
     public UserEntity() {
     }
-
 
     @Column(nullable = false, unique = true)
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
+    public UserEntity setUsername(String username) {
         this.username = username;
+        return this;
     }
 
     @Column(nullable = false, unique = true)
@@ -45,8 +41,9 @@ public class UserEntity extends BaseEntity {
         return email;
     }
 
-    public void setEmail(String email) {
+    public UserEntity setEmail(String email) {
         this.email = email;
+        return this;
     }
 
     @Column(nullable = false)
@@ -54,17 +51,19 @@ public class UserEntity extends BaseEntity {
         return password;
     }
 
-    public void setPassword(String password) {
+    public UserEntity setPassword(String password) {
         this.password = password;
+        return this;
     }
 
-    @Enumerated
-    public UserRolesEnum getAccountLevel() {
-        return accountLevel;
+    @ManyToMany(fetch = FetchType.EAGER)
+    public Set<UserRoleEntity> getRoles() {
+        return roles;
     }
 
-    public void setAccountLevel(UserRolesEnum accountLevel) {
-        this.accountLevel = accountLevel;
+    public UserEntity setRoles(Set<UserRoleEntity> roles) {
+        this.roles = roles;
+        return this;
     }
 
     @Column(unique = true)
@@ -72,8 +71,9 @@ public class UserEntity extends BaseEntity {
         return licenseNumber;
     }
 
-    public void setLicenseNumber(String licenseNumber) {
+    public UserEntity setLicenseNumber(String licenseNumber) {
         this.licenseNumber = licenseNumber;
+        return this;
     }
 
     @Column
@@ -81,8 +81,9 @@ public class UserEntity extends BaseEntity {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    public UserEntity setFirstName(String firstName) {
         this.firstName = firstName;
+        return this;
     }
 
     @Column
@@ -90,8 +91,9 @@ public class UserEntity extends BaseEntity {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    public UserEntity setLastName(String lastName) {
         this.lastName = lastName;
+        return this;
     }
 
     @Column(columnDefinition = "TEXT")
@@ -101,5 +103,14 @@ public class UserEntity extends BaseEntity {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    @OneToMany(mappedBy = "creator")
+    public Set<ReviewEntity> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(Set<ReviewEntity> reviews) {
+        this.reviews = reviews;
     }
 }

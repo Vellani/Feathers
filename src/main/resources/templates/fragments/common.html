@@ -1,4 +1,7 @@
-
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <th:block th:fragment="main-css" >
     <link href="/css/hero.css" rel="stylesheet" />
@@ -20,23 +23,24 @@
     <div class="d-flex align-items-center justify-content-center justify-content-lg-start">
         <a class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none" href="/">
             <svg aria-label="Bootstrap" class="white-as-snow" height="60" role="img" width="80">
-                <use xlink:href="/image/svg/feathers-logo.svg#feathers_logo"/>
+                <use xlink:href="/images/svg/feathers-logo.svg#feathers_logo"/>
             </svg>
         </a>
 
         <h3 class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 d-none d-lg-block">Feathers
             Logbook</h3>
 
-        <a th:href="@{/user/login}" class="btn btn-outline-light me-2" type="button">Login</a>
-        <a th:href="@{/user/register}" class="btn btn-warning" type="button">Sign-up</a>
+        <a sec:authorize="!isAuthenticated()" th:href="@{/user/login}" class="btn btn-outline-light me-2" type="button">Login</a>
+        <a sec:authorize="!isAuthenticated()" th:href="@{/user/register}"
+           class="btn btn-warning mx-2" type="button">Sign Up</a>
 
-        <div class="text-end ml-auto mx-2">
+        <div sec:authorize="isAuthenticated()" class="text-end ml-auto mx-2">
             <div class="dropdown">
                 <a aria-expanded="false"
                    class="d-flex align-items-center justify-content-center p-3 link-light text-decoration-none"
                    data-bs-toggle="dropdown" id="dropdownUser3">
                     <svg aria-label="Bootstrap" class="white-as-snow" height="35" role="img" width="35">
-                        <use xlink:href="/image/svg/svgmaster.svg#account"/>
+                        <use xlink:href="/images/svg/svgmaster.svg#account"/>
                     </svg>
                 </a>
 
@@ -45,15 +49,15 @@
                     <li>
                         <a th:href="@{/profile/logbook}" class="dropdown-item d-flex gap-2 align-items-center">
                             <svg class="white-as-snow" height="16" width="16">
-                                <use xlink:href="/image/svg/svgmaster.svg#table"/>
+                                <use xlink:href="/images/svg/svgmaster.svg#table"/>
                             </svg>
                             Logbook
                         </a>
                     </li>
                     <li>
-                        <a  th:href="@{/profile/dashboard}" class="dropdown-item d-flex gap-2 align-items-center">
+                        <a th:href="@{/profile/dashboard}" class="dropdown-item d-flex gap-2 align-items-center">
                             <svg class="white-as-snow" height="16" width="16">
-                                <use xlink:href="/image/svg/svgmaster.svg#speedometer"/>
+                                <use xlink:href="/images/svg/svgmaster.svg#speedometer"/>
                             </svg>
                             Dashboard
                         </a>
@@ -61,15 +65,15 @@
                     <li>
                         <a th:href="@{/profile/settings}" class="dropdown-item d-flex gap-2 align-items-center">
                             <svg class="white-as-snow" height="16" width="16">
-                                <use xlink:href="/image/svg/svgmaster.svg#gear-fill"/>
+                                <use xlink:href="/images/svg/svgmaster.svg#gear-fill"/>
                             </svg>
                             Account Settings
                         </a>
                     </li>
                     <li>
-                        <a th:href="@{/profile/admin}" class="dropdown-item d-flex gap-2 align-items-center">
+                        <a th:href="@{/profile/admin}" sec:authorize="hasRole('ADMIN')" class="dropdown-item d-flex gap-2 align-items-center">
                             <svg class="white-as-snow" height="16" width="16">
-                                <use xlink:href="/image/svg/svgmaster.svg#admin"/>
+                                <use xlink:href="/images/svg/svgmaster.svg#admin"/>
                             </svg>
                             Admin Panel
                         </a>
@@ -78,12 +82,11 @@
                         <hr class="dropdown-divider"/>
                     </li>
                     <li>
-                        <a th:href="@{/user/logout}" class="dropdown-item d-flex gap-2 align-items-center">
-                            <svg class="white-as-snow" height="16" width="16">
-                                <use xlink:href="/image/svg/svgmaster.svg#home"/>
-                            </svg>
-                            Log out
-                        </a>
+                        <form th:action="@{/user/logout}" th:method="POST" id="logoutForm">
+                            <a onclick="this.closest('form').submit(null);return false;" href="#" class="dropdown-item d-flex gap-2 align-items-center">
+                                Log out
+                            </a>
+                        </form>
                     </li>
                 </ul>
             </div>
@@ -106,21 +109,21 @@
         <li class="ms-3">
             <a class="text-muted" href="https://www.youtube.com/channel/UCP7uyd-OhfcoS6_jgX6fOww" target="_blank">
                 <svg class="black-as-night" width="24" height="24">
-                    <use xlink:href="/image/svg/svgmaster.svg#youtube"/>
+                    <use xlink:href="/images/svg/svgmaster.svg#youtube"/>
                 </svg>
             </a>
         </li>
         <li class="ms-3">
             <a class="text-muted" href="https://www.instagram.com/svet.g.s/" target="_blank">
                 <svg class="black-as-night" width="24" height="24">
-                    <use xlink:href="/image/svg/svgmaster.svg#instagram"/>
+                    <use xlink:href="/images/svg/svgmaster.svg#instagram"/>
                 </svg>
             </a>
         </li>
         <li class="ms-3">
             <a class="text-muted" href="#" >
                 <svg class="black-as-night" width="24" height="24">
-                    <use xlink:href="/image/svg/svgmaster.svg#facebook"/>
+                    <use xlink:href="/images/svg/svgmaster.svg#facebook"/>
                 </svg>
             </a>
         </li>
@@ -128,3 +131,5 @@
 
 
 </footer>
+
+</html>

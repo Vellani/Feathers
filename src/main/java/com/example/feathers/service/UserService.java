@@ -6,4 +6,6 @@ public interface UserService {
     boolean userExists(String username, String email);
 
     void registerNewUser(UserRegisterBindingModel userRegisterBindingModel);
+
+    void initialize();
 }

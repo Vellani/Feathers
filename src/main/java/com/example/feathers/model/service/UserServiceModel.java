@@ -1,7 +1,5 @@
 package com.example.feathers.model.service;
 
-import com.example.feathers.model.entity.enums.UserRolesEnum;
-
 public class UserServiceModel {
     // Used to Register New User and Update Old one
 
@@ -10,7 +8,6 @@ public class UserServiceModel {
     private String username;
     private String email;
     private String password;
-    private UserRolesEnum accountLevel;
 
     // Essential - Profile
     private String licenseNumber;
@@ -53,14 +50,6 @@ public class UserServiceModel {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public UserRolesEnum getAccountLevel() {
-        return accountLevel;
-    }
-
-    public void setAccountLevel(UserRolesEnum accountLevel) {
-        this.accountLevel = accountLevel;
     }
 
     public String getLicenseNumber() {

@@ -16,26 +16,29 @@
 
 <header th:replace="fragments/common :: header"></header>
     <main class="form-custom">
-        <form method="POST" th:action="@{/users/login}">
+        <form method="POST" th:action="@{/user/login}">
 
             <svg aria-label="Bootstrap" class="bi me-2" height="150" role="img" width="150">
-                <use xlink:href="/image/svg/feathers-logo.svg#feathers_logo"/>
+                <use xlink:href="/images/svg/feathers-logo.svg#feathers_logo"/>
             </svg>
 
             <h1 class="h3 mb-3 fw-normal">Log in</h1>
 
+            <!-- TODO -->
             <div class="form-seperated form-floating">
                 <div class="alert alert-danger" role="alert">Wrong Username or Password!</div>
             </div>
 
             <div class="form-seperated form-floating">
-                <input type="text" class="form-control" id="inputUsername"/>
-                <label for="inputUsername">Username</label>
+                <input type="text" class="form-control"
+                       id="username"
+                       name="username"/>
+                <label for="username">Username</label>
             </div>
 
             <div class="form-seperated form-floating">
-                <input class="form-control"  type="password" id="inputPassword">
-                <label for="inputPassword">Password</label>
+                <input id="password" name="password" class="form-control"  type="password">
+                <label for="password">Password</label>
             </div>
 
             <button class="w-100 mt-3 btn btn-lg btn-primary" type="submit">Sign in</button>
