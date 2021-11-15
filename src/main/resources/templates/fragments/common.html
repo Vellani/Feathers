@@ -1,31 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-
-    <meta charset="UTF-8">
-    <title>Title</title>
-
-    <th:block th:fragment="main-css" >
-        <link href="/css/hero.css" rel="stylesheet" />
-        <link href="/css/features.css" rel="stylesheet" />
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    </th:block>
-
-    <th:block th:fragment="lg-sb">
-        <link href="/css/sidebars.css" rel="stylesheet" />
-        <link href="/css/list-groups.css" rel="stylesheet" />
-    </th:block>
-
-    <th:block th:fragment="ca-sn">
-        <link href="/css/carousel.css" rel="stylesheet" />
-        <link href="/css/signin.css" rel="stylesheet" />
-    </th:block>
 
 
+<th:block th:fragment="main-css" >
+    <link href="/css/hero.css" rel="stylesheet" />
+    <link href="/css/features.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</th:block>
+
+<th:block th:fragment="lg-sb">
     <link href="/css/sidebars.css" rel="stylesheet" />
+    <link href="/css/list-groups.css" rel="stylesheet" />
+</th:block>
 
-</head>
-<body>
+<th:block th:fragment="ca-sn">
+    <link href="/css/carousel.css" rel="stylesheet" />
+    <link href="/css/signin.css" rel="stylesheet" />
+</th:block>
 
 <header th:fragment="header" class="p-1 bg-dark text-white" style="width: 100%; z-index: 5; position: sticky; top: 0">
     <div class="d-flex align-items-center justify-content-center justify-content-lg-start">
@@ -102,7 +91,6 @@
     </div>
 </header>
 
-
 <footer th:fragment="footer" class="footer d-flex flex-wrap justify-content-between align-items-center py-3 my-1 border-top">
 
     <div class="col-md-4 d-flex align-items-center">
@@ -140,7 +128,3 @@
 
 
 </footer>
-
-
-</body>
-</html>

@@ -54,6 +54,8 @@ public class AerodromeServiceImpl implements AerodromeService {
         // A few concessions had to be made as the whole database was close to 100k entries.
         // Only EU aerodromes a left here and only ones with ICAO code length of 4 characters.
         if (aerodromeRepository.count() == 0) {
+            System.out.println("---------- Initializing Database | Stand by as it may take up to a minute! -------------");
+
             Set<AerodromeSeed> collect = Arrays.stream(gson.fromJson(findAerodromeData(), AerodromeSeed[].class)).collect(Collectors.toSet());
             collect.forEach(e -> {
                 AerodromeEntity aerodrome = modelMapper.map(e, AerodromeEntity.class);

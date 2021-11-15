@@ -31,6 +31,49 @@ public class LogController {
         return new LogAddBindingModel();
     }
 
+
+    @GetMapping("/log{id}")
+    public String logAdd(@PathVariable(required = false) Long id, Model model) {
+        // TODO Verify if id exists and database AND user is authenticated to use that log id
+        if (id != null) {
+            LogAddBindingModel logViewModel = logService.findById(id);
+            model.addAttribute("logAddBindingModel", logViewModel);
+        }
+        return "log-add";
+    }
+
+    @PostMapping("/log{id}")
+    public String logAddNew(@PathVariable(required = false) Long id, @Valid LogAddBindingModel logAddBindingModel,
+                            BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+
+        logAddBindingModel.setId(id);
+
+        if (!aerodromeService.existsByName(logAddBindingModel.getDepartureAerodrome()))
+            bindingResult.rejectValue("departureAerodrome", "error.logAddBindingModel", "Aerodrome not fount.");
+        if (!aerodromeService.existsByName(logAddBindingModel.getArrivalAerodrome()))
+            bindingResult.rejectValue("arrivalAerodrome", "error.logAddBindingModel","Aerodrome not fount.");
+        if (!aircraftService.alreadyExists(logAddBindingModel.getAircraft()))
+            bindingResult.rejectValue("aircraft", "error.logAddBindingModel","Registration not fount.");
+
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("logAddBindingModel", logAddBindingModel)
+                    .addFlashAttribute("org.springframework.validation.BindingResult.logAddBindingModel", bindingResult);
+
+            return "redirect:log";
+        }
+
+        logService.createNewLog(logAddBindingModel);
+
+        return "redirect:logbook";
+    }
+
+    @GetMapping("/log/delete{id}")
+    public String logDelete(@PathVariable Long id) {
+        logService.deleteById(id);
+        return "redirect:/profile/logbook";
+    }
+
+    // In case I need to separate them again
     /*@GetMapping("/add")
     public String logAdd(Model model) {
         return "log-add";
@@ -92,41 +135,6 @@ public class LogController {
 
         return "logbook";
     }*/
-
-
-    @GetMapping("/log{id}")
-    public String logAdd(@PathVariable(required = false) Long id, Model model) {
-        if (id != null) {
-            LogAddBindingModel logViewModel = logService.findById(id);
-            model.addAttribute("logAddBindingModel", logViewModel);
-        }
-        return "log-add";
-    }
-
-    @PostMapping("/log{id}")
-    public String logAddNew(@PathVariable(required = false) Long id, @Valid LogAddBindingModel logAddBindingModel,
-                            BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-
-        logAddBindingModel.setId(id);
-
-        if (!aerodromeService.existsByName(logAddBindingModel.getDepartureAerodrome()))
-            bindingResult.rejectValue("departureAerodrome", "error.logAddBindingModel", "Aerodrome not fount.");
-        if (!aerodromeService.existsByName(logAddBindingModel.getArrivalAerodrome()))
-            bindingResult.rejectValue("arrivalAerodrome", "error.logAddBindingModel","Aerodrome not fount.");
-        if (!aircraftService.alreadyExists(logAddBindingModel.getAircraft()))
-            bindingResult.rejectValue("aircraft", "error.logAddBindingModel","Registration not fount.");
-
-        if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("logAddBindingModel", logAddBindingModel)
-                    .addFlashAttribute("org.springframework.validation.BindingResult.logAddBindingModel", bindingResult);
-
-            return "redirect:log";
-        }
-
-        logService.createNewLog(logAddBindingModel);
-
-        return "redirect:logbook";
-    }
 
 }
 

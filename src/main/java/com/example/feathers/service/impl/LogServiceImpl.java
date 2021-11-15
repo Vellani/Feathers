@@ -49,8 +49,13 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
+    public void deleteById(Long id) {
+        logRepository.deleteById(id);
+    }
+
+    @Override
     public List<ListedLogViewModel> getAllLogs() {
-        return logRepository.findAll().stream().map(e -> {
+        return logRepository.findAllAndOrderByDateThenTime().stream().map(e -> {
             ListedLogViewModel listedLogViewModel = new ListedLogViewModel();
 
             // Manual Mapping

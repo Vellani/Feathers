@@ -8,13 +8,23 @@
     <title>Feathers Logbook</title>
     <th:block th:replace="fragments/common :: main-css"></th:block>
     <th:block th:replace="fragments/common :: lg-sb"></th:block>
+
+    <script crossorigin="anonymous"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <th:block th:replace="fragments/map-view :: map-initialize-scripts"></th:block>
 </head>
 
 <body>
 <!-- HEADER -->
 <header th:replace="fragments/common :: header"></header>
 <main>
-
+    <div th:replace="fragments/map-view :: map"></div>
     <!-- OTHER -->
     <div class="logbook-container w-100 h-100vh d-inline-block overflow-auto">
 
@@ -29,38 +39,17 @@
                                 <use xlink:href="/image/svg/svgmaster.svg#toggles2"/>
                             </svg>
                             <div>
-                                <p class="fw-bold mb-0">Total Flight: 630</p>
+                                <p class="fw-bold mb-0" th:text="'Total Flights: ' + ${allUserLogs.size()}"></p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="card card-cover text-white bg-dark rounded-5 shadow-lg">
-                        <div class="d-flex align-items-center m-3">
-                            <svg class="bi text-muted me-3" height="1.75em" width="1.75em">
-                                <use xlink:href="/image/svg/svgmaster.svg#toggles2"/>
-                            </svg>
-                            <div>
-                                <p class="fw-bold mb-0">Total Flight Hours: 1022:23</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card card-cover text-white bg-dark rounded-5 shadow-lg">
-                        <div class="d-flex align-items-center m-3">
-                            <svg class="bi text-muted me-3" height="1.75em" width="1.75em">
-                                <use xlink:href="/image/svg/svgmaster.svg#toggles2"/>
-                            </svg>
-                            <div>
-                                <p class="fw-bold mb-0">Total Landings: 250</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!-- TODO fix this And the button-->
+                <div></div>
+                <div></div>
                 <div class="d-flex justify-content-end">
                     <!--<a th:href="@{/profile/log-add}" class="btn btn-warning rounded-5" type="button">Add New Flight</a>-->
-                    <a class="btn btn-warning rounded-5" th:href="@{/profile/log/add}" type="button">Add new Flight</a>
+                    <a class="btn btn-warning rounded-5" th:href="@{/profile/log}" type="button">Add new Flight</a>
                 </div>
             </div>
         </div>
@@ -110,10 +99,18 @@
                                     </a>
                                 </li>
                                 <li>
+                                    <a class="dropdown-item d-flex gap-2 align-items-center" data-bs-toggle="modal" data-bs-target="#mapModal">
+                                        <svg class="bi" height="16" width="16">
+                                            <use xlink:href="/image/svg/svgmaster.svg#map"/>
+                                        </svg>
+                                        Show Map
+                                    </a>
+                                </li>
+                                <li>
                                     <hr class="dropdown-divider"/>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item d-flex gap-2 align-items-center" th:href="@{/profile/log/delete/{id}(id = *{o.getId()})}">
+                                    <a class="dropdown-item d-flex gap-2 align-items-center" th:href="@{/profile/log/delete{id}(id = *{o.getId()})}">
                                         <svg class="bi" height="16" width="16">
                                             <use xlink:href="/image/svg/svgmaster.svg#trash"/>
                                         </svg>
@@ -131,7 +128,5 @@
 <footer th:replace="fragments/common :: footer"></footer>
 </body>
 
-<script crossorigin="anonymous" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-
+<script th:replace="fragments/map-view :: map-scripts"></script>
 </html>

@@ -13,4 +13,6 @@ public interface LogService {
     LogAddBindingModel findById(Long id);
 
     void updateLog(LogAddBindingModel logAddBindingModel);
+
+    void deleteById(Long id);
 }

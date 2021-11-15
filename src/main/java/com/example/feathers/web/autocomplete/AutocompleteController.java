@@ -2,14 +2,16 @@ package com.example.feathers.web.autocomplete;
 
 import com.example.feathers.service.AerodromeService;
 import com.example.feathers.service.AircraftService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping(value = "/api/param")
 public class AutocompleteController {
 
@@ -22,17 +24,18 @@ public class AutocompleteController {
     }
 
     @RequestMapping(params = "reg")
-    @ResponseBody
-    public List<String> getRegistrations(@RequestParam(value = "reg", required = false) String reg) {
-        return validateString(reg) ? aircraftService.findAllMatchingRegistrations(reg.toUpperCase()) : null;
+    public ResponseEntity<List<String>> getRegistrations(@RequestParam(value = "reg", required = false) String reg) {
+        List<String> registrations = validateString(reg) ? aircraftService.findAllMatchingRegistrations(reg.toUpperCase()) : null;
+        return registrations == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(registrations);
     }
 
     @RequestMapping(params = "aero")
-    @ResponseBody
-    public List<String> gerAerodromes(@RequestParam(value = "aero", required = false) String aero) {
-        return validateString(aero) ? aerodromeService.findAllMatchingAerodromes(aero.toUpperCase()) : null;
+    public ResponseEntity<List<String>> gerAerodromes(@RequestParam(value = "aero", required = false) String aero) {
+        List<String> aerodromes = validateString(aero) ? aerodromeService.findAllMatchingAerodromes(aero.toUpperCase()) : null;
+        return aerodromes == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(aerodromes);
     }
 
+    // Server-side Input validation
     private boolean validateString(String input) {
         return (input != null && input.length() > 1);
     }
