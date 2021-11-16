@@ -1,5 +1,6 @@
 package com.example.feathers.config;
 
+import com.example.feathers.model.entity.enums.UserRolesEnum;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -22,24 +23,27 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // TODO implement admin -> to admin page, Suspended -> to homepage with message "Account Suspended"
+
         http.authorizeRequests()
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 .antMatchers("/", "/user/login", "/user/register").permitAll()
-                .antMatchers("/**").authenticated()
+                .antMatchers("/profile/admin").hasRole(UserRolesEnum.ADMIN.name())
+                .antMatchers("/profile/dashboard").hasRole(UserRolesEnum.VIP.name())
+                .antMatchers("/**").hasRole(UserRolesEnum.USER.name())
                 .and()
                 .formLogin()
                 .loginPage("/user/login")
                 .usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
                 .passwordParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY)
                 .defaultSuccessUrl("/profile/logbook")
-                .failureForwardUrl("/error")
+                .failureForwardUrl("/user/error")
                 .and()
                 .logout()
                 .logoutUrl("/user/logout")
                 .logoutSuccessUrl("/")
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID");
-
     }
 
     @Override

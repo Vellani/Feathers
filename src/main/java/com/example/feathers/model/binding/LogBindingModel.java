@@ -1,5 +1,6 @@
 package com.example.feathers.model.binding;
 
+import com.example.feathers.model.entity.UserEntity;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
@@ -8,7 +9,7 @@ import javax.validation.constraints.Positive;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class LogAddBindingModel {
+public class LogBindingModel {
 
     private Long id;
     private LocalDate dateOfLog;
@@ -19,12 +20,13 @@ public class LogAddBindingModel {
     private String aircraft;
     private Integer landings;
     private String pilotInCommandName;
+    private UserEntity creator;
     //private Integer aircraftID;
 
     private String remarks;
     //private String gpx;
 
-    public LogAddBindingModel() {
+    public LogBindingModel() {
     }
 
     public Long getId() {
@@ -118,5 +120,13 @@ public class LogAddBindingModel {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks;
+    }
+
+    public UserEntity getCreator() {
+        return creator;
+    }
+
+    public void setCreator(UserEntity creator) {
+        this.creator = creator;
     }
 }

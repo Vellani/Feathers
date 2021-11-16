@@ -1,10 +1,9 @@
 package com.example.feathers.web;
 
-import com.example.feathers.model.binding.LogAddBindingModel;
+import com.example.feathers.model.binding.LogBindingModel;
 import com.example.feathers.service.AerodromeService;
 import com.example.feathers.service.AircraftService;
 import com.example.feathers.service.LogService;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,46 +28,51 @@ public class LogController {
     }
 
     @ModelAttribute
-    public LogAddBindingModel logAddBindingModel() {
-        return new LogAddBindingModel();
+    public LogBindingModel logAddBindingModel() {
+        return new LogBindingModel();
     }
 
 
     @GetMapping("/log{id}")
-    public String logAdd(@PathVariable(required = false) Long id, Model model) {
+    public String logAdd(@PathVariable(required = false) Long id, Model model, Principal principal) {
         // TODO Verify if id exists and database
-        // TODO Deny access to direct url to a log from unauthorized user
+
         if (id != null) {
-            LogAddBindingModel logViewModel = logService.findById(id);
-            model.addAttribute("logAddBindingModel", logViewModel);
+            LogBindingModel logModel = logService.findById(id);
+
+            if (logModel == null || !logModel.getCreator().getUsername().equals(principal.getName())) {
+                return "redirect:logbook";
+            }
+
+            model.addAttribute("logBindingModel", logModel);
         }
-        return "log-add";
+        return "log";
     }
 
     @PostMapping("/log{id}")
     public String logAddNew(@PathVariable(required = false) Long id,
-                            @Valid LogAddBindingModel logAddBindingModel,
+                            @Valid LogBindingModel logBindingModel,
                             BindingResult bindingResult,
                             RedirectAttributes redirectAttributes,
                             Principal principal) {
 
-        logAddBindingModel.setId(id);
+        logBindingModel.setId(id);
 
-        if (!aerodromeService.existsByName(logAddBindingModel.getDepartureAerodrome()))
-            bindingResult.rejectValue("departureAerodrome", "error.logAddBindingModel", "Aerodrome not fount.");
-        if (!aerodromeService.existsByName(logAddBindingModel.getArrivalAerodrome()))
-            bindingResult.rejectValue("arrivalAerodrome", "error.logAddBindingModel","Aerodrome not fount.");
-        if (!aircraftService.alreadyExists(logAddBindingModel.getAircraft()))
-            bindingResult.rejectValue("aircraft", "error.logAddBindingModel","Registration not fount.");
+        if (!aerodromeService.existsByName(logBindingModel.getDepartureAerodrome()))
+            bindingResult.rejectValue("departureAerodrome", "error.logBindingModel", "Aerodrome not fount.");
+        if (!aerodromeService.existsByName(logBindingModel.getArrivalAerodrome()))
+            bindingResult.rejectValue("arrivalAerodrome", "error.logBindingModel","Aerodrome not fount.");
+        if (!aircraftService.alreadyExists(logBindingModel.getAircraft()))
+            bindingResult.rejectValue("aircraft", "error.logBindingModel","Registration not fount.");
 
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("logAddBindingModel", logAddBindingModel)
-                    .addFlashAttribute("org.springframework.validation.BindingResult.logAddBindingModel", bindingResult);
+            redirectAttributes.addFlashAttribute("logBindingModel", logBindingModel)
+                    .addFlashAttribute("org.springframework.validation.BindingResult.logBindingModel", bindingResult);
 
             return "redirect:log";
         }
 
-        logService.createNewLog(logAddBindingModel, principal.getName());
+        logService.createNewLog(logBindingModel, principal.getName());
 
         return "redirect:logbook";
     }

@@ -47,7 +47,7 @@
                 <ul aria-labelledby="dropdownUser3" class="dropdown-menu dropdown-menu-dark mx-0 border-0 shadow"
                     style="width: 220px">
                     <li>
-                        <a th:href="@{/profile/logbook}" class="dropdown-item d-flex gap-2 align-items-center">
+                        <a th:href="@{/profile/logbook}" sec:authorize="hasRole('USER')" class="dropdown-item d-flex gap-2 align-items-center">
                             <svg class="white-as-snow" height="16" width="16">
                                 <use xlink:href="/images/svg/svgmaster.svg#table"/>
                             </svg>
@@ -55,7 +55,7 @@
                         </a>
                     </li>
                     <li>
-                        <a th:href="@{/profile/dashboard}" class="dropdown-item d-flex gap-2 align-items-center">
+                        <a th:href="@{/profile/dashboard}" sec:authorize="hasRole('VIP')" class="dropdown-item d-flex gap-2 align-items-center">
                             <svg class="white-as-snow" height="16" width="16">
                                 <use xlink:href="/images/svg/svgmaster.svg#speedometer"/>
                             </svg>
@@ -131,5 +131,17 @@
 
 
 </footer>
+
+<div th:fragment="loading" class="modal fade" id="spin-loading" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="center-screen bg-transparent">
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border text-danger" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 </html>

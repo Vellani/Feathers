@@ -2,6 +2,9 @@ package com.example.feathers.service;
 
 import com.example.feathers.model.binding.UserRegisterBindingModel;
 import com.example.feathers.model.entity.UserEntity;
+import com.example.feathers.model.view.ListedAccountsViewModel;
+
+import java.util.List;
 
 public interface UserService {
     boolean userExists(String username, String email);
@@ -13,4 +16,7 @@ public interface UserService {
     UserEntity findById(int i);
 
     UserEntity findUserByUsername(String name);
+
+    List<ListedAccountsViewModel> getAll();
+
 }

@@ -1,6 +1,6 @@
 package com.example.feathers.service.impl;
 
-import com.example.feathers.model.binding.LogAddBindingModel;
+import com.example.feathers.model.binding.LogBindingModel;
 import com.example.feathers.model.entity.AerodromeEntity;
 import com.example.feathers.model.entity.AircraftEntity;
 import com.example.feathers.model.entity.LogEntity;
@@ -14,7 +14,6 @@ import com.example.feathers.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,20 +39,20 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
-    public void createNewLog(LogAddBindingModel logAddBindingModel, String username) {
-        LogServiceModel serviceModel = createServiceModel(logAddBindingModel, username);
+    public void createNewLog(LogBindingModel logBindingModel, String username) {
+        LogServiceModel serviceModel = createServiceModel(logBindingModel, username);
         LogEntity newLogEntity = modelMapper.map(serviceModel, LogEntity.class);
         logRepository.save(newLogEntity);
     }
 
-    private LogServiceModel createServiceModel(LogAddBindingModel logAddBindingModel, String username) {
+    private LogServiceModel createServiceModel(LogBindingModel logBindingModel, String username) {
 
         // TODO GPX
-        AircraftEntity aircraft = aircraftService.findByRegistration(logAddBindingModel.getAircraft());
-        AerodromeEntity depAerodrome = aerodromeService.findByName(logAddBindingModel.getDepartureAerodrome());
-        AerodromeEntity arrAerodrome = aerodromeService.findByName(logAddBindingModel.getArrivalAerodrome());
+        AircraftEntity aircraft = aircraftService.findByRegistration(logBindingModel.getAircraft());
+        AerodromeEntity depAerodrome = aerodromeService.findByName(logBindingModel.getDepartureAerodrome());
+        AerodromeEntity arrAerodrome = aerodromeService.findByName(logBindingModel.getArrivalAerodrome());
 
-        LogServiceModel logServiceModel = modelMapper.map(logAddBindingModel, LogServiceModel.class);
+        LogServiceModel logServiceModel = modelMapper.map(logBindingModel, LogServiceModel.class);
 
         logServiceModel.setDepartureAerodrome(depAerodrome)
                 .setArrivalAerodrome(arrAerodrome)
@@ -90,10 +89,12 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
-    public LogAddBindingModel findById(Long id) {
-        // Will always map, since we take real id
+    public LogBindingModel findById(Long id) {
+        // The check is to ensure no URL injection
         LogEntity logEntity = logRepository.findById(id).orElse(null);
-        return modelMapper.map(logEntity, LogAddBindingModel.class);
+        return logEntity != null
+                ? modelMapper.map(logEntity, LogBindingModel.class)
+                : null;
     }
 
 

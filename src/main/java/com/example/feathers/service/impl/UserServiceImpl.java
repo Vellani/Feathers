@@ -5,14 +5,17 @@ import com.example.feathers.model.entity.UserEntity;
 import com.example.feathers.model.entity.UserRoleEntity;
 import com.example.feathers.model.entity.enums.UserRolesEnum;
 import com.example.feathers.model.service.UserServiceModel;
+import com.example.feathers.model.view.ListedAccountsViewModel;
 import com.example.feathers.repository.UserRepository;
 import com.example.feathers.repository.UserRoleRepository;
 import com.example.feathers.service.UserService;
+import com.example.feathers.util.UserRoleSetter;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -21,12 +24,14 @@ public class UserServiceImpl implements UserService {
     private final UserRoleRepository userRoleRepository;
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
+    private final UserRoleSetter userRoleSetter;
 
-    public UserServiceImpl(UserRepository userRepository, UserRoleRepository userRoleRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, UserRoleRepository userRoleRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder, UserRoleSetter userRoleSetter) {
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
         this.modelMapper = modelMapper;
         this.passwordEncoder = passwordEncoder;
+        this.userRoleSetter = userRoleSetter;
     }
 
     @Override
@@ -44,7 +49,7 @@ public class UserServiceImpl implements UserService {
         middleMan.setPassword(encode);
 
         UserEntity finalNewUser = modelMapper.map(middleMan, UserEntity.class);
-        finalNewUser.setRoles(Set.of(userRoleRepository.findByRole(UserRolesEnum.USER)));
+        finalNewUser.setRoles(userRoleSetter.setUserRole());
 
         userRepository.save(finalNewUser);
     }
@@ -68,22 +73,22 @@ public class UserServiceImpl implements UserService {
                     .setUsername("Admin") // Todo maybe make it case insensitive
                     .setPassword(passwordEncoder.encode("12345"))
                     .setEmail("admin@test.test")
-                    .setRoles(Set.of(roles.get("User"), roles.get("Admin"))));
+                    .setRoles(userRoleSetter.setAdminRole()));
             users.add(new UserEntity()
                     .setUsername("Normal")
                     .setPassword(passwordEncoder.encode("12345"))
                     .setEmail("normal@test.test")
-                    .setRoles(Set.of(roles.get("User"))));
+                    .setRoles(userRoleSetter.setUserRole()));
             users.add(new UserEntity()
                     .setUsername("Vippp")
                     .setPassword(passwordEncoder.encode("12345"))
                     .setEmail("vip@test.test")
-                    .setRoles(Set.of(roles.get("User"), roles.get("VIP"))));
+                    .setRoles(userRoleSetter.setVIPRole()));
             users.add(new UserEntity() // Suspended VIP
                     .setUsername("Suspended")
                     .setPassword(passwordEncoder.encode("12345"))
                     .setEmail("suspended@test.test")
-                    .setRoles(Set.of(roles.get("User"), roles.get("VIP"), roles.get("Suspended"))));
+                    .setRoles(userRoleSetter.setSuspendedRole()));
 
             users.forEach(userRepository::save);
         }
@@ -99,5 +104,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserEntity findUserByUsername(String name) {
         return userRepository.findByUsername(name).orElse(null);
+    }
+
+    @Override
+    public List<ListedAccountsViewModel> getAll() {
+        List<UserEntity> all = userRepository.findAll();
+        return all.stream().map(e -> modelMapper.map(e, ListedAccountsViewModel.class)).collect(Collectors.toList());
     }
 }

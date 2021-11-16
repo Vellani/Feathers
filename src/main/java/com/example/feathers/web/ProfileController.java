@@ -28,7 +28,6 @@ public class ProfileController {
     @GetMapping("/logbook")
     public String profileLogbook(Model model, Principal principal) {
 
-        // TODO Make this find logs for user only
         List<ListedLogViewModel> allUserLogs = logService.getAllLogs(principal.getName());
         model.addAttribute("allUserLogs", allUserLogs);
 
@@ -44,8 +43,6 @@ public class ProfileController {
     public String profileSettings() {
         return "account";
     }
-
-
 
 
 }

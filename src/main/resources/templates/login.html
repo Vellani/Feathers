@@ -13,7 +13,7 @@
 </head>
 
 <body class="hero-container text-center">
-
+<th:block th:replace="fragments/common :: loading"></th:block>
 <header th:replace="fragments/common :: header"></header>
     <main class="form-custom">
         <form method="POST" th:action="@{/user/login}">
@@ -28,6 +28,7 @@
                 <div class="alert alert-danger" role="alert">Wrong Username or Password!</div>
             </div>
 
+            <!-- TODO Make JS open loading modal if form is filled in otherwise dont -->
             <div class="form-seperated form-floating">
                 <input type="text" class="form-control"
                        id="username"
@@ -40,13 +41,12 @@
                 <label for="password">Password</label>
             </div>
 
-            <button class="w-100 mt-3 btn btn-lg btn-primary" type="submit">Sign in</button>
+            <button class="w-100 mt-3 btn btn-lg btn-primary" type="submit" data-bs-toggle="modal" data-bs-target="#spin-loading">Sign in</button>
 
         </form>
     </main>
 <footer th:replace="fragments/common :: footer"></footer>
 </body>
-
 </html>
 
 

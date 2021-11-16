@@ -67,6 +67,7 @@ public class AircraftServiceImpl implements AircraftService {
     @Override
     public void initialize() throws IOException {
         if (aircraftRepository.count() == 0) {
+            System.out.println("Loading Aircraft into the database under user ID 2!");
             // Does not go through the Service Model since this is Custom setup
             Set<AircraftSeed> collect = Arrays.stream(gson.fromJson(findAircraftData(), AircraftSeed[].class)).collect(Collectors.toSet());
 
@@ -77,7 +78,7 @@ public class AircraftServiceImpl implements AircraftService {
 
                 aircraftRepository.save(aircraft);
             });
-            System.out.println("Aircraft in the Database: " + aircraftRepository.count());
+            System.out.println("Added " + aircraftRepository.count() + " Aircraft in the Database under user ID 2! (Name: Normal, Pass: 12345)");
         }
     }
 }

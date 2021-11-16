@@ -61,7 +61,7 @@ public class AerodromeServiceImpl implements AerodromeService {
                 AerodromeEntity aerodrome = modelMapper.map(e, AerodromeEntity.class);
                 if (aerodrome.getIcaoCode().length() == 4) aerodromeRepository.save(aerodrome);
             });
-            System.out.println("Aerodromes in the Database: " + aerodromeRepository.count());
+            System.out.println("Aerodromes in the Database: " + aerodromeRepository.count() + " added.");
         }
     }
 

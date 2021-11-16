@@ -8,7 +8,7 @@
           crossorigin=""></script>
 </th:block>
 
-<div th:fragment="map" class="modal fade" id="mapModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div th:fragment="map" class="modal fade" id="mapModal" data-bs-backdrop="true" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
 
@@ -19,10 +19,6 @@
 
       <div class="modal-body" style="height: 500px">
           <div id="gpxMap" style="height: 100%; width: 100%"></div>
-      </div>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
 
     </div>

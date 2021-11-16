@@ -30,7 +30,7 @@
     <main class="form-custom-add">
         <div class="d-flex flex-column">
             <h4>Flight Data</h4>
-            <form th:object="${logAddBindingModel}" th:action="@{/profile/log{id}(id = *{getId()})}" th:method="POST"
+            <form th:object="${logBindingModel}" th:action="@{/profile/log{id}(id = *{getId()})}" th:method="POST"
                     class="needs-validation d-flex flex-column align-items-center">
 
                 <div class="input-group mt-3" style="max-width: 300px;">
@@ -87,8 +87,8 @@
                     </div>
 
                     <div class="mt-3">
-                        <label th:field="*{remarks}" class="form-label">Remarks</label>
-                        <textarea class="form-control" type="text" placeholder="Nil" ></textarea>
+                        <label class="form-label">Remarks</label>
+                        <textarea th:field="*{remarks}" class="form-control" type="text" placeholder="Nil"></textarea>
                     </div>
                     <div th:if="${#fields.hasErrors('remarks')}" th:errorclass="error" th:errors="*{remarks}" style="color: red" />
 
