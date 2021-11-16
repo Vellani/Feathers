@@ -24,8 +24,7 @@
 
             <h1 class="h3 mb-3 fw-normal">Log in</h1>
 
-            <!-- TODO -->
-            <div class="form-seperated form-floating">
+            <div th:if="*{invalid}" class="form-seperated form-floating">
                 <div class="alert alert-danger" role="alert">Wrong Username or Password!</div>
             </div>
 

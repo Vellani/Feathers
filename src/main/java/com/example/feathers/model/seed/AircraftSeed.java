@@ -1,6 +1,5 @@
 package com.example.feathers.model.seed;
 
-import com.example.feathers.model.entity.enums.AircraftClassEnum;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -17,8 +16,6 @@ public class AircraftSeed {
     @Expose
     @SerializedName("number_of_engines")
     private Integer numberOfEngines;
-    @Expose
-    private String owner;
 
     public AircraftSeed() {
     }
@@ -53,13 +50,5 @@ public class AircraftSeed {
 
     public void setNumberOfEngines(Integer numberOfEngines) {
         this.numberOfEngines = numberOfEngines;
-    }
-
-    public String getOwner() {
-        return owner;
-    }
-
-    public void setOwner(String owner) {
-        this.owner = owner;
     }
 }

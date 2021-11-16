@@ -3,57 +3,49 @@
   "registration": "LZ-SPE",
   "icao_mode_name": "P28S",
   "aircraft_class": "SEP",
-  "number_of_engines": "1",
-  "owner": ""
+  "number_of_engines": "1"
 },
   {
     "registration": "LZ-ABP",
     "icao_mode_name": "PA34",
     "aircraft_class": "MEP",
-    "number_of_engines": "2",
-    "owner": ""
+    "number_of_engines": "2"
   },
   {
     "registration": "LZ-AIA",
     "icao_mode_name": "SR22",
     "aircraft_class": "SEP",
-    "number_of_engines": "1",
-    "owner": ""
+    "number_of_engines": "1"
   },
   {
     "registration": "YU-DOD",
     "icao_mode_name": "C172",
     "aircraft_class": "SEP",
-    "number_of_engines": "1",
-    "owner": ""
+    "number_of_engines": "1"
   },
   {
     "registration": "LZ-IDL",
     "icao_mode_name": "DA42",
     "aircraft_class": "MEP",
-    "number_of_engines": "2",
-    "owner": ""
+    "number_of_engines": "2"
   },
   {
     "registration": "LZ-GAS",
     "icao_mode_name": "C172",
     "aircraft_class": "SEP",
-    "number_of_engines": "1",
-    "owner": ""
+    "number_of_engines": "1"
   },
   {
     "registration": "LZ-SPA",
     "icao_mode_name": "PA32",
     "aircraft_class": "MEP",
-    "number_of_engines": "2",
-    "owner": ""
+    "number_of_engines": "2"
   },
   {
     "registration": "LZ-RAT",
     "icao_mode_name": "B737",
     "aircraft_class": "JET",
-    "number_of_engines": "2",
-    "owner": ""
+    "number_of_engines": "2"
   }
 
 

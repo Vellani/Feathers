@@ -4,10 +4,11 @@ import com.example.feathers.model.binding.AircraftAddBindingModel;
 import com.example.feathers.model.entity.AircraftEntity;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
 public interface AircraftService {
-    void addNewAircraft(AircraftAddBindingModel aircraftAddBindingModel);
+    void addNewAircraft(AircraftAddBindingModel aircraftAddBindingModel, Principal principal);
 
     boolean alreadyExists(String registration);
 
@@ -15,7 +16,7 @@ public interface AircraftService {
 
     String findAircraftData() throws IOException;
 
-    List<String> findAllMatchingRegistrations(String reg);
+    List<String> findAllMatchingRegistrations(String username, String reg);
 
     AircraftEntity findByRegistration(String registration);
 }

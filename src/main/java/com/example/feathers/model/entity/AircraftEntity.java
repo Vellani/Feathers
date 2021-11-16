@@ -4,6 +4,7 @@ import com.example.feathers.model.entity.enums.AircraftClassEnum;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -15,7 +16,7 @@ public class AircraftEntity extends BaseEntity {
     private AircraftClassEnum aircraftClass;
 
     private Integer numberOfEngines;
-    private String owner;
+    private UserEntity creator;
 
     public AircraftEntity() {
     }
@@ -56,13 +57,13 @@ public class AircraftEntity extends BaseEntity {
         this.numberOfEngines = numberOfEngines;
     }
 
-    @Column
-    public String getOwner() {
-        return owner;
+    @ManyToOne
+    public UserEntity getCreator() {
+        return creator;
     }
 
-    public void setOwner(String owner) {
-        this.owner = owner;
+    public void setCreator(UserEntity creator) {
+        this.creator = creator;
     }
 
     @Override

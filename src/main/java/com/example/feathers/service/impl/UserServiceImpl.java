@@ -66,22 +66,22 @@ public class UserServiceImpl implements UserService {
             List<UserEntity> users = new ArrayList<>();
             users.add(new UserEntity()
                     .setUsername("Admin") // Todo maybe make it case insensitive
-                    .setPassword(passwordEncoder.encode("admin"))
+                    .setPassword(passwordEncoder.encode("12345"))
                     .setEmail("admin@test.test")
                     .setRoles(Set.of(roles.get("User"), roles.get("Admin"))));
             users.add(new UserEntity()
                     .setUsername("Normal")
-                    .setPassword(passwordEncoder.encode("normal"))
+                    .setPassword(passwordEncoder.encode("12345"))
                     .setEmail("normal@test.test")
                     .setRoles(Set.of(roles.get("User"))));
             users.add(new UserEntity()
-                    .setUsername("Vip")
-                    .setPassword(passwordEncoder.encode("vip"))
+                    .setUsername("Vippp")
+                    .setPassword(passwordEncoder.encode("12345"))
                     .setEmail("vip@test.test")
                     .setRoles(Set.of(roles.get("User"), roles.get("VIP"))));
             users.add(new UserEntity() // Suspended VIP
                     .setUsername("Suspended")
-                    .setPassword(passwordEncoder.encode("suspended"))
+                    .setPassword(passwordEncoder.encode("12345"))
                     .setEmail("suspended@test.test")
                     .setRoles(Set.of(roles.get("User"), roles.get("VIP"), roles.get("Suspended"))));
 
@@ -89,5 +89,15 @@ public class UserServiceImpl implements UserService {
         }
 
 
+    }
+
+    @Override
+    public UserEntity findById(int i) {
+        return userRepository.findById(2L).orElse(null);
+    }
+
+    @Override
+    public UserEntity findUserByUsername(String name) {
+        return userRepository.findByUsername(name).orElse(null);
     }
 }

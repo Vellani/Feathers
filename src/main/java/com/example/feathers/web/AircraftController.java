@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/aircraft")
@@ -30,15 +31,19 @@ public class AircraftController {
 
     @GetMapping("/add")
     public String aircraftAdd(Model model) {
+        // TODO Deny access to direct url to an aircraft from unauthorized user
+
         model.addAttribute("registrationExists",
                 model.getAttribute("registrationExists") == null ? false : model.getAttribute("registrationExists"));
         return "aircraft-add";
     }
 
     @PostMapping("/add")
-    public String aircraftAddNew(@Valid AircraftAddBindingModel aircraftAddBindingModel, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String aircraftAddNew(@Valid AircraftAddBindingModel aircraftAddBindingModel,
+                                 BindingResult bindingResult,
+                                 RedirectAttributes redirectAttributes,
+                                 Principal principal) {
 
-        // TODO make this request current user, since multiple people can have same registration!
         boolean registrationExists = aircraftService.alreadyExists(aircraftAddBindingModel.getRegistration());
 
         if (bindingResult.hasErrors() || registrationExists) {
@@ -49,8 +54,8 @@ public class AircraftController {
         }
 
         // TODO picture upload
-        aircraftService.addNewAircraft(aircraftAddBindingModel);
-        return "redirect:home";
+        aircraftService.addNewAircraft(aircraftAddBindingModel, principal);
+        return "redirect:/profile/log";
     }
 
 }

@@ -12,6 +12,8 @@ public class UserEntity extends BaseEntity {
     private String email;
     private String password;
     private Set<UserRoleEntity> roles;
+    private Set<LogEntity> logs;
+    private Set<AircraftEntity> aircraft;
 
     // Essential - Profile
     private String licenseNumber;
@@ -64,6 +66,24 @@ public class UserEntity extends BaseEntity {
     public UserEntity setRoles(Set<UserRoleEntity> roles) {
         this.roles = roles;
         return this;
+    }
+
+    @OneToMany(mappedBy = "creator")
+    public Set<LogEntity> getLogs() {
+        return logs;
+    }
+
+    public void setLogs(Set<LogEntity> logs) {
+        this.logs = logs;
+    }
+
+    @OneToMany(mappedBy = "creator")
+    public Set<AircraftEntity> getAircraft() {
+        return aircraft;
+    }
+
+    public void setAircraft(Set<AircraftEntity> aircraft) {
+        this.aircraft = aircraft;
     }
 
     @Column(unique = true)

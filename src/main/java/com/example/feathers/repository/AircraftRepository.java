@@ -15,6 +15,6 @@ public interface AircraftRepository extends JpaRepository<AircraftEntity, Long> 
 
     Optional<AircraftEntity> findByRegistration(String registration);
 
-    @Query("select a.registration from AircraftEntity a where a.registration like %:reg%")
-    List<String> findAllMatchingRegistrations(String reg);
+    @Query("select a.registration from AircraftEntity a where a.creator.username like :username and a.registration like %:reg%")
+    List<String> findAllMatchingRegistrations(String username, String reg);
 }

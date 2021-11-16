@@ -9,7 +9,7 @@ import java.time.LocalTime;
 public class LogEntity extends BaseEntity {
 
     //private UserEntity createdBy;
-
+    private UserEntity creator;
     private LocalDate dateOfLog;
     private LocalTime departureTime;
     private LocalTime arrivalTime;
@@ -22,6 +22,15 @@ public class LogEntity extends BaseEntity {
     private String remarks;
 
     public LogEntity() {
+    }
+
+    @ManyToOne
+    public UserEntity getCreator() {
+        return creator;
+    }
+
+    public void setCreator(UserEntity creator) {
+        this.creator = creator;
     }
 
     @Column(nullable = false)

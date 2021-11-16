@@ -2,6 +2,7 @@ package com.example.feathers.model.service;
 
 import com.example.feathers.model.entity.AerodromeEntity;
 import com.example.feathers.model.entity.AircraftEntity;
+import com.example.feathers.model.entity.UserEntity;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -15,12 +16,22 @@ public class LogServiceModel {
     private AerodromeEntity departureAerodrome;
     private AerodromeEntity arrivalAerodrome;
     private Integer landings;
+    private UserEntity creator;
 
     private String pilotInCommandName;
     private AircraftEntity aircraft;
     private String remarks;
 
     public LogServiceModel() {
+    }
+
+    public UserEntity getCreator() {
+        return creator;
+    }
+
+    public LogServiceModel setCreator(UserEntity creator) {
+        this.creator = creator;
+        return this;
     }
 
     public Long getId() {

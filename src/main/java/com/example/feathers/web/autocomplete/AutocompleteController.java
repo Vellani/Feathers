@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -22,9 +23,9 @@ public class AutocompleteController {
     }
 
     @RequestMapping(params = "reg")
-    public ResponseEntity<List<String>> getRegistrations(@RequestParam(value = "reg", required = false) String reg) {
+    public ResponseEntity<List<String>> getRegistrations(@RequestParam(value = "reg", required = false) String reg, Principal principal) {
         List<String> registrations = validateString(reg)
-                ? aircraftService.findAllMatchingRegistrations(reg.toUpperCase())
+                ? aircraftService.findAllMatchingRegistrations(principal.getName(), reg.toUpperCase())
                 : null;
         return registrations == null
                 ? ResponseEntity.notFound().build()

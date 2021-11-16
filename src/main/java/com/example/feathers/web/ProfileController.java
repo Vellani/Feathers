@@ -2,11 +2,17 @@ package com.example.feathers.web;
 
 import com.example.feathers.model.view.ListedLogViewModel;
 import com.example.feathers.service.LogService;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -20,10 +26,10 @@ public class ProfileController {
     }
 
     @GetMapping("/logbook")
-    public String profileLogbook(Model model) {
+    public String profileLogbook(Model model, Principal principal) {
 
         // TODO Make this find logs for user only
-        List<ListedLogViewModel> allUserLogs = logService.getAllLogs();
+        List<ListedLogViewModel> allUserLogs = logService.getAllLogs(principal.getName());
         model.addAttribute("allUserLogs", allUserLogs);
 
         return "logbook";
@@ -39,10 +45,7 @@ public class ProfileController {
         return "account";
     }
 
-    @GetMapping("/admin")
-    public String profileAdmin() {
-        return "about";
-    }
+
 
 
 }

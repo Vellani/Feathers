@@ -9,7 +9,6 @@ public class AircraftServiceModel {
     private AircraftClassEnum aircraftClass;
 
     private Integer numberOfEngines;
-    private String owner;
 
     public AircraftServiceModel() {
     }
@@ -46,11 +45,4 @@ public class AircraftServiceModel {
         this.numberOfEngines = numberOfEngines;
     }
 
-    public String getOwner() {
-        return owner;
-    }
-
-    public void setOwner(String owner) {
-        this.owner = owner;
-    }
 }

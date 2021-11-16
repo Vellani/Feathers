@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface LogRepository extends JpaRepository<LogEntity, Long> {
 
-    @Query("select l from LogEntity l order by l.dateOfLog desc , l.departureTime desc")
-    List<LogEntity> findAllAndOrderByDateThenTime();
+    @Query("select l from LogEntity l where l.creator.username like :username order by l.dateOfLog desc , l.departureTime desc")
+    List<LogEntity> findAllAndOrderByDateThenTime(String username);
 }
