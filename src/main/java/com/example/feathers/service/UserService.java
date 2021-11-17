@@ -19,4 +19,8 @@ public interface UserService {
 
     List<ListedAccountsViewModel> getAll();
 
+    List<String> findUserForAdmin(String username);
+
+    List<ListedAccountsViewModel> findUsersMatchingTheUsername(String username);
+
 }

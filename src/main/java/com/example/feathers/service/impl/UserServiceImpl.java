@@ -106,9 +106,22 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByUsername(name).orElse(null);
     }
 
+
+
     @Override
     public List<ListedAccountsViewModel> getAll() {
         List<UserEntity> all = userRepository.findAll();
         return all.stream().map(e -> modelMapper.map(e, ListedAccountsViewModel.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<String> findUserForAdmin(String username) {
+        return userRepository.findUserForAdmin(username);
+    }
+
+    @Override
+    public List<ListedAccountsViewModel> findUsersMatchingTheUsername(String username) {
+        List<UserEntity> usersMatchingUsername = userRepository.findUsersMathingUsername(username);
+        return usersMatchingUsername.stream().map(e -> modelMapper.map(e, ListedAccountsViewModel.class)).collect(Collectors.toList());
     }
 }

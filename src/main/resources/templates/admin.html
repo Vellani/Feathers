@@ -63,11 +63,11 @@
             <div class="col">
                 <div class="card card-cover text-white bg-dark rounded-5 shadow-lg">
                   <div class="d-flex align-items-center m-3">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Username" 
-                        aria-label="Username" aria-describedby="button-addon2">
-                        <button class="btn btn-warning" type="button" id="button-addon2">Find</button>
-                      </div>
+                    <form id="findUserForm" th:method="GET" class="input-group">
+                        <input id="username" type="text" class="form-control" name="username"
+                               aria-label="Username" aria-describedby="button-addon2">
+                        <button class="btn btn-warning" type="submit">Find</button>
+                      </form>
                   </div>
                 </div>
               </div>
@@ -136,5 +136,32 @@
 
 <footer th:replace="fragments/common :: footer"></footer>
 </body>
+<script>
+    let path = "/api/param";
+    let findUser = ""
+
+    $(function() {
+
+        $("#username-search").autocomplete({
+            source: function(request, response) {
+                $.getJSON(path, { user: request.term }, response);
+            },
+            minLength: 2,
+        });
+
+        // TODO finish GET request link creation -> onClick ( submit (/admin?username=(username from form)))
+        $("#submit-username").on('click', function(){
+            window.location = "http://www.google.com/";
+
+        });
+
+    });
+
+    var frm = document.getElementById('findUserForm');
+    if(frm) {
+        frm.action = '/profile/admin' + $("#username").val();
+    }
+
+</script>
 
 </html>

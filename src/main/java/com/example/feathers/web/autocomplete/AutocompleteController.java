@@ -2,7 +2,9 @@ package com.example.feathers.web.autocomplete;
 
 import com.example.feathers.service.AerodromeService;
 import com.example.feathers.service.AircraftService;
+import com.example.feathers.service.UserService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,10 +18,12 @@ public class AutocompleteController {
 
     private final AircraftService aircraftService;
     private final AerodromeService aerodromeService;
+    private final UserService userService;
 
-    public AutocompleteController(AircraftService aircraftService, AerodromeService aerodromeService) {
+    public AutocompleteController(AircraftService aircraftService, AerodromeService aerodromeService, UserService userService) {
         this.aircraftService = aircraftService;
         this.aerodromeService = aerodromeService;
+        this.userService = userService;
     }
 
     @RequestMapping(params = "reg")
@@ -32,15 +36,26 @@ public class AutocompleteController {
                 : ResponseEntity.ok(registrations);
     }
 
-
     @RequestMapping(params = "aero")
-    public ResponseEntity<List<String>> gerAerodromes(@RequestParam(value = "aero", required = false) String aero) {
+    public ResponseEntity<List<String>> getAerodromes(@RequestParam(value = "aero", required = false) String aero) {
         List<String> aerodromes = validateString(aero)
                 ? aerodromeService.findAllMatchingAerodromes(aero.toUpperCase())
                 : null;
         return aerodromes == null
                 ? ResponseEntity.notFound().build()
                 : ResponseEntity.ok(aerodromes);
+    }
+
+    // TODO check if works
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @RequestMapping(params = "user")
+    public ResponseEntity<List<String>> getUsers( @RequestParam(value = "user", required = false) String user) {
+        List<String> userString = validateString(user)
+                ? userService.findUserForAdmin(user)
+                : null;
+        return userString == null
+                ? ResponseEntity.notFound().build()
+                : ResponseEntity.ok(userString);
     }
 
     // Server-side Input validation
