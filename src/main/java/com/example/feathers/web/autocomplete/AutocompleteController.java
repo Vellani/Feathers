@@ -46,7 +46,6 @@ public class AutocompleteController {
                 : ResponseEntity.ok(aerodromes);
     }
 
-    // TODO check if works
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(params = "user")
     public ResponseEntity<List<String>> getUsers( @RequestParam(value = "user", required = false) String user) {

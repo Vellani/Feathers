@@ -17,8 +17,6 @@ public class AerodromeEntity extends BaseEntity {
     private String latitude;
     private String longitude;
 
-    // TODO maybe add OneToMany for dep/arr for admin panel ?
-
     public AerodromeEntity() {
     }
 

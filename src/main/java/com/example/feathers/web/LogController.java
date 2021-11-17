@@ -77,9 +77,8 @@ public class LogController {
         return "redirect:logbook";
     }
 
-    @GetMapping("/log/delete{id}")
-    public String logDelete(@PathVariable Long id) {
-        // TODO Deny access to direct url to a log from unauthorized user
+    @PostMapping("/log/delete")
+    public String logDelete(@RequestParam(value = "id") Long id) {
         logService.deleteById(id);
         return "redirect:/profile/logbook";
     }

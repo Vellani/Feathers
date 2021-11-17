@@ -34,10 +34,8 @@ public class AdminController {
 
     @PostMapping("/admin/delete")
     public String deleteUser(@RequestParam(value = "id") Long id) {
-        userService.delete(id);
+        //userService.delete(id);
         return "admin";
     }
-
-    // TODO Change of User Role
 
 }

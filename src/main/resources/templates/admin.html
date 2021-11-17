@@ -3,145 +3,149 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1" name="viewport"/>
-  <title>Feathers Logbook</title>
-  <th:block th:replace="fragments/common :: main-css"></th:block>
-  <th:block th:replace="fragments/common :: lg-sb"></th:block>
+    <!-- Required meta tags -->
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <title>Feathers Logbook</title>
+    <th:block th:replace="fragments/common :: main-css"></th:block>
+    <th:block th:replace="fragments/common :: lg-sb"></th:block>
 
-  <script crossorigin="anonymous"
-          integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-  <th:block th:replace="fragments/map-view :: map-initialize-scripts"></th:block>
+    <th:block th:replace="fragments/map-view :: map-initialize-scripts"></th:block>
 </head>
 
 <body>
 <!-- HEADER -->
 <header th:replace="fragments/common :: header"></header>
 
-    <main>
-      <div class="logbook-container w-100 h-100vh d-inline-block overflow-auto">
+<main>
+    <div class="logbook-container w-100 h-100vh d-inline-block overflow-auto">
 
         <!-- General Data -->
         <div class="container px-4 py-0" id="icon-grid">
-          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-4">
-
-            <div class="col">
-              <div class="card card-cover text-white bg-dark rounded-5 shadow-lg">
-                <div class="d-flex align-items-center m-3">
-                  <svg class="bi text-muted me-3" width="1.75em" height="1.75em">
-                    <use xlink:href="..\static\svg\svgmaster.svg#users" />
-                  </svg>
-                  <div>
-                    <p class="fw-bold mb-0">Total Accounts: 53</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col">
-              <div class="card card-cover text-white bg-dark rounded-5 shadow-lg">
-                <div class="d-flex align-items-center m-3">
-                  <svg class="bi text-muted me-3" width="1.75em" height="1.75em">
-                    <use xlink:href="..\static\svg\svgmaster.svg#plane" />
-                  </svg>
-                  <div>
-                    <p class="fw-bold mb-0">Total Flight Logs: 5938</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col"></div>
-
-            <div class="col">
-                <div class="card card-cover text-white bg-dark rounded-5 shadow-lg">
-                  <div class="d-flex align-items-center m-3">
-                    <form id="findUserForm" th:method="GET" class="input-group">
-                        <input id="name" type="text" class="form-control"
-                               aria-label="Username" aria-describedby="button-addon2">
-                        <button class="btn btn-warning" type="submit">Find</button>
-                      </form>
-                  </div>
-                </div>
-              </div>
-
-          </div>
-        </div>
-
-
-        <div class="container px-4 py-1">
-          <div class="list-group">
-
-            <!-- This is a single user card -->
-            <div th:each="o : ${accounts}"
-                    class="d-flex list-group-item list-group-item-action row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 align-items-center" aria-current="true">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-4">
 
                 <div class="col">
-                    <h3 th:text="*{o.username}">Username</h3>
-                    <article th:text="*{o.email}">email@email.com</article>
+                    <div class="card card-cover text-white bg-dark rounded-5 shadow-lg">
+                        <div class="d-flex align-items-center m-3">
+                            <svg class="bi text-muted me-3" width="1.75em" height="1.75em">
+                                <use xlink:href="..\static\svg\svgmaster.svg#users"/>
+                            </svg>
+                            <div>
+                                <p class="fw-bold mb-0">Total Accounts: 53</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- TODO create on change listener -->
                 <div class="col">
-                    <select class="form-select" aria-label="Select Account Level" style="max-width: 180px">
-                        <option th:each="b : ${T(com.example.feathers.model.entity.enums.UserRolesEnum).values()}"
-                                th:value="*{b.ordinal()}" th:text="*{b.name()}" th:selected="(*{b.name()} == ${o.accountLevel.getRole().name()})"></option>
-                    </select>
+                    <div class="card card-cover text-white bg-dark rounded-5 shadow-lg">
+                        <div class="d-flex align-items-center m-3">
+                            <svg class="bi text-muted me-3" width="1.75em" height="1.75em">
+                                <use xlink:href="..\static\svg\svgmaster.svg#plane"/>
+                            </svg>
+                            <div>
+                                <p class="fw-bold mb-0">Total Flight Logs: 5938</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="col"></div>
 
-                <div class="col d-flex justify-content-end">
-                    <div class="btn-group">
-                        <button type="button" disabled hidden class="btn btn-outline-success"  id="save-button"
-                                th:href="@{/profile/admin/save{id}(id = *{o.getId()})}">Save Changes</button>
-
-                        <button type="button" class="btn btn-outline-secondary dropdown-toggle" 
-                        data-bs-toggle="dropdown" aria-expanded="false">Actions</button>
-                        <ul class="dropdown-menu dropdown-menu-dark mx-0 border-0 shadow">
-                            <!-- Not Currently needed -->
-                          <!--<li>
-                            <a disabled="true" class="dropdown-item d-flex gap-2 align-items-center" href="#">
-                              <svg class="bi" width="16" height="16">
-                                <use xlink:href="/images/svg/svgmaster.svg#edit" />
-                              </svg>
-                              Save Changes
-                            </a>
-                          </li>
-                          <li>
-                            <hr class="dropdown-divider" />
-                          </li>-->
-                          <li>
-                              <form th:method="POST" th:action="@{/profile/admin/delete(id = *{o.getId()})}" id="delete-form">
-                            <a class="dropdown-item d-flex gap-2 align-items-center" onclick="this.parentNode.submit(); return false;" >
-
-
-                              <svg class="bi" width="16" height="16">
-                                <use xlink:href="/images/svg/svgmaster.svg#trash" />
-                              </svg>
-                              Delete
-                            </a>
-                              </form>
-                          </li>
-                        </ul>
-                      </div>
+                <div class="col">
+                    <div class="card card-cover text-white bg-dark rounded-5 shadow-lg">
+                        <div class="d-flex align-items-center m-3">
+                            <form id="findUserForm" th:method="GET" class="input-group">
+                                <input id="name" type="text" class="form-control"
+                                       aria-label="Username" aria-describedby="button-addon2">
+                                <button class="btn btn-warning" type="submit">Find</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
 
             </div>
+        </div>
+
+
+        <div class="container px-4 py-1">
+            <div class="list-group">
+
+                <!-- This is a single user card -->
+                <div th:each="o : ${accounts}"
+                     class="d-flex list-group-item list-group-item-action row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 align-items-center"
+                     aria-current="true">
+
+                    <div class="col">
+                        <h3 th:text="*{o.username}">Username</h3>
+                        <article th:text="*{o.email}">email@email.com</article>
+                    </div>
+
+                    <!-- TODO create on change listener -->
+                    <div class="col">
+                        <select class="form-select" aria-label="Select Account Level" style="max-width: 180px">
+                            <option th:each="b : ${T(com.example.feathers.model.entity.enums.UserRolesEnum).values()}"
+                                    th:value="*{b.ordinal()}" th:text="*{b.name()}"
+                                    th:selected="(*{b.name()} == ${o.accountLevel.getRole().name()})"></option>
+                        </select>
+                    </div>
+
+                    <div class="col"></div>
+
+                    <div class="col d-flex justify-content-end">
+                        <div class="btn-group">
+                            <button type="button" disabled hidden class="btn btn-outline-success" id="save-button"
+                                    th:href="@{/profile/admin/save{id}(id = *{o.getId()})}">Save Changes
+                            </button>
+
+                            <button type="button" class="btn btn-outline-secondary dropdown-toggle"
+                                    data-bs-toggle="dropdown" aria-expanded="false">Actions
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-dark mx-0 border-0 shadow">
+                                <!-- Not Currently needed -->
+                                <!--<li>
+                                  <a disabled="true" class="dropdown-item d-flex gap-2 align-items-center" href="#">
+                                    <svg class="bi" width="16" height="16">
+                                      <use xlink:href="/images/svg/svgmaster.svg#edit" />
+                                    </svg>
+                                    Save Changes
+                                  </a>
+                                </li>
+                                <li>
+                                  <hr class="dropdown-divider" />
+                                </li>-->
+                                <li>
+                                    <form th:method="POST" th:action="@{/profile/admin/delete(id = *{o.getId()})}">
+                                        <a class="dropdown-item d-flex gap-2 align-items-center"
+                                           onclick="this.parentNode.submit(); return false;" href="#">
+
+                                            <svg class="bi" width="16" height="16">
+                                                <use xlink:href="/images/svg/svgmaster.svg#trash"/>
+                                            </svg>
+                                            Delete
+                                        </a>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
         </div>
 
 
-      </div>
-    </main>
+    </div>
+</main>
 
 <footer th:replace="fragments/common :: footer"></footer>
 </body>
@@ -149,18 +153,18 @@
     let path = "/api/param";
     let findUser = ""
 
-    $(function() {
+    $(function () {
 
         $("#name").autocomplete({
-            source: function(request, response) {
-                $.getJSON(path, { user: request.term }, response);
+            source: function (request, response) {
+                $.getJSON(path, {user: request.term}, response);
             },
             minLength: 1,
         });
     });
 
     const frm = document.getElementById('findUserForm');
-    if(frm) {
+    if (frm) {
         frm.action = '/profile/admin' + $("#username").val();
     }
 

@@ -6,7 +6,6 @@ import javax.persistence.*;
 @Table(name = "reviews")
 public class ReviewEntity extends BaseEntity {
 
-    // TODO make at creation of the 3rd Log -> Ask user for review
     private String reviewBody;
     private Integer stars;
     private UserEntity creator;
