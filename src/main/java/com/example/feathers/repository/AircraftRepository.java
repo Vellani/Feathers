@@ -1,7 +1,7 @@
 package com.example.feathers.repository;
 
+import com.example.feathers.model.entity.AerodromeEntity;
 import com.example.feathers.model.entity.AircraftEntity;
-import com.example.feathers.model.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -19,5 +19,6 @@ public interface AircraftRepository extends JpaRepository<AircraftEntity, Long> 
     @Query("select a.registration from AircraftEntity a where a.creator.username like :username and a.registration like %:reg%")
     List<String> findAllMatchingRegistrations(String username, String reg);
 
-    void deleteAircraftEntitiesByCreator(UserEntity creator);
+    List<AircraftEntity> findByCreator_Username(String creator_username);
+
 }

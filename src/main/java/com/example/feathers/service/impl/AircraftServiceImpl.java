@@ -2,15 +2,17 @@ package com.example.feathers.service.impl;
 
 import com.example.feathers.model.binding.AircraftAddBindingModel;
 import com.example.feathers.model.entity.AircraftEntity;
-import com.example.feathers.model.entity.UserEntity;
 import com.example.feathers.model.entity.enums.AircraftClassEnum;
 import com.example.feathers.model.seed.AircraftSeed;
 import com.example.feathers.model.service.AircraftServiceModel;
+import com.example.feathers.model.view.ListAircraftViewModel;
 import com.example.feathers.repository.AircraftRepository;
 import com.example.feathers.service.AircraftService;
+import com.example.feathers.service.LogService;
 import com.example.feathers.service.UserService;
 import com.google.gson.Gson;
 import org.modelmapper.ModelMapper;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -27,12 +29,18 @@ public class AircraftServiceImpl implements AircraftService {
 
     private final UserService userService;
     private final AircraftRepository aircraftRepository;
+    private final LogService logService;
     private final ModelMapper modelMapper;
     private final Gson gson;
 
-    public AircraftServiceImpl(UserService userService, AircraftRepository aircraftRepository, ModelMapper modelMapper, Gson gson) {
+    public AircraftServiceImpl(UserService userService,
+                               AircraftRepository aircraftRepository,
+                               @Lazy LogService logService,
+                               ModelMapper modelMapper,
+                               Gson gson) {
         this.userService = userService;
         this.aircraftRepository = aircraftRepository;
+        this.logService = logService;
         this.modelMapper = modelMapper;
         this.gson = gson;
     }
@@ -65,6 +73,22 @@ public class AircraftServiceImpl implements AircraftService {
     }
 
     @Override
+    public List<ListAircraftViewModel> findAllAircraftForUser(String name) {
+        List<AircraftEntity> aircraftEntities = aircraftRepository.findByCreator_Username(name);
+        List<ListAircraftViewModel> collect = aircraftEntities.stream().map(e -> {
+            ListAircraftViewModel viewModel = modelMapper.map(e, ListAircraftViewModel.class);
+            viewModel.setFlights(logService.countAllFlightsWithAircraft(e));
+            return viewModel;
+        }).collect(Collectors.toList());
+        return collect;
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        aircraftRepository.deleteById(id);
+    }
+
+    @Override
     public String findAircraftData() throws IOException {
         return Files.readString(Path.of("src/main/resources/data/aircraft.json"));
     }
@@ -72,7 +96,6 @@ public class AircraftServiceImpl implements AircraftService {
     @Override
     public void initialize() throws IOException {
         if (aircraftRepository.count() == 0) {
-            System.out.println("Loading Aircraft into the database under user ID 2!");
             // Does not go through the Service Model since this is Custom setup
             Set<AircraftSeed> collect = Arrays.stream(gson.fromJson(findAircraftData(), AircraftSeed[].class)).collect(Collectors.toSet());
 

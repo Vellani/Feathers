@@ -31,8 +31,7 @@
             Logbook</h3>
 
         <a sec:authorize="!isAuthenticated()" th:href="@{/user/login}" class="btn btn-outline-light me-2" type="button">Login</a>
-        <a sec:authorize="!isAuthenticated()" th:href="@{/user/register}"
-           class="btn btn-warning mx-2" type="button">Sign Up</a>
+        <a sec:authorize="!isAuthenticated()" th:href="@{/user/register}" class="btn btn-warning mx-2" type="button">Sign Up</a>
 
         <div sec:authorize="isAuthenticated()" class="text-end ml-auto mx-2">
             <div class="dropdown">
@@ -54,8 +53,8 @@
                             Logbook
                         </a>
                     </li>
-                    <li>
-                        <a th:href="@{/profile/dashboard}" sec:authorize="hasRole('VIP')" class="dropdown-item d-flex gap-2 align-items-center">
+                    <li><!-- TODO maybe make dashboard VIP ONLY ? -->
+                        <a th:href="@{/profile/dashboard}" sec:authorize="hasRole('USER')" class="dropdown-item d-flex gap-2 align-items-center">
                             <svg class="white-as-snow" height="16" width="16">
                                 <use xlink:href="/images/svg/svgmaster.svg#speedometer"/>
                             </svg>

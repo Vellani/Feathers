@@ -10,8 +10,8 @@
 .logbook-container {
   background-image: url(/images/png/dot-pattern.png);
   background-repeat: no-repeat;
-  background-position: top ;
-  min-height: 100%;
+  background-position: top;
+  min-height: 80%;
   position: absolute;
   background-size: cover;
   z-index: 0;

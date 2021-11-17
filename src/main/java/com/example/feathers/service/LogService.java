@@ -1,6 +1,7 @@
 package com.example.feathers.service;
 
 import com.example.feathers.model.binding.LogBindingModel;
+import com.example.feathers.model.entity.AircraftEntity;
 import com.example.feathers.model.entity.UserEntity;
 import com.example.feathers.model.view.ListedLogViewModel;
 
@@ -15,4 +16,5 @@ public interface LogService {
 
     void deleteById(Long id);
 
+    Integer countAllFlightsWithAircraft(AircraftEntity aircraft);
 }

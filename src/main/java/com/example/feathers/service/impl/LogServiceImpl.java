@@ -16,6 +16,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -66,6 +67,11 @@ public class LogServiceImpl implements LogService {
     @Override
     public void deleteById(Long id) {
         logRepository.deleteById(id);
+    }
+
+    @Override
+    public Integer countAllFlightsWithAircraft(AircraftEntity aircraft) {
+        return logRepository.countByCreator_Aircraft(aircraft);
     }
 
 

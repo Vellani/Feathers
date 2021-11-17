@@ -34,11 +34,6 @@ public class ProfileController {
         return "logbook";
     }
 
-    @GetMapping("/dashboard")
-    public String profileDashboard() {
-        return "dashboard";
-    }
-
     @GetMapping("/settings")
     public String profileSettings() {
         return "account";
