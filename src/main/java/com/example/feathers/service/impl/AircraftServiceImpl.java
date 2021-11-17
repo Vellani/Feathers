@@ -2,6 +2,7 @@ package com.example.feathers.service.impl;
 
 import com.example.feathers.model.binding.AircraftAddBindingModel;
 import com.example.feathers.model.entity.AircraftEntity;
+import com.example.feathers.model.entity.UserEntity;
 import com.example.feathers.model.entity.enums.AircraftClassEnum;
 import com.example.feathers.model.seed.AircraftSeed;
 import com.example.feathers.model.service.AircraftServiceModel;
@@ -38,6 +39,10 @@ public class AircraftServiceImpl implements AircraftService {
 
     @Override
     public void addNewAircraft(AircraftAddBindingModel aircraftAddBindingModel, Principal principal) {
+        // Uppercassing everything
+        aircraftAddBindingModel.setIcaoModelName(aircraftAddBindingModel.getIcaoModelName().toUpperCase());
+        aircraftAddBindingModel.setRegistration(aircraftAddBindingModel.getRegistration().toUpperCase());
+
         AircraftServiceModel middleManAircraft = modelMapper.map(aircraftAddBindingModel, AircraftServiceModel.class);
         AircraftEntity aircraft = modelMapper.map(middleManAircraft, AircraftEntity.class);
         aircraft.setCreator(userService.findUserByUsername(principal.getName()));

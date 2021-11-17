@@ -1,6 +1,7 @@
 package com.example.feathers.service;
 
 import com.example.feathers.model.binding.LogBindingModel;
+import com.example.feathers.model.entity.UserEntity;
 import com.example.feathers.model.view.ListedLogViewModel;
 
 import java.util.List;
@@ -13,4 +14,5 @@ public interface LogService {
     LogBindingModel findById(Long id);
 
     void deleteById(Long id);
+
 }

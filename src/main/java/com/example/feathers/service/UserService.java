@@ -23,4 +23,5 @@ public interface UserService {
 
     List<ListedAccountsViewModel> findUsersMatchingTheUsername(String username);
 
+    void delete(Long id);
 }

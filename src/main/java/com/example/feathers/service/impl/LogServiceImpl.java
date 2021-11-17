@@ -4,6 +4,7 @@ import com.example.feathers.model.binding.LogBindingModel;
 import com.example.feathers.model.entity.AerodromeEntity;
 import com.example.feathers.model.entity.AircraftEntity;
 import com.example.feathers.model.entity.LogEntity;
+import com.example.feathers.model.entity.UserEntity;
 import com.example.feathers.model.service.LogServiceModel;
 import com.example.feathers.model.view.ListedLogViewModel;
 import com.example.feathers.repository.LogRepository;
@@ -66,6 +67,7 @@ public class LogServiceImpl implements LogService {
     public void deleteById(Long id) {
         logRepository.deleteById(id);
     }
+
 
     @Override
     public List<ListedLogViewModel> getAllLogs(String username) {

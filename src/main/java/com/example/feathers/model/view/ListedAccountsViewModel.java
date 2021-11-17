@@ -1,5 +1,6 @@
 package com.example.feathers.model.view;
 
+import com.example.feathers.model.entity.UserRoleEntity;
 import com.example.feathers.model.entity.enums.UserRolesEnum;
 
 public class ListedAccountsViewModel {
@@ -7,7 +8,7 @@ public class ListedAccountsViewModel {
     private Long id;
     private String username;
     private String email;
-    private UserRolesEnum accountLevel;
+    private UserRoleEntity accountLevel;
 
     public ListedAccountsViewModel() {
     }
@@ -36,11 +37,11 @@ public class ListedAccountsViewModel {
         this.email = email;
     }
 
-    public UserRolesEnum getAccountLevel() {
+    public UserRoleEntity getAccountLevel() {
         return accountLevel;
     }
 
-    public void setAccountLevel(UserRolesEnum accountLevel) {
+    public void setAccountLevel(UserRoleEntity accountLevel) {
         this.accountLevel = accountLevel;
     }
 }

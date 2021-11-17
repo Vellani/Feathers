@@ -2,6 +2,7 @@ package com.example.feathers.service;
 
 import com.example.feathers.model.binding.AircraftAddBindingModel;
 import com.example.feathers.model.entity.AircraftEntity;
+import com.example.feathers.model.entity.UserEntity;
 
 import java.io.IOException;
 import java.security.Principal;
@@ -19,4 +20,5 @@ public interface AircraftService {
     List<String> findAllMatchingRegistrations(String username, String reg);
 
     AircraftEntity findByRegistration(String registration);
+
 }

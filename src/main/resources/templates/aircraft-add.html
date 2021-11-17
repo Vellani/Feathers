@@ -38,9 +38,9 @@
 
             <div class="row">
               <div class="input-group mt-3">
-                <input th:field="*{registration}" type="text" class="form-control" placeholder="Registration" required />
+                <input th:field="*{registration}" type="text" class="form-control" placeholder="Registration" style="text-transform:uppercase" required />
                 <span class="input-group-text"></span>
-                <input th:field="*{icaoModelName}" type="text" class="form-control" placeholder="Model Name" required />
+                <input th:field="*{icaoModelName}" type="text" class="form-control" placeholder="Model Name" style="text-transform:uppercase" required />
               </div>
               <div th:if="${#fields.hasErrors('registration')}" th:errorclass="error" th:errors="*{registration}" style="color: red" />
               <div th:if="${#fields.hasErrors('icaoModelName')}" th:errorclass="error" th:errors="*{icaoModelName}" style="color: red" />

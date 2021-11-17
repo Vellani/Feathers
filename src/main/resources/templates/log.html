@@ -114,7 +114,7 @@
             source: function(request, response) {
                 $.getJSON(path, { reg: request.term }, response);
             },
-            minLength: 2,
+            minLength: 1,
         });
 
         $("#departureAerodrome").autocomplete({

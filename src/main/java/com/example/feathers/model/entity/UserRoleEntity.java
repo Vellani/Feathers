@@ -3,6 +3,7 @@ package com.example.feathers.model.entity;
 import com.example.feathers.model.entity.enums.UserRolesEnum;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -19,5 +20,18 @@ public class UserRoleEntity extends BaseEntity {
     public UserRoleEntity setRole(UserRolesEnum role) {
         this.role = role;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserRoleEntity that = (UserRoleEntity) o;
+        return role == that.role;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(role);
     }
 }

@@ -2,10 +2,7 @@ package com.example.feathers.model.entity;
 
 import com.example.feathers.model.entity.enums.AircraftClassEnum;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "aircraft")

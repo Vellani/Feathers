@@ -64,7 +64,7 @@
                 <div class="card card-cover text-white bg-dark rounded-5 shadow-lg">
                   <div class="d-flex align-items-center m-3">
                     <form id="findUserForm" th:method="GET" class="input-group">
-                        <input id="username" type="text" class="form-control" name="username"
+                        <input id="name" type="text" class="form-control"
                                aria-label="Username" aria-describedby="button-addon2">
                         <button class="btn btn-warning" type="submit">Find</button>
                       </form>
@@ -88,22 +88,27 @@
                     <article th:text="*{o.email}">email@email.com</article>
                 </div>
 
+                <!-- TODO create on change listener -->
                 <div class="col">
-                    <select class="form-select" aria-label="Select Account Level">
+                    <select class="form-select" aria-label="Select Account Level" style="max-width: 180px">
                         <option th:each="b : ${T(com.example.feathers.model.entity.enums.UserRolesEnum).values()}"
-                                th:value="*{b.ordinal()}" th:text="*{b.name()}"></option>
-                      </select>
+                                th:value="*{b.ordinal()}" th:text="*{b.name()}" th:selected="(*{b.name()} == ${o.accountLevel.getRole().name()})"></option>
+                    </select>
                 </div>
 
                 <div class="col"></div>
 
                 <div class="col d-flex justify-content-end">
                     <div class="btn-group">
+                        <button type="button" disabled hidden class="btn btn-outline-success"  id="save-button"
+                                th:href="@{/profile/admin/save{id}(id = *{o.getId()})}">Save Changes</button>
+
                         <button type="button" class="btn btn-outline-secondary dropdown-toggle" 
                         data-bs-toggle="dropdown" aria-expanded="false">Actions</button>
                         <ul class="dropdown-menu dropdown-menu-dark mx-0 border-0 shadow">
-                          <li>
-                            <a class="dropdown-item d-flex gap-2 align-items-center" href="#">
+                            <!-- Not Currently needed -->
+                          <!--<li>
+                            <a disabled="true" class="dropdown-item d-flex gap-2 align-items-center" href="#">
                               <svg class="bi" width="16" height="16">
                                 <use xlink:href="/images/svg/svgmaster.svg#edit" />
                               </svg>
@@ -112,14 +117,18 @@
                           </li>
                           <li>
                             <hr class="dropdown-divider" />
-                          </li>
+                          </li>-->
                           <li>
-                            <a class="dropdown-item d-flex gap-2 align-items-center" href="#">
+                              <form th:method="POST" th:action="@{/profile/admin/delete(id = *{o.getId()})}" id="delete-form">
+                            <a class="dropdown-item d-flex gap-2 align-items-center" onclick="this.parentNode.submit(); return false;" >
+
+
                               <svg class="bi" width="16" height="16">
                                 <use xlink:href="/images/svg/svgmaster.svg#trash" />
                               </svg>
                               Delete
                             </a>
+                              </form>
                           </li>
                         </ul>
                       </div>
@@ -142,22 +151,15 @@
 
     $(function() {
 
-        $("#username-search").autocomplete({
+        $("#name").autocomplete({
             source: function(request, response) {
                 $.getJSON(path, { user: request.term }, response);
             },
-            minLength: 2,
+            minLength: 1,
         });
-
-        // TODO finish GET request link creation -> onClick ( submit (/admin?username=(username from form)))
-        $("#submit-username").on('click', function(){
-            window.location = "http://www.google.com/";
-
-        });
-
     });
 
-    var frm = document.getElementById('findUserForm');
+    const frm = document.getElementById('findUserForm');
     if(frm) {
         frm.action = '/profile/admin' + $("#username").val();
     }

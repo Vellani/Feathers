@@ -8,8 +8,10 @@ import com.example.feathers.model.service.UserServiceModel;
 import com.example.feathers.model.view.ListedAccountsViewModel;
 import com.example.feathers.repository.UserRepository;
 import com.example.feathers.repository.UserRoleRepository;
+import com.example.feathers.service.AircraftService;
+import com.example.feathers.service.LogService;
 import com.example.feathers.service.UserService;
-import com.example.feathers.util.UserRoleSetter;
+import com.example.feathers.util.UserRoleUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,14 +26,18 @@ public class UserServiceImpl implements UserService {
     private final UserRoleRepository userRoleRepository;
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
-    private final UserRoleSetter userRoleSetter;
+    private final UserRoleUtil userRoleUtil;
 
-    public UserServiceImpl(UserRepository userRepository, UserRoleRepository userRoleRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder, UserRoleSetter userRoleSetter) {
+    public UserServiceImpl(UserRepository userRepository,
+                           UserRoleRepository userRoleRepository,
+                           ModelMapper modelMapper,
+                           PasswordEncoder passwordEncoder,
+                           UserRoleUtil userRoleUtil) {
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
         this.modelMapper = modelMapper;
         this.passwordEncoder = passwordEncoder;
-        this.userRoleSetter = userRoleSetter;
+        this.userRoleUtil = userRoleUtil;
     }
 
     @Override
@@ -49,46 +55,36 @@ public class UserServiceImpl implements UserService {
         middleMan.setPassword(encode);
 
         UserEntity finalNewUser = modelMapper.map(middleMan, UserEntity.class);
-        finalNewUser.setRoles(userRoleSetter.setUserRole());
+        finalNewUser.setRoles(userRoleUtil.setUserRole());
 
         userRepository.save(finalNewUser);
     }
 
     @Override
     public void initialize() {
-        HashMap<String, UserRoleEntity> roles = new HashMap<>();
-        // TODO Better startup
-        if (userRoleRepository.count() == 0) {
-            roles.put("Admin", new UserRoleEntity().setRole(UserRolesEnum.ADMIN));
-            roles.put("VIP", new UserRoleEntity().setRole(UserRolesEnum.VIP));
-            roles.put("User", new UserRoleEntity().setRole(UserRolesEnum.USER));
-            roles.put("Suspended", new UserRoleEntity().setRole(UserRolesEnum.SUSPENDED));
 
-            roles.values().forEach(userRoleRepository::save);
-        }
-
-        if (userRepository.count() == 0 || !roles.isEmpty()) {
+        if (userRepository.count() == 0) {
             List<UserEntity> users = new ArrayList<>();
             users.add(new UserEntity()
-                    .setUsername("Admin") // Todo maybe make it case insensitive
+                    .setUsername("Admin")
                     .setPassword(passwordEncoder.encode("12345"))
                     .setEmail("admin@test.test")
-                    .setRoles(userRoleSetter.setAdminRole()));
+                    .setRoles(userRoleUtil.setAdminRole()));
             users.add(new UserEntity()
                     .setUsername("Normal")
                     .setPassword(passwordEncoder.encode("12345"))
                     .setEmail("normal@test.test")
-                    .setRoles(userRoleSetter.setUserRole()));
+                    .setRoles(userRoleUtil.setUserRole()));
             users.add(new UserEntity()
                     .setUsername("Vippp")
                     .setPassword(passwordEncoder.encode("12345"))
                     .setEmail("vip@test.test")
-                    .setRoles(userRoleSetter.setVIPRole()));
+                    .setRoles(userRoleUtil.setVipRole()));
             users.add(new UserEntity() // Suspended VIP
                     .setUsername("Suspended")
                     .setPassword(passwordEncoder.encode("12345"))
                     .setEmail("suspended@test.test")
-                    .setRoles(userRoleSetter.setSuspendedRole()));
+                    .setRoles(userRoleUtil.setSuspendedRole()));
 
             users.forEach(userRepository::save);
         }
@@ -106,22 +102,37 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByUsername(name).orElse(null);
     }
 
-
-
-    @Override
-    public List<ListedAccountsViewModel> getAll() {
-        List<UserEntity> all = userRepository.findAll();
-        return all.stream().map(e -> modelMapper.map(e, ListedAccountsViewModel.class)).collect(Collectors.toList());
-    }
-
     @Override
     public List<String> findUserForAdmin(String username) {
         return userRepository.findUserForAdmin(username);
     }
 
     @Override
-    public List<ListedAccountsViewModel> findUsersMatchingTheUsername(String username) {
-        List<UserEntity> usersMatchingUsername = userRepository.findUsersMathingUsername(username);
-        return usersMatchingUsername.stream().map(e -> modelMapper.map(e, ListedAccountsViewModel.class)).collect(Collectors.toList());
+    public List<ListedAccountsViewModel> getAll() {
+        return mapUserEntityListToListedAccountViewList(userRepository.findAll());
     }
+
+    @Override
+    public List<ListedAccountsViewModel> findUsersMatchingTheUsername(String username) {
+        return mapUserEntityListToListedAccountViewList(userRepository.findUsersMathingUsername(username));
+    }
+
+    @Override
+    public void delete(Long id) {
+        userRepository.deleteById(id);
+    }
+
+    private List<ListedAccountsViewModel> mapUserEntityListToListedAccountViewList(List<UserEntity> list) {
+        return list.stream().map(e -> {
+            ListedAccountsViewModel temp = modelMapper.map(e, ListedAccountsViewModel.class);
+
+            temp.setAccountLevel(userRoleUtil.findHighestRole(e.getRoles()));
+
+            return temp;
+        }).collect(Collectors.toList());
+    }
+
+
+
+
 }

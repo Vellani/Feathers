@@ -1,6 +1,7 @@
 package com.example.feathers.config;
 
-import com.example.feathers.model.entity.UserRoleEntity;
+import com.example.feathers.repository.UserRoleRepository;
+import com.example.feathers.util.UserRoleUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.modelmapper.ModelMapper;

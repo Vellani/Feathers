@@ -1,14 +1,11 @@
 package com.example.feathers.web;
 
-import com.example.feathers.model.binding.SimpleBindingModel;
 import com.example.feathers.model.view.ListedAccountsViewModel;
 import com.example.feathers.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -19,11 +16,6 @@ public class AdminController {
 
     public AdminController(UserService userService) {
         this.userService = userService;
-    }
-
-    @ModelAttribute
-    public SimpleBindingModel simpleBindingModel() {
-        return new SimpleBindingModel();
     }
 
     @GetMapping("/admin")
@@ -37,6 +29,12 @@ public class AdminController {
         }
 
         model.addAttribute("accounts", accounts);
+        return "admin";
+    }
+
+    @PostMapping("/admin/delete")
+    public String deleteUser(@RequestParam(value = "id") Long id) {
+        userService.delete(id);
         return "admin";
     }
 
