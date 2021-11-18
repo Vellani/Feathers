@@ -34,7 +34,10 @@ public class AircraftController {
         // TODO Deny access to direct url to an aircraft from unauthorized user
 
         model.addAttribute("registrationExists",
-                model.getAttribute("registrationExists") == null ? false : model.getAttribute("registrationExists"));
+                model.getAttribute("registrationExists") == null
+                        ? false
+                        : model.getAttribute("registrationExists"));
+
         return "aircraft-add";
     }
 
@@ -53,7 +56,6 @@ public class AircraftController {
             return "redirect:add";
         }
 
-        // TODO picture upload
         aircraftService.addNewAircraft(aircraftAddBindingModel, principal);
         return "redirect:/profile/log";
     }

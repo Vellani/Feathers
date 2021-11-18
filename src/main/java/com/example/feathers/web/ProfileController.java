@@ -25,6 +25,11 @@ public class ProfileController {
         this.logService = logService;
     }
 
+    @GetMapping("/")
+    public String profile() {
+        return "redirect:logbook";
+    }
+
     @GetMapping("/logbook")
     public String profileLogbook(Model model, Principal principal) {
 

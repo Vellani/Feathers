@@ -23,14 +23,13 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // TODO implement admin -> to admin page, Suspended -> to homepage with message "Account Suspended"
 
         http.authorizeRequests()
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 .antMatchers("/", "/user/login", "/user/register").permitAll()
                 .antMatchers("/profile/admin").hasRole(UserRolesEnum.ADMIN.name())
                 //.antMatchers("/profile/dashboard").hasRole(UserRolesEnum.VIP.name())
-                .antMatchers("/**").hasRole(UserRolesEnum.USER.name())
+                .antMatchers("/**").authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/user/login")

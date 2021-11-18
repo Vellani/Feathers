@@ -46,7 +46,7 @@
                 <ul aria-labelledby="dropdownUser3" class="dropdown-menu dropdown-menu-dark mx-0 border-0 shadow"
                     style="width: 220px">
                     <li>
-                        <a th:href="@{/profile/logbook}" sec:authorize="hasRole('USER')" class="dropdown-item d-flex gap-2 align-items-center">
+                        <a th:href="@{/profile/logbook}" class="dropdown-item d-flex gap-2 align-items-center">
                             <svg class="white-as-snow" height="16" width="16">
                                 <use xlink:href="/images/svg/svgmaster.svg#table"/>
                             </svg>
@@ -54,7 +54,7 @@
                         </a>
                     </li>
                     <li><!-- TODO maybe make dashboard VIP ONLY ? -->
-                        <a th:href="@{/profile/dashboard}" sec:authorize="hasRole('USER')" class="dropdown-item d-flex gap-2 align-items-center">
+                        <a th:href="@{/profile/dashboard}" class="dropdown-item d-flex gap-2 align-items-center">
                             <svg class="white-as-snow" height="16" width="16">
                                 <use xlink:href="/images/svg/svgmaster.svg#speedometer"/>
                             </svg>

@@ -11,7 +11,7 @@ public class Constants {
     *  Make the dashboard
     *  Add Remove User functionality
     *  At some point ask user to Review Site
-    *
+    *  Protect the DELETE methods from URL injection
     *
     *
     * */

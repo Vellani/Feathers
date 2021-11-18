@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Repository
@@ -21,4 +22,6 @@ public interface LogRepository extends JpaRepository<LogEntity, Long> {
 
     @Query("select count(l) from LogEntity l where l.aircraft = :aircraft")
     Integer countByCreator_Aircraft(AircraftEntity aircraft);
+
+    Optional<LogEntity> findByIdAndCreator_Username(Long id, String creator);
 }

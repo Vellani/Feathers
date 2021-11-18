@@ -64,7 +64,7 @@
                     <div class="card card-cover text-white bg-dark rounded-5 shadow-lg">
                         <div class="d-flex align-items-center m-3">
                             <form id="findUserForm" th:method="GET" class="input-group">
-                                <input id="name" type="text" class="form-control"
+                                <input id="username" name="username" type="text" class="form-control"
                                        aria-label="Username" aria-describedby="button-addon2">
                                 <button class="btn btn-warning" type="submit">Find</button>
                             </form>
@@ -155,7 +155,7 @@
 
     $(function () {
 
-        $("#name").autocomplete({
+        $("#username").autocomplete({
             source: function (request, response) {
                 $.getJSON(path, {user: request.term}, response);
             },

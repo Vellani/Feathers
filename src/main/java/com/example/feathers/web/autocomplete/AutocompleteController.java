@@ -46,9 +46,9 @@ public class AutocompleteController {
                 : ResponseEntity.ok(aerodromes);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')") // Redundant since this URL structure is already behind /profile/admin/
     @RequestMapping(params = "user")
-    public ResponseEntity<List<String>> getUsers( @RequestParam(value = "user", required = false) String user) {
+    public ResponseEntity<List<String>> getUsers(@RequestParam(value = "user", required = false) String user) {
         List<String> userString = validateString(user)
                 ? userService.findUserForAdmin(user)
                 : null;

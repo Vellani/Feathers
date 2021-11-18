@@ -16,6 +16,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -49,7 +50,6 @@ public class LogServiceImpl implements LogService {
 
     private LogServiceModel createServiceModel(LogBindingModel logBindingModel, String username) {
 
-        // TODO GPX
         AircraftEntity aircraft = aircraftService.findByRegistration(logBindingModel.getAircraft());
         AerodromeEntity depAerodrome = aerodromeService.findByName(logBindingModel.getDepartureAerodrome());
         AerodromeEntity arrAerodrome = aerodromeService.findByName(logBindingModel.getArrivalAerodrome());
@@ -105,6 +105,14 @@ public class LogServiceImpl implements LogService {
                 : null;
     }
 
+    @Override
+    public boolean isOwnerOfLog(Long logID, String name) {
+
+        if (logID == null) return true;
+
+        Optional<LogEntity> exists = logRepository.findByIdAndCreator_Username(logID, name);
+        return exists.isPresent();
+    }
 
 
 }

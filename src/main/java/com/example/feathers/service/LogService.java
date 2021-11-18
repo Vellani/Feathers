@@ -14,6 +14,8 @@ public interface LogService {
 
     LogBindingModel findById(Long id);
 
+    boolean isOwnerOfLog(Long logID, String name);
+
     void deleteById(Long id);
 
     Integer countAllFlightsWithAircraft(AircraftEntity aircraft);
