@@ -28,13 +28,8 @@
         <div class="col-md-4 d-flex flex-column">
           <h4 class="mb-3">Aircraft Data</h4>
 
-          <div th:if="${registrationExists}" class="form-seperated form-floating">
-            <div class="alert alert-danger" role="alert">Registration already exists!</div>
-          </div>
-
-
-          <form th:object="${aircraftAddBindingModel}" th:method="POST" th:action="@{/aircraft/add}" class="d-flex flex-column align-items-center">
-
+          <form th:object="${aircraftBindingModel}" th:method="POST"
+                th:action="@{/profile/aircraft(id = *{getId()})}" class="d-flex flex-column align-items-center">
 
             <div class="row">
               <div class="input-group mt-3">

@@ -54,7 +54,7 @@ public class AircraftEntity extends BaseEntity {
         this.numberOfEngines = numberOfEngines;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     public UserEntity getCreator() {
         return creator;
     }

@@ -1,8 +1,7 @@
 package com.example.feathers.service;
 
-import com.example.feathers.model.binding.AircraftAddBindingModel;
+import com.example.feathers.model.binding.AircraftBindingModel;
 import com.example.feathers.model.entity.AircraftEntity;
-import com.example.feathers.model.entity.UserEntity;
 import com.example.feathers.model.view.ListAircraftViewModel;
 
 import java.io.IOException;
@@ -10,7 +9,7 @@ import java.security.Principal;
 import java.util.List;
 
 public interface AircraftService {
-    void addNewAircraft(AircraftAddBindingModel aircraftAddBindingModel, Principal principal);
+    void addNewAircraft(AircraftBindingModel aircraftBindingModel, Principal principal);
 
     boolean alreadyExists(String registration);
 
@@ -25,4 +24,11 @@ public interface AircraftService {
     List<ListAircraftViewModel> findAllAircraftForUser(String name);
 
     void deleteById(Long id);
+
+    boolean isOwnerOfAircraft(Long id, String name);
+
+    AircraftBindingModel findById(Long id);
+    AircraftEntity findAircraftEntityById(Long id);
+
+    boolean existByUsernameAndRegistration(String name, String registration);
 }

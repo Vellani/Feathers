@@ -1,6 +1,6 @@
 package com.example.feathers.service.impl;
 
-import com.example.feathers.model.binding.AircraftAddBindingModel;
+import com.example.feathers.model.binding.AircraftBindingModel;
 import com.example.feathers.model.entity.AircraftEntity;
 import com.example.feathers.model.entity.enums.AircraftClassEnum;
 import com.example.feathers.model.seed.AircraftSeed;
@@ -21,6 +21,7 @@ import java.nio.file.Path;
 import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -46,12 +47,12 @@ public class AircraftServiceImpl implements AircraftService {
     }
 
     @Override
-    public void addNewAircraft(AircraftAddBindingModel aircraftAddBindingModel, Principal principal) {
+    public void addNewAircraft(AircraftBindingModel aircraftBindingModel, Principal principal) {
         // Uppercassing everything
-        aircraftAddBindingModel.setIcaoModelName(aircraftAddBindingModel.getIcaoModelName().toUpperCase());
-        aircraftAddBindingModel.setRegistration(aircraftAddBindingModel.getRegistration().toUpperCase());
+        aircraftBindingModel.setIcaoModelName(aircraftBindingModel.getIcaoModelName().toUpperCase());
+        aircraftBindingModel.setRegistration(aircraftBindingModel.getRegistration().toUpperCase());
 
-        AircraftServiceModel middleManAircraft = modelMapper.map(aircraftAddBindingModel, AircraftServiceModel.class);
+        AircraftServiceModel middleManAircraft = modelMapper.map(aircraftBindingModel, AircraftServiceModel.class);
         AircraftEntity aircraft = modelMapper.map(middleManAircraft, AircraftEntity.class);
         aircraft.setCreator(userService.findUserByUsername(principal.getName()));
         aircraftRepository.save(aircraft);
@@ -86,6 +87,30 @@ public class AircraftServiceImpl implements AircraftService {
     @Override
     public void deleteById(Long id) {
         aircraftRepository.deleteById(id);
+    }
+
+    @Override
+    public boolean isOwnerOfAircraft(Long id, String name) {
+        if (id == null) return true;
+        Optional<AircraftEntity> exists = aircraftRepository.findByIdAndCreator_Username(id, name);
+        return exists.isPresent();
+    }
+
+    @Override
+    public AircraftBindingModel findById(Long id) {
+        AircraftEntity aircraftEntity = aircraftRepository.findById(id).orElse(null);
+        return modelMapper.map(aircraftEntity, AircraftBindingModel.class);
+    }
+
+    @Override
+    public AircraftEntity findAircraftEntityById(Long id) {
+        // .orElse(null) is irrelevant since we try to delete real ID
+        return aircraftRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public boolean existByUsernameAndRegistration(String name, String registration) {
+        return aircraftRepository.existsByCreator_UsernameAndRegistration(name, registration);
     }
 
     @Override

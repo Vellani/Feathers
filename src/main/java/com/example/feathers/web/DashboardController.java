@@ -32,10 +32,5 @@ public class DashboardController {
         return "dashboard";
     }
 
-    @PostMapping("/aircraft/delete")
-    public String deleteAircraft(@RequestParam(value = "id") Long id) {
-        // TODO IMPORTANT -> Check delete aircraft if present in a LOG, if present -> Delete log as well!
-        aircraftService.deleteById(id);
-        return "dashboard";
-    }
+
 }

@@ -16,7 +16,7 @@ import javax.validation.Valid;
 import java.security.Principal;
 
 @Controller
-@RequestMapping("/profile")
+@RequestMapping("/profile/log")
 public class LogController {
 
     private final AerodromeService aerodromeService;
@@ -30,24 +30,24 @@ public class LogController {
     }
 
     @ModelAttribute
-    public LogBindingModel logAddBindingModel() {
+    public LogBindingModel logBindingModel() {
         return new LogBindingModel();
     }
 
     // Dual purpose GET for show creation page with blanks or show existing log
     @PreAuthorize("@logServiceImpl.isOwnerOfLog(#id, #principal.name)")
-    @GetMapping("/log")
+    @GetMapping("")
     public String logAdd(@RequestParam(required = false) Long id, Model model, Principal principal) {
-        if (id != null) {
-            LogBindingModel logModel = logService.findById(id);
-            model.addAttribute("logBindingModel", logModel);
-        }
+        model.addAttribute("logBindingModel",
+                id != null
+                        ? logService.findById(id)
+                        : logBindingModel());
         return "log";
     }
 
     // Dual purpose POST method for Save/Update Log
     @PreAuthorize("@logServiceImpl.isOwnerOfLog(#id, #principal.name)")
-    @PostMapping("/log")
+    @PostMapping("")
     public String logAddNew(@RequestParam(required = false) Long id,
                             @Valid LogBindingModel logBindingModel,
                             BindingResult bindingResult,
@@ -79,7 +79,7 @@ public class LogController {
     }
 
     @PreAuthorize("@logServiceImpl.isOwnerOfLog(#id, #principal.name)")
-    @PostMapping("/log/delete")
+    @PostMapping("/delete")
     public String logDelete(@RequestParam(value = "id") Long id, Principal principal) {
         logService.deleteById(id);
         return "redirect:/profile/logbook";

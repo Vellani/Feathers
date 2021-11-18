@@ -4,6 +4,7 @@ import com.example.feathers.model.entity.enums.AircraftClassEnum;
 
 public class AircraftServiceModel {
 
+    private Long id;
     private String registration;
     private String icaoModelName;
     private AircraftClassEnum aircraftClass;
@@ -11,6 +12,14 @@ public class AircraftServiceModel {
     private Integer numberOfEngines;
 
     public AircraftServiceModel() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getRegistration() {

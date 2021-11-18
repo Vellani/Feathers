@@ -7,8 +7,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
-public class AircraftAddBindingModel {
+public class AircraftBindingModel {
 
+    private Long id;
     private String registration;
     private String icaoModelName;
     private AircraftClassEnum aircraftClass;
@@ -16,7 +17,15 @@ public class AircraftAddBindingModel {
     private Integer numberOfEngines;
     private String owner;
 
-    public AircraftAddBindingModel() {
+    public AircraftBindingModel() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Size(min = 4, max = 8, message = "The aircraft registration must be between 4 and 8 characters.")

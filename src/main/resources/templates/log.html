@@ -30,7 +30,7 @@
     <main class="form-custom-add">
         <div class="d-flex flex-column">
             <h4>Flight Data</h4>
-            <form th:object="${logBindingModel}" th:action="@{/profile/log{id}(id = *{getId()})}" th:method="POST"
+            <form th:object="${logBindingModel}" th:action="@{/profile/log(id = *{getId()})}" th:method="POST"
                     class="needs-validation d-flex flex-column align-items-center">
 
                 <div class="input-group mt-3" style="max-width: 300px;">
