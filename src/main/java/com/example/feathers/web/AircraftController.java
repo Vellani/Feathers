@@ -39,7 +39,7 @@ public class AircraftController {
                 id != null
                 ? aircraftService.findById(id)
                 : aircraftBindingModel());
-        return "aircraft-add";
+        return "aircraft";
     }
 
     @PreAuthorize("@aircraftServiceImpl.isOwnerOfAircraft(#id, #principal.name)")

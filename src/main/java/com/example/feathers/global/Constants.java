@@ -7,12 +7,10 @@ public class Constants {
     /*
     * TODO
     *  Add new AC inside Edit/Add Log screen return to Original Log
-    *  Add functions to add and edit AC
-    *  Make the dashboard
+    *  Finish-up the dashboard
     *  Add Remove User functionality
     *  At some point ask user to Review Site
-    *  Protect the DELETE methods from URL injection
-    *
+    *  Fix Long-Airport name causes it to not align
     *
     * */
 
