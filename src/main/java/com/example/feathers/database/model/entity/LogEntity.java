@@ -1,6 +1,9 @@
 package com.example.feathers.database.model.entity;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.*;
+import java.sql.Blob;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -20,6 +23,7 @@ public class LogEntity extends BaseEntity {
     private String pilotInCommandName;
     private AircraftEntity aircraft;
     private String remarks;
+    private Byte[] gpxLog;
 
     public LogEntity() {
     }
@@ -114,5 +118,12 @@ public class LogEntity extends BaseEntity {
         this.remarks = remarks;
     }
 
+    @Lob
+    public Byte[] getGpxLog() {
+        return gpxLog;
+    }
 
+    public void setGpxLog(Byte[] gpxLog) {
+        this.gpxLog = gpxLog;
+    }
 }

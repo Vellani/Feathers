@@ -1,14 +1,22 @@
 package com.example.feathers.application.config;
 
 import com.example.feathers.database.repository.UserRoleRepository;
+import com.example.feathers.util.ObjectConverter;
 import com.example.feathers.util.UserRoleUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.spi.MappingContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
 @Configuration
 public class ApplicationBeanConfiguration {
@@ -26,7 +34,28 @@ public class ApplicationBeanConfiguration {
 
     @Bean
     public ModelMapper modelMapper() {
-        return new ModelMapper();
+
+        ModelMapper modelMapper = new ModelMapper();
+
+        Converter<MultipartFile, Byte[]> byteConverter = new Converter<>() {
+            @Override
+            public Byte[] convert(MappingContext<MultipartFile, Byte[]> mappingContext) {
+                try {
+                    return objectConverter().toObjects(mappingContext.getSource().getBytes());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        };
+
+        // Safety measure to prevent attempts to map
+        Converter<byte[], MultipartFile> nullConverter = mappingContext -> null;
+
+        modelMapper.addConverter(byteConverter);
+        modelMapper.addConverter(nullConverter);
+
+        return modelMapper;
     }
 
     @Bean
@@ -40,6 +69,11 @@ public class ApplicationBeanConfiguration {
     @Bean
     public UserRoleUtil userRoleUtil() {
         return new UserRoleUtil(userRoleRepository);
+    }
+
+    @Bean
+    public ObjectConverter objectConverter() {
+        return new ObjectConverter();
     }
 
 }

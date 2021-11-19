@@ -6,7 +6,7 @@ spring:
     password: root
   servlet:
     multipart:
-      max-file-size: 1MB
+      max-file-size: 5MB
       max-request-size: 5MB
   mvc:
     hiddenmethod:
@@ -28,8 +28,9 @@ spring:
       hibernate:
         format_sql: true
     defer-datasource-initialization: true
+
 #Cloudinary Properties
-#cloudinary:
-  #api-key: 
-  #api-secret: 
-  #cloud-name: 
+cloudinary:
+  api-key: ${CLOUDINARY_API_KEY}
+  api-secret: ${CLOUDINARY_API_SECRET}
+  cloud-name: ${CLOUDINARY_NAME}

@@ -11,9 +11,14 @@ import com.example.feathers.database.repository.LogRepository;
 import com.example.feathers.database.service.AerodromeService;
 import com.example.feathers.database.service.AircraftService;
 import com.example.feathers.database.service.UserService;
+import com.example.feathers.util.ObjectConverter;
+import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.spi.MappingContext;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -53,11 +58,11 @@ public class LogServiceImpl implements LogService {
         AerodromeEntity arrAerodrome = aerodromeService.findByName(logBindingModel.getArrivalAerodrome());
 
         LogServiceModel logServiceModel = modelMapper.map(logBindingModel, LogServiceModel.class);
-
         logServiceModel.setDepartureAerodrome(depAerodrome)
                 .setArrivalAerodrome(arrAerodrome)
                 .setAircraft(aircraft)
                 .setCreator(userService.findUserByUsername(username));
+
 
         return logServiceModel;
     }
@@ -70,6 +75,11 @@ public class LogServiceImpl implements LogService {
     @Override
     public Integer countAllFlightsWithAircraft(AircraftEntity aircraft) {
         return logRepository.countByCreator_Aircraft(aircraft);
+    }
+
+    @Override
+    public Byte[] findSpecificGPXLog(Long id) {
+        return logRepository.findSpecificGPXLogById(id);
     }
 
 
@@ -98,9 +108,13 @@ public class LogServiceImpl implements LogService {
     public LogBindingModel findById(Long id) {
         // The check is to ensure no URL injection
         LogEntity logEntity = logRepository.findById(id).orElse(null);
-        return logEntity != null
-                ? modelMapper.map(logEntity, LogBindingModel.class)
-                : null;
+        if (logEntity != null) {
+            LogBindingModel map = modelMapper.map(logEntity, LogBindingModel.class);
+            map.setHasGPX(logEntity.getGpxLog() != null);
+            return map;
+        } else {
+            return null;
+        }
     }
 
     @Override

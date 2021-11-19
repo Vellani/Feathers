@@ -22,4 +22,8 @@ public interface LogRepository extends JpaRepository<LogEntity, Long> {
     Integer countByCreator_Aircraft(AircraftEntity aircraft);
 
     Optional<LogEntity> findByIdAndCreator_Username(Long id, String creator);
+
+    @Query("Select l.gpxLog from LogEntity l where l.id = :id")
+    Byte[] findSpecificGPXLogById(Long id);
+
 }

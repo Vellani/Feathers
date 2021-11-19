@@ -19,5 +19,4 @@ public class UserManagementListener {
     /* TODO @EventListener(UserDeletedEvent.class)
     public void userDeleted()*/
 
-
 }

@@ -3,7 +3,9 @@ package com.example.feathers.database.model.service;
 import com.example.feathers.database.model.entity.AerodromeEntity;
 import com.example.feathers.database.model.entity.AircraftEntity;
 import com.example.feathers.database.model.entity.UserEntity;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.sql.Blob;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -17,6 +19,7 @@ public class LogServiceModel {
     private AerodromeEntity arrivalAerodrome;
     private Integer landings;
     private UserEntity creator;
+    private Byte[] gpxLog;
 
     private String pilotInCommandName;
     private AircraftEntity aircraft;
@@ -115,5 +118,13 @@ public class LogServiceModel {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks;
+    }
+
+    public Byte[] getGpxLog() {
+        return gpxLog;
+    }
+
+    public void setGpxLog(Byte[] gpxLog) {
+        this.gpxLog = gpxLog;
     }
 }

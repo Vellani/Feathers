@@ -2,10 +2,12 @@ package com.example.feathers.database.model.binding;
 
 import com.example.feathers.database.model.entity.UserEntity;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Positive;
+import java.sql.Blob;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -24,7 +26,8 @@ public class LogBindingModel {
     //private Integer aircraftID;
 
     private String remarks;
-    //private String gpx;
+    private MultipartFile gpxLog;
+    private boolean hasGPX;
 
     public LogBindingModel() {
     }
@@ -128,5 +131,21 @@ public class LogBindingModel {
 
     public void setCreator(UserEntity creator) {
         this.creator = creator;
+    }
+
+    public MultipartFile getGpxLog() {
+        return gpxLog;
+    }
+
+    public void setGpxLog(MultipartFile gpxLog) {
+        this.gpxLog = gpxLog;
+    }
+
+    public boolean isHasGPX() {
+        return hasGPX;
+    }
+
+    public void setHasGPX(boolean hasGPX) {
+        this.hasGPX = hasGPX;
     }
 }

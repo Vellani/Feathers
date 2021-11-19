@@ -30,7 +30,11 @@
     <main class="form-custom-add">
         <div class="d-flex flex-column">
             <h4>Flight Data</h4>
-            <form th:object="${logBindingModel}" th:action="@{/profile/log(id = *{getId()})}" th:method="POST"
+
+            <form th:object="${logBindingModel}"
+                  th:action="@{/profile/log(id = *{getId()})}"
+                  th:method="POST"
+                  enctype="multipart/form-data"
                     class="needs-validation d-flex flex-column align-items-center">
 
                 <div class="input-group mt-3" style="max-width: 300px;">
@@ -80,10 +84,11 @@
                     <div th:if="${#fields.hasErrors('pilotInCommandName')}" th:errorclass="error" th:errors="*{pilotInCommandName}" style="color: red" />
 
                     <div class="input-group mt-3">
-                        <input accept=".gpx" class="form-control" type="file"/>
+                        <input th:field="*{gpxLog}" accept=".gpx" class="form-control" type="file"/>
                         <label class="input-group-text">Upload .GPX File</label>
-                        <!-- TODO show/hide -->
-                        <button id="modalTrigger" class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#mapModal">Show map</button>
+                        <!--TODO better fix -->
+                        <button th:if="*{hasGPX}" id="modalTrigger" class="btn btn-success"
+                                type="button" data-bs-toggle="modal" data-bs-target="#mapModal">Show map</button>
                     </div>
 
                     <div class="mt-3">
@@ -103,7 +108,6 @@
 </div>
 <footer th:replace="fragments/common :: footer"></footer>
 </body>
-
 <!-- Autocomplete Scripts -->
 <script>
     let path = "/api/param";
@@ -132,5 +136,14 @@
         });
     });
 </script>
+
+<th:block th:if="*{logBindingModel.hasGPX}">
+    <script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.3.1/leaflet-omnivore.min.js'></script>
+
+
+</th:block>
+
+
+
 <script th:replace="fragments/map-view :: map-scripts"></script>
 </html>

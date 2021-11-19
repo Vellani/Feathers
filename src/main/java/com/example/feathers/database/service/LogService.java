@@ -18,4 +18,6 @@ public interface LogService {
     void deleteById(Long id);
 
     Integer countAllFlightsWithAircraft(AircraftEntity aircraft);
+
+    Byte[] findSpecificGPXLog(Long id);
 }
