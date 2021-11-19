@@ -13,6 +13,7 @@ public class ListedLogViewModel {
     private String arrivalAerodrome;
     private String departureFlag;
     private String arrivalFlag;
+    private boolean hasGPX;
 
     private String registration;
     private String aircraftModel;
@@ -107,6 +108,15 @@ public class ListedLogViewModel {
 
     public ListedLogViewModel setAircraftModel(String aircraftModel) {
         this.aircraftModel = aircraftModel;
+        return this;
+    }
+
+    public boolean isHasGPX() {
+        return hasGPX;
+    }
+
+    public ListedLogViewModel setHasGPX(boolean hasGPX) {
+        this.hasGPX = hasGPX;
         return this;
     }
 }

@@ -98,7 +98,8 @@ public class LogServiceImpl implements LogService {
                     .setArrivalTime(e.getArrivalTime().toString())
                     .setArrivalFlag(e.getArrivalAerodrome().getCountry())
                     .setRegistration(e.getAircraft().getRegistration())
-                    .setAircraftModel(e.getAircraft().getIcaoModelName());
+                    .setAircraftModel(e.getAircraft().getIcaoModelName())
+                    .setHasGPX(e.getGpxLog().length != 0);
 
             return listedLogViewModel;
         }).collect(Collectors.toList());
@@ -106,11 +107,10 @@ public class LogServiceImpl implements LogService {
 
     @Override
     public LogBindingModel findById(Long id) {
-        // The check is to ensure no URL injection
         LogEntity logEntity = logRepository.findById(id).orElse(null);
         if (logEntity != null) {
             LogBindingModel map = modelMapper.map(logEntity, LogBindingModel.class);
-            map.setHasGPX(logEntity.getGpxLog() != null);
+            map.setHasGPX(logEntity.getGpxLog().length != 0);
             return map;
         } else {
             return null;
