@@ -89,10 +89,10 @@
                         <article th:text="*{o.email}">email@email.com</article>
                     </div>
 
-                    <!-- TODO create on change listener -->
+                    <!-- TODO create on change application -->
                     <div class="col">
                         <select class="form-select" aria-label="Select Account Level" style="max-width: 180px">
-                            <option th:each="b : ${T(com.example.feathers.model.entity.enums.UserRolesEnum).values()}"
+                            <option th:each="b : ${T(com.example.feathers.database.model.entity.enums.UserRolesEnum).values()}"
                                     th:value="*{b.ordinal()}" th:text="*{b.name()}"
                                     th:selected="(*{b.name()} == ${o.accountLevel.getRole().name()})"></option>
                         </select>

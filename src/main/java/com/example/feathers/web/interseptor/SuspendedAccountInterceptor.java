@@ -1,13 +1,11 @@
 package com.example.feathers.web.interseptor;
 
-import com.example.feathers.service.MonitoringService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 @Component
 public class SuspendedAccountInterceptor implements HandlerInterceptor {

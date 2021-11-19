@@ -1,8 +1,8 @@
 package com.example.feathers.web;
 
-import com.example.feathers.model.binding.AircraftBindingModel;
-import com.example.feathers.service.AircraftService;
-import com.example.feathers.service.LogService;
+import com.example.feathers.database.model.binding.AircraftBindingModel;
+import com.example.feathers.database.service.AircraftService;
+import com.example.feathers.database.service.LogService;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -74,6 +74,8 @@ public class AircraftController {
     @PostMapping("/delete")
     public String deleteAircraft(@RequestParam(value = "id") Long id, Principal principal, RedirectAttributes redirectAttributes) {
 
+
+        // TODO: Frontend ask user if sure to delete with all Logs connected with this AC and delete Logs then AC from DB
         Integer countOfLogsWithAircraft = logService.countAllFlightsWithAircraft(aircraftService.findAircraftEntityById(id));
 
         if (countOfLogsWithAircraft > 0) {

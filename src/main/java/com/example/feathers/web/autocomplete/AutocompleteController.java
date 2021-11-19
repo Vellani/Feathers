@@ -1,8 +1,8 @@
 package com.example.feathers.web.autocomplete;
 
-import com.example.feathers.service.AerodromeService;
-import com.example.feathers.service.AircraftService;
-import com.example.feathers.service.UserService;
+import com.example.feathers.database.service.AerodromeService;
+import com.example.feathers.database.service.AircraftService;
+import com.example.feathers.database.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;

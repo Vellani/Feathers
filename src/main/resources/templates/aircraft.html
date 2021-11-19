@@ -45,7 +45,8 @@
                 <input th:field="*{numberOfEngines}" type="number" class="form-control" style="max-width: 80px" />
                 <span class="input-group-text">Type</span>
                 <select th:field="*{aircraftClass}" class="form-select" required>
-                  <option th:each="o : ${T(com.example.feathers.model.entity.enums.AircraftClassEnum).values()}" th:value="${o}" th:text="${o}"></option>
+                  <option th:each="o : ${T(com.example.feathers.database.model.entity.enums.AircraftClassEnum).values()}"
+                          th:value="${o}" th:text="${o}"></option>
                 </select>
               </div>
               <div th:if="${#fields.hasErrors('numberOfEngines')}" th:errorclass="error" th:errors="*{numberOfEngines}" style="color: red"/>

@@ -1,7 +1,7 @@
 package com.example.feathers.web;
 
-import com.example.feathers.model.view.ListedAccountsViewModel;
-import com.example.feathers.service.UserService;
+import com.example.feathers.database.model.view.ListedAccountsViewModel;
+import com.example.feathers.database.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

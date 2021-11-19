@@ -1,10 +1,9 @@
 package com.example.feathers.web;
 
-import com.example.feathers.model.binding.LogBindingModel;
-import com.example.feathers.service.AerodromeService;
-import com.example.feathers.service.AircraftService;
-import com.example.feathers.service.LogService;
-import com.example.feathers.web.exception.NotFoundException;
+import com.example.feathers.database.model.binding.LogBindingModel;
+import com.example.feathers.database.service.AerodromeService;
+import com.example.feathers.database.service.AircraftService;
+import com.example.feathers.database.service.LogService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

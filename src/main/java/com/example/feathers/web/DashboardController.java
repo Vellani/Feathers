@@ -1,13 +1,11 @@
 package com.example.feathers.web;
 
-import com.example.feathers.model.view.ListAircraftViewModel;
-import com.example.feathers.service.AircraftService;
+import com.example.feathers.database.model.view.ListAircraftViewModel;
+import com.example.feathers.database.service.AircraftService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.util.List;

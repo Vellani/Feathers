@@ -1,7 +1,10 @@
 package com.example.feathers.web;
 
-import com.example.feathers.model.binding.UserRegisterBindingModel;
-import com.example.feathers.service.UserService;
+import com.example.feathers.application.event.UserCreatedEvent;
+import com.example.feathers.database.model.binding.UserRegisterBindingModel;
+import com.example.feathers.database.service.UserService;
+import org.springframework.context.ApplicationEvent;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,9 +21,12 @@ import javax.validation.Valid;
 public class UserRegisterController {
 
     private final UserService userService;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
-    public UserRegisterController(UserService userService) {
+
+    public UserRegisterController(UserService userService, ApplicationEventPublisher applicationEventPublisher) {
         this.userService = userService;
+        this.applicationEventPublisher = applicationEventPublisher;
     }
 
     @ModelAttribute
@@ -60,6 +66,10 @@ public class UserRegisterController {
         }
 
         userService.registerNewUser(userRegisterBindingModel);
+
+        ApplicationEvent event = new UserCreatedEvent(this, userRegisterBindingModel.getUsername());
+        applicationEventPublisher.publishEvent(event);
+
         return "redirect:/";
     }
 
