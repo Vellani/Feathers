@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static com.example.feathers.global.Constants.AERODROMES_PATH;
+
 @Service
 public class AerodromeServiceImpl implements AerodromeService {
 
@@ -46,7 +48,7 @@ public class AerodromeServiceImpl implements AerodromeService {
 
     @Override
     public String findAerodromeData() throws IOException {
-        return Files.readString(Path.of("src/main/resources/data/airportsEU.json"));
+        return Files.readString(Path.of(AERODROMES_PATH));
     }
 
     @Override

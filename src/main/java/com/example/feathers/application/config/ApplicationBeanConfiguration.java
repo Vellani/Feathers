@@ -50,10 +50,10 @@ public class ApplicationBeanConfiguration {
         };
 
         // Safety measure to prevent attempts to map
-        Converter<byte[], MultipartFile> nullConverter = mappingContext -> null;
+        //Converter<byte[], MultipartFile> nullConverter = mappingContext -> null;
 
         modelMapper.addConverter(byteConverter);
-        modelMapper.addConverter(nullConverter);
+        //modelMapper.addConverter(nullConverter);
 
         return modelMapper;
     }

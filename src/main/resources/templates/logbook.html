@@ -29,7 +29,6 @@
     <!-- OTHER -->
     <div class="logbook-container w-100 h-100vh d-inline-block overflow-auto">
 
-        <!-- TODO this "header tab" to maybe show more stuff and info or move it to Dashboard altogether -->
         <div class="container px-4 py-0" id="icon-grid">
 
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-4">
@@ -102,7 +101,8 @@
                                     </a>
                                 </li>
                                 <li th:if="*{o.hasGPX}">
-                                    <a class="dropdown-item d-flex gap-2 align-items-center" data-bs-toggle="modal"
+                                    <a th:attr="onclick=|showGpx('*{o.getId()}')|"
+                                       class="dropdown-item d-flex gap-2 align-items-center" data-bs-toggle="modal"
                                        data-bs-target="#mapModal" href="">
                                         <svg class="bi" height="16" width="16">
                                             <use xlink:href="/images/svg/svgmaster.svg#map"/>
@@ -135,5 +135,36 @@
 <footer th:replace="fragments/common :: footer"></footer>
 </body>
 
-<script th:replace="fragments/map-view :: map-scripts"></script>
+<th:block th:replace="fragments/map-view :: map-scripts"></th:block>
+<script>
+
+    var myMap = L.map("gpxMap");
+
+    let baseLayer = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw", {
+        maxZoom: 18,
+        id: "mapbox/streets-v11",
+        tileSize: 512,
+        zoomOffset: -1,
+    }).addTo(myMap);
+
+    $('#mapModal').on('shown.bs.modal', function() {
+        myMap.invalidateSize();
+    });
+
+    function showGpx(id) {
+        var layer = omnivore.gpx('/api/param?gpx=' + id);
+
+        myMap.eachLayer(function (layer) {
+            myMap.removeLayer(layer);
+        });
+
+        baseLayer.addTo(myMap);
+
+        layer.on('ready' , function() {
+            myMap.fitBounds(layer.getBounds(), {padding: [5, 5]});
+        }).addTo(myMap);
+
+    }
+</script>
+
 </html>

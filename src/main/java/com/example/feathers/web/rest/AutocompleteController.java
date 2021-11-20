@@ -1,4 +1,4 @@
-package com.example.feathers.web.autocomplete;
+package com.example.feathers.web.rest;
 
 import com.example.feathers.database.service.AerodromeService;
 import com.example.feathers.database.service.AircraftService;

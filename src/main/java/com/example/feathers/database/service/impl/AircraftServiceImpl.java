@@ -25,6 +25,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static com.example.feathers.global.Constants.AIRCRAFT_PATH;
+
 @Service
 public class AircraftServiceImpl implements AircraftService {
 
@@ -115,7 +117,7 @@ public class AircraftServiceImpl implements AircraftService {
 
     @Override
     public String findAircraftData() throws IOException {
-        return Files.readString(Path.of("src/main/resources/data/aircraft.json"));
+        return Files.readString(Path.of(AIRCRAFT_PATH));
     }
 
     @Override

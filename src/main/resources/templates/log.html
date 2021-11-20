@@ -86,7 +86,6 @@
                     <div class="input-group mt-3">
                         <input th:field="*{gpxLog}" accept=".gpx" class="form-control" type="file"/>
                         <label class="input-group-text">Upload .GPX File</label>
-                        <!--TODO better fix -->
                         <button th:if="*{hasGPX}" id="modalTrigger" class="btn btn-success"
                                 type="button" data-bs-toggle="modal" data-bs-target="#mapModal">Show map</button>
                     </div>
@@ -137,13 +136,31 @@
     });
 </script>
 
-<th:block th:if="*{logBindingModel.hasGPX}">
-    <script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.3.1/leaflet-omnivore.min.js'></script>
+<th:block th:replace="fragments/map-view :: map-scripts"></th:block>
 
+<th:block th:if="*{logBindingModel.hasGPX}">
+
+    <script th:inline="javascript">
+        var myMap = L.map("gpxMap");
+
+        let baseLayer = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw", {
+            maxZoom: 18,
+            id: "mapbox/streets-v11",
+            tileSize: 512,
+            zoomOffset: -1,
+        }).addTo(myMap);
+
+        $('#mapModal').on('shown.bs.modal', function() {
+            myMap.invalidateSize();
+        });
+
+        const id = [[${logBindingModel.getId()}]];
+        const layer = omnivore.gpx('/api/param?gpx=' + id);
+
+        layer.on('ready' , function() {
+            myMap.fitBounds(layer.getBounds(), {padding: [5, 5]});
+        }).addTo(myMap);
+    </script>
 
 </th:block>
-
-
-
-<script th:replace="fragments/map-view :: map-scripts"></script>
 </html>

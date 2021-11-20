@@ -56,6 +56,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void initialize() {
 
+        // TODO Redo this
         if (userRepository.count() == 0) {
             List<UserEntity> users = new ArrayList<>();
             users.add(new UserEntity()

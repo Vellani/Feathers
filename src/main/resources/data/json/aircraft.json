@@ -46,6 +46,30 @@
     "icao_mode_name": "B737",
     "aircraft_class": "JET",
     "number_of_engines": "2"
+  },
+  {
+    "registration": "OK-9AD",
+    "icao_mode_name": "DA20",
+    "aircraft_class": "SEP",
+    "number_of_engines": "1"
+  },
+  {
+    "registration": "OK-9AC",
+    "icao_mode_name": "DA40",
+    "aircraft_class": "SEP",
+    "number_of_engines": "1"
+  },
+  {
+    "registration": "D-NPDI",
+    "icao_mode_name": "DA40",
+    "aircraft_class": "SEP",
+    "number_of_engines": "1"
+  },
+  {
+    "registration": "D-LAPD",
+    "icao_mode_name": "DA42",
+    "aircraft_class": "MEP",
+    "number_of_engines": "2"
   }
 
 
