@@ -50,7 +50,7 @@ public class AutocompleteController {
     @RequestMapping(params = "user")
     public ResponseEntity<List<String>> getUsers(@RequestParam(value = "user", required = false) String user) {
         List<String> userString = validateString(user)
-                ? userService.findUserForAdmin(user)
+                ? userService.findUsersForAdmin(user)
                 : null;
         return userString == null
                 ? ResponseEntity.notFound().build()

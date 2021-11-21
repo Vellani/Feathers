@@ -1,6 +1,7 @@
 package com.example.feathers.application.config;
 
 import com.example.feathers.database.model.entity.enums.UserRolesEnum;
+import com.example.feathers.util.UserRoleUtil;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -13,12 +14,14 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private UserDetailsService userDetailsService;
-    private PasswordEncoder passwordEncoder;
+    private final UserDetailsService userDetailsService;
+    private final PasswordEncoder passwordEncoder;
+    private final UserRoleUtil userRoleUtil;
 
-    public ApplicationSecurityConfiguration(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
+    public ApplicationSecurityConfiguration(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder, UserRoleUtil userRoleUtil) {
         this.userDetailsService = userDetailsService;
         this.passwordEncoder = passwordEncoder;
+        this.userRoleUtil = userRoleUtil;
     }
 
     @Override
@@ -27,9 +30,9 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
         http.authorizeRequests()
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 .antMatchers("/", "/user/login", "/user/register").permitAll()
-                .antMatchers("/profile/admin").hasRole(UserRolesEnum.ADMIN.name())
+                .antMatchers("/profile/admin").hasRole(userRoleUtil.getAdminRole().getRole().name())
                 //.antMatchers("/profile/dashboard").hasRole(UserRolesEnum.VIP.name())
-                .antMatchers("/**").authenticated()
+                .antMatchers("/**").hasRole(userRoleUtil.getUserRole().getRole().name())
                 .and()
                 .formLogin()
                 .loginPage("/user/login")

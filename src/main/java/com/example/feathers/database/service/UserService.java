@@ -1,5 +1,7 @@
 package com.example.feathers.database.service;
 
+import com.example.feathers.database.model.binding.UpdateUserPasswordBindingModel;
+import com.example.feathers.database.model.binding.UpdateUserDetailsBindingModel;
 import com.example.feathers.database.model.binding.UserRegisterBindingModel;
 import com.example.feathers.database.model.entity.UserEntity;
 import com.example.feathers.database.model.view.ListedAccountsViewModel;
@@ -19,9 +21,14 @@ public interface UserService {
 
     List<ListedAccountsViewModel> getAll();
 
-    List<String> findUserForAdmin(String username);
+    List<String> findUsersForAdmin(String username);
 
     List<ListedAccountsViewModel> findUsersMatchingTheUsername(String username);
 
     void delete(Long id);
+
+    UpdateUserDetailsBindingModel findAccountDetailsByUsername(String name);
+
+    void updateUserDetails(UpdateUserDetailsBindingModel updateUserDetailsBindingModel);
+    void updatePassword(UpdateUserPasswordBindingModel updateUserPasswordBindingModel);
 }

@@ -62,11 +62,11 @@
                         </a>
                     </li>
                     <li>
-                        <a th:href="@{/profile/settings}" class="dropdown-item d-flex gap-2 align-items-center">
+                        <a th:href="@{/profile/details}" class="dropdown-item d-flex gap-2 align-items-center">
                             <svg class="white-as-snow" height="16" width="16">
                                 <use xlink:href="/images/svg/svgmaster.svg#gear-fill"/>
                             </svg>
-                            Account Settings
+                            Account
                         </a>
                     </li>
                     <li>
@@ -82,11 +82,29 @@
                     </li>
                     <li>
                         <form th:action="@{/user/logout}" th:method="POST" id="logoutForm">
-                            <a onclick="this.closest('form').submit(null);return false;" href="#" class="dropdown-item d-flex gap-2 align-items-center">
+                            <a onclick="this.closest('form').submit(null);return false;" href="#"
+                               class="dropdown-item d-flex gap-2 align-items-center">
+                                <svg class="white-as-snow" height="16" width="16">
+                                    <use xlink:href="/images/svg/svgmaster.svg#home"/>
+                                </svg>
                                 Log out
                             </a>
                         </form>
                     </li>
+                    <th:block  sec:authorize="hasRole('VIP')">
+                    <li>
+                        <hr class="dropdown-divider"/>
+                    </li>
+                    <li >
+                        <a th:href="@{/profile/review}" class="dropdown-item d-flex gap-2 align-items-center">
+                            <svg class="white-as-snow" height="16" width="16">
+                                <use xlink:href="/images/svg/svgmaster.svg#star"/>
+                            </svg>
+                            Leave us a review!
+                        </a>
+                    </li>
+                    </th:block>
+
                 </ul>
             </div>
         </div>

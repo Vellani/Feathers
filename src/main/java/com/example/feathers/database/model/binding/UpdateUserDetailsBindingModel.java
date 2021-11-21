@@ -1,26 +1,21 @@
-package com.example.feathers.database.model.service;
+package com.example.feathers.database.model.binding;
 
-import com.example.feathers.database.model.entity.ReviewEntity;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
-public class UserServiceModel {
-    // Used to Register New User and Update Old one
+public class UpdateUserDetailsBindingModel {
 
-    // Essential - Account
     private Long id;
     private String username;
     private String email;
-    private String password;
-
-    // Essential - Profile
+    private String roles;
     private String licenseNumber;
-
-    // Non Essential - Personal
     private String firstName;
     private String lastName;
     private String address;
 
-
-    public UserServiceModel() {
+    public UpdateUserDetailsBindingModel() {
     }
 
     public Long getId() {
@@ -39,6 +34,8 @@ public class UserServiceModel {
         this.username = username;
     }
 
+    @Email(message = "Enter valid email.")
+    @NotNull
     public String getEmail() {
         return email;
     }
@@ -47,14 +44,8 @@ public class UserServiceModel {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
+    @Pattern(regexp = "^(?:[A-z1-9]{5,20}|)$", message = "License must be between 5 and 20 characters.")
     public String getLicenseNumber() {
         return licenseNumber;
     }
@@ -63,6 +54,8 @@ public class UserServiceModel {
         this.licenseNumber = licenseNumber;
     }
 
+
+    @Pattern(regexp = "^(?:[A-z]{5,20}|)$", message = "First name must be between 5 and 20 characters.")
     public String getFirstName() {
         return firstName;
     }
@@ -71,6 +64,7 @@ public class UserServiceModel {
         this.firstName = firstName;
     }
 
+    @Pattern(regexp = "^(?:[A-z]{5,20}|)$", message = "Last name must be between 5 and 20 characters.")
     public String getLastName() {
         return lastName;
     }
@@ -86,5 +80,15 @@ public class UserServiceModel {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    public String getRoles() {
+        return roles;
+    }
+
+    public UpdateUserDetailsBindingModel setRoles(String roles) {
+        this.roles = roles;
+        return this;
+    }
+
 
 }

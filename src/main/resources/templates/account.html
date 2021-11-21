@@ -1,128 +1,85 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<html lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>Feathers Logbook</title>
+  <th:block th:replace="fragments/common :: main-css"></th:block>
+  <th:block th:replace="fragments/common :: lg-sb"></th:block>
 
-    <!-- Bootstrap CSS -->
-    <link href="..\static\bootstrap\css\bootstrap.min.css" rel="stylesheet" />
-    <link href="..\static\css\sidebars.css" rel="stylesheet" />
-    <link href="..\static\css\list-groups.css" rel="stylesheet" />
-    <link href="..\static\css\features.css" rel="stylesheet" />
-    <link href="..\static\css\hero.css" rel="stylesheet" />
+  <script crossorigin="anonymous"
+          integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
-    <title>Feathers Logbook</title>
-  </head>
+  <link href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-  <!-- HEADER -->
-  <header class="p-1 bg-dark text-white" style="width: 100%; z-index: 5; position: sticky; top: 0">
-    <div class="d-flex align-items-center justify-content-center justify-content-lg-start">
-      <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-        <svg class="bi me-2" width="80" height="60" role="img" aria-label="Bootstrap">
-          <use xlink:href="..\static\svg\feathers-logo.svg#feathers_logo" />
-        </svg>
-      </a>
+</head>
 
-      <h3 class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 d-none d-lg-block">Feathers Logbook</h3>
-
-      <button href="/sign-in" type="button" class="btn btn-outline-light me-2">Login</button>
-      <button href="/register" type="button" class="btn btn-warning">Sign-up</button>
-
-      <div class="text-end ml-auto">
-        <div class="dropdown">
-          <a href="/" class="d-flex align-items-center justify-content-center p-3 link-light text-decoration-none" id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
-            <svg class="bi me-2" width="35" height="35" role="img" aria-label="Bootstrap">
-              <use xlink:href="..\static\svg\svgmaster.svg#account" />
-            </svg>
-          </a>
-
-          <ul class="dropdown-menu dropdown-menu-dark mx-0 border-0 shadow" aria-labelledby="dropdownUser3" style="width: 220px">
-            <li>
-              <a class="dropdown-item d-flex gap-2 align-items-center" href="#">
-                <svg class="bi" width="16" height="16">
-                  <use xlink:href="..\static\svg\svgmaster.svg#table" />
-                </svg>
-                Logbook
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item d-flex gap-2 align-items-center" href="#">
-                <svg class="bi" width="16" height="16">
-                  <use xlink:href="..\static\svg\svgmaster.svg#speedometer" />
-                </svg>
-                Dashboard
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item d-flex gap-2 align-items-center" href="#">
-                <svg class="bi" width="16" height="16">
-                  <use xlink:href="..\static\svg\svgmaster.svg#gear-fill" />
-                </svg>
-                Account Settings
-              </a>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider" />
-            </li>
-            <li>
-              <a class="dropdown-item d-flex gap-2 align-items-center" href="#">
-                <svg class="bi" width="16" height="16">
-                  <use xlink:href="..\static\svg\svgmaster.svg#home" />
-                </svg>
-                Logout
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <body>
+<body>
+<!-- HEADER -->
+<header th:replace="fragments/common :: header"></header>
     <main>
+      <form th:method="POST" th:action="@{/profile/details(id = *{getId()})}" th:object="${updateUserDetailsBindingModel}">
       <div class="hero-container rounded bg-white">
         <div class="row" style="max-width: 100%">
 
           <div class="col-md-4">
             <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" /><span class="font-weight-bold">Edogaru</span><span class="text-black-50">edogaru@mail.com.my</span><span> </span>
+                <img class="rounded-circle mt-5" width="150px"
+                     src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" />
+              <span th:text="*{username}" class="font-weight-bold"></span>
+              <span th:text="|*{roles} account|" class="text-black-50"></span><span> </span>
             </div>
           </div>
           
           <div class="col-md-4">
             <div class="p-3 py-5">
               <div class="d-flex justify-content-between align-items-center mb-3">
-                <h4 class="text-right">Profile Settings</h4>
+                <h4 class="text-right">Profile</h4>
               </div>
               <div class="row mt-2">
-                <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control" placeholder="first name" value="" /></div>
-                <div class="col-md-6"><label class="labels">Surname</label><input type="text" class="form-control" value="" placeholder="surname" /></div>
+                <div class="col-md-6"><label class="labels">First Name</label>
+                  <input th:field="*{firstName}" type="text" class="form-control" value="" />
+                  <div th:if="${#fields.hasErrors('firstName')}" th:errorclass="error" th:errors="*{firstName}" style="color: red" />
+                </div>
+                <div class="col-md-6"><label class="labels">Last Name</label>
+                  <input th:field="*{lastName}" type="text" class="form-control" value=""/>
+                  <div th:if="${#fields.hasErrors('lastName')}" th:errorclass="error" th:errors="*{lastName}" style="color: red" />
+                </div>
               </div>
               <div class="row mt-3">
-                <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text" class="form-control" placeholder="enter phone number" value="" /></div>
-                <div class="col-md-12"><label class="labels">Address Line 1</label><input type="text" class="form-control" placeholder="enter address line 1" value="" /></div>
-                <div class="col-md-12"><label class="labels">Address Line 2</label><input type="text" class="form-control" placeholder="enter address line 2" value="" /></div>
-                <div class="col-md-12"><label class="labels">Postcode</label><input type="text" class="form-control" placeholder="enter address line 2" value="" /></div>
-                <div class="col-md-12"><label class="labels">State</label><input type="text" class="form-control" placeholder="enter address line 2" value="" /></div>
-                <div class="col-md-12"><label class="labels">Area</label><input type="text" class="form-control" placeholder="enter address line 2" value="" /></div>
-                <div class="col-md-12"><label class="labels">Email ID</label><input type="text" class="form-control" placeholder="enter email id" value="" /></div>
-                <div class="col-md-12"><label class="labels">Education</label><input type="text" class="form-control" placeholder="education" value="" /></div>
+                <div class="col-md-12"><label class="labels">Address</label>
+                  <input th:field="*{address}" type="text" class="form-control" value="" />
+                  <div th:if="${#fields.hasErrors('address')}" th:errorclass="error" th:errors="*{address}" style="color: red" />
+                </div>
+                <div class="col-md-12"><label class="labels">Email</label>
+                  <input th:field="*{email}" type="email" class="form-control" value="" />
+                  <div th:if="${#fields.hasErrors('email')}" th:errorclass="error" th:errors="*{email}" style="color: red" />
+                </div>
+                <div class="col-md-12"><label class="labels">License Number</label>
+                  <input th:field="*{licenseNumber}" type="text" class="form-control" value="" />
+                  <div th:if="${#fields.hasErrors('licenseNumber')}" th:errorclass="error" th:errors="*{licenseNumber}" style="color: red" />
+                </div>
               </div>
-              <div class="row mt-3">
-                <div class="col-md-6"><label class="labels">Country</label><input type="text" class="form-control" placeholder="country" value="" /></div>
-                <div class="col-md-6"><label class="labels">State/Region</label><input type="text" class="form-control" value="" placeholder="state" /></div>
+              <a th:href="@{/profile/details/password}" class="">
+              <button class="btn btn-warning" type="button">Change Password</button>
+              </a>
+              <div class="mt-5 text-center d-flex justify-content-between">
+                <button class="btn btn-warning" type="button" data-bs-toggle="modal"
+                        data-bs-target="#reviewModal">Review</button>
+                <button class="btn btn-primary profile-button" type="submit">Save Profile</button>
               </div>
-              <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save Profile</button></div>
             </div>
           </div>
-          
         </div>
       </div>
+      </form>
     </main>
-
-    <script src="..\static\bootstrap\js\bootstrap.bundle.min.js"></script>
-    <script src="..\static\js\sidebars.js"></script>
+<footer th:replace="fragments/common :: footer"></footer>
   </body>
 </html>

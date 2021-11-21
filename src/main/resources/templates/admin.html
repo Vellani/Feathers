@@ -94,7 +94,7 @@
                         <select class="form-select" aria-label="Select Account Level" style="max-width: 180px">
                             <option th:each="b : ${T(com.example.feathers.database.model.entity.enums.UserRolesEnum).values()}"
                                     th:value="*{b.ordinal()}" th:text="*{b.name()}"
-                                    th:selected="(*{b.name()} == ${o.accountLevel.getRole().name()})"></option>
+                                    th:selected="(*{b.name()} == ${o.roles})"></option>
                         </select>
                     </div>
 

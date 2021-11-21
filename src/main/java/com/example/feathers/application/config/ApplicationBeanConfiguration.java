@@ -1,5 +1,6 @@
 package com.example.feathers.application.config;
 
+import com.example.feathers.database.model.entity.UserRoleEntity;
 import com.example.feathers.database.repository.UserRoleRepository;
 import com.example.feathers.util.ObjectConverter;
 import com.example.feathers.util.UserRoleUtil;
@@ -14,9 +15,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
+import java.util.Set;
 
 @Configuration
 public class ApplicationBeanConfiguration {
@@ -49,10 +49,18 @@ public class ApplicationBeanConfiguration {
             }
         };
 
+        Converter<Set<UserRoleEntity>, String> rolesToString = new Converter<>() {
+            @Override
+            public String convert(MappingContext<Set<UserRoleEntity>, String> mappingContext) {
+                return userRoleUtil().findHighestRole(mappingContext.getSource()).getRole().name();
+            }
+        };
+
         // Safety measure to prevent attempts to map
         //Converter<byte[], MultipartFile> nullConverter = mappingContext -> null;
 
         modelMapper.addConverter(byteConverter);
+        modelMapper.addConverter(rolesToString);
         //modelMapper.addConverter(nullConverter);
 
         return modelMapper;

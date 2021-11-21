@@ -1,11 +1,13 @@
 package com.example.feathers.database.service.impl;
 
+import com.example.feathers.database.model.binding.UpdateUserPasswordBindingModel;
+import com.example.feathers.database.model.binding.UpdateUserDetailsBindingModel;
 import com.example.feathers.database.model.binding.UserRegisterBindingModel;
 import com.example.feathers.database.model.entity.UserEntity;
 import com.example.feathers.database.model.view.ListedAccountsViewModel;
-import com.example.feathers.database.repository.UserRoleRepository;
 import com.example.feathers.database.model.service.UserServiceModel;
 import com.example.feathers.database.repository.UserRepository;
+import com.example.feathers.database.service.ReviewService;
 import com.example.feathers.database.service.UserService;
 import com.example.feathers.util.UserRoleUtil;
 import org.modelmapper.ModelMapper;
@@ -40,7 +42,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void registerNewUser(UserRegisterBindingModel userRegisterBindingModel) {
-
         UserServiceModel middleMan = modelMapper.map(userRegisterBindingModel, UserServiceModel.class);
         // Re-sets the password (so i dont have to type every field manually
         String password = userRegisterBindingModel.getPassword();
@@ -97,8 +98,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<String> findUserForAdmin(String username) {
-        return userRepository.findUserForAdmin(username);
+    public List<String> findUsersForAdmin(String username) {
+        return userRepository.findUsersForAdmin(username);
     }
 
     @Override
@@ -108,7 +109,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<ListedAccountsViewModel> findUsersMatchingTheUsername(String username) {
-        return mapUserEntityListToListedAccountViewList(userRepository.findUsersMathingUsername(username));
+        return mapUserEntityListToListedAccountViewList(userRepository.findUsersMatchingUsername(username));
     }
 
     @Override
@@ -116,14 +117,27 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(id);
     }
 
+    @Override
+    public UpdateUserDetailsBindingModel findAccountDetailsByUsername(String name) {
+        UserEntity user = this.findUserByUsername(name);
+        return modelMapper.map(user, UpdateUserDetailsBindingModel.class);
+    }
+
+    @Override
+    public void updateUserDetails(UpdateUserDetailsBindingModel updateUserDetailsBindingModel) {
+        // Useless service model tbh
+        UserServiceModel u = modelMapper.map(updateUserDetailsBindingModel, UserServiceModel.class);
+        userRepository.updateUserDetails(u.getFirstName(), u.getLastName(), u.getAddress(), u.getLicenseNumber(), u.getEmail(), u.getId());
+    }
+
+    @Override
+    public void updatePassword(UpdateUserPasswordBindingModel updateUserPasswordBindingModel) {
+        String encryptedPassword = passwordEncoder.encode(updateUserPasswordBindingModel.getPassword());
+        userRepository.updateUserPassword(encryptedPassword, updateUserPasswordBindingModel.getId());
+    }
+
     private List<ListedAccountsViewModel> mapUserEntityListToListedAccountViewList(List<UserEntity> list) {
-        return list.stream().map(e -> {
-            ListedAccountsViewModel temp = modelMapper.map(e, ListedAccountsViewModel.class);
-
-            temp.setAccountLevel(userRoleUtil.findHighestRole(e.getRoles()));
-
-            return temp;
-        }).collect(Collectors.toList());
+        return list.stream().map(e -> modelMapper.map(e, ListedAccountsViewModel.class)).collect(Collectors.toList());
     }
 
 

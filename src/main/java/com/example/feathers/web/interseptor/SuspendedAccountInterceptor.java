@@ -19,7 +19,6 @@ public class SuspendedAccountInterceptor implements HandlerInterceptor {
                 return false;
             }
         } catch (Exception ignored) {}
-
         return true;
     }
 }

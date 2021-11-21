@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
+// Helper class for ApplicationSecurityConfiguration with getting and setting Username and passwords
 @Service
 public class AccountServiceImpl implements UserDetailsService {
 

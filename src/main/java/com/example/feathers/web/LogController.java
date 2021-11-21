@@ -84,6 +84,9 @@ public class LogController {
         return "redirect:/profile/logbook";
     }
 
+
+
+
 }
 
 

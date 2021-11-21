@@ -1,6 +1,7 @@
 package com.example.feathers.database.model.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity
@@ -23,7 +24,6 @@ public class UserEntity extends BaseEntity {
     private String lastName;
     private String address;
 
-    private Set<ReviewEntity> reviews;
 
     public UserEntity() {
     }
@@ -125,12 +125,5 @@ public class UserEntity extends BaseEntity {
         this.address = address;
     }
 
-    @OneToMany(mappedBy = "creator")
-    public Set<ReviewEntity> getReviews() {
-        return reviews;
-    }
 
-    public void setReviews(Set<ReviewEntity> reviews) {
-        this.reviews = reviews;
-    }
 }

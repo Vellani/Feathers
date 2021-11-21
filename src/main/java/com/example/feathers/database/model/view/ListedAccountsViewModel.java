@@ -1,13 +1,11 @@
 package com.example.feathers.database.model.view;
 
-import com.example.feathers.database.model.entity.UserRoleEntity;
-
 public class ListedAccountsViewModel {
 
     private Long id;
     private String username;
     private String email;
-    private UserRoleEntity accountLevel;
+    private String roles;
 
     public ListedAccountsViewModel() {
     }
@@ -36,11 +34,11 @@ public class ListedAccountsViewModel {
         this.email = email;
     }
 
-    public UserRoleEntity getAccountLevel() {
-        return accountLevel;
+    public String getRoles() {
+        return roles;
     }
 
-    public void setAccountLevel(UserRoleEntity accountLevel) {
-        this.accountLevel = accountLevel;
+    public void setRoles(String roles) {
+        this.roles = roles;
     }
 }
