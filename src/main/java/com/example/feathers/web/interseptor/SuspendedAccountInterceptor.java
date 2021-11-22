@@ -31,4 +31,5 @@ public class SuspendedAccountInterceptor implements HandlerInterceptor {
 
         return true;
     }
+
 }

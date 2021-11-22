@@ -2,6 +2,7 @@ package com.example.feathers.web;
 
 import com.example.feathers.database.model.view.ListedAccountsViewModel;
 import com.example.feathers.database.service.UserService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +32,17 @@ public class AdminController {
         model.addAttribute("accounts", accounts);
         return "admin";
     }
+
+    @PostMapping("/admin/save")
+    @ResponseBody
+    public ResponseEntity<String> updateUserLevel(@RequestParam(value = "id") Long id,
+                                                  @RequestParam(value = "level") Integer level) {
+
+        return ResponseEntity.ok("test");
+    }
+
+
+
 
     @PostMapping("/admin/delete")
     public String deleteUser(@RequestParam(value = "id") Long id) {

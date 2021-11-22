@@ -46,16 +46,6 @@
                 </div>
 
                 <div class="col">
-                    <div class="card card-cover text-white bg-dark rounded-5 shadow-lg">
-                        <div class="d-flex align-items-center m-3">
-                            <svg class="bi text-muted me-3" width="1.75em" height="1.75em">
-                                <use xlink:href="..\static\svg\svgmaster.svg#plane"/>
-                            </svg>
-                            <div>
-                                <p class="fw-bold mb-0">Total Flight Logs: 5938</p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="col"></div>
@@ -91,7 +81,9 @@
 
                     <!-- TODO create on change application -->
                     <div class="col">
-                        <select class="form-select" aria-label="Select Account Level" style="max-width: 180px">
+                        <select th:attr="onchange=|setLevel('*{o.getId()}')|"
+                                th:id="selection-level + *{o.getId()}"
+                                class="form-select" aria-label="Select Account Level" style="max-width: 180px">
                             <option th:each="b : ${T(com.example.feathers.database.model.entity.enums.UserRolesEnum).values()}"
                                     th:value="*{b.ordinal()}" th:text="*{b.name()}"
                                     th:selected="(*{b.name()} == ${o.roles})"></option>
@@ -102,26 +94,16 @@
 
                     <div class="col d-flex justify-content-end">
                         <div class="btn-group">
-                            <button type="button" disabled hidden class="btn btn-outline-success" id="save-button"
-                                    th:href="@{/profile/admin/save{id}(id = *{o.getId()})}">Save Changes
-                            </button>
+
+                            <button type="button" disabled hidden class="btn btn-outline-success"
+                                    th:attr="onclick=|updateLevel('*{o.getId()}')|"
+                                    th:id="save-button + *{o.getId()}">
+                                Save Changes</button>
 
                             <button type="button" class="btn btn-outline-secondary dropdown-toggle"
                                     data-bs-toggle="dropdown" aria-expanded="false">Actions
                             </button>
                             <ul class="dropdown-menu dropdown-menu-dark mx-0 border-0 shadow">
-                                <!-- Not Currently needed -->
-                                <!--<li>
-                                  <a disabled="true" class="dropdown-item d-flex gap-2 align-items-center" href="#">
-                                    <svg class="bi" width="16" height="16">
-                                      <use xlink:href="/images/svg/svgmaster.svg#edit" />
-                                    </svg>
-                                    Save Changes
-                                  </a>
-                                </li>
-                                <li>
-                                  <hr class="dropdown-divider" />
-                                </li>-->
                                 <li>
                                     <form th:method="POST" th:action="@{/profile/admin/delete(id = *{o.getId()})}">
                                         <a class="dropdown-item d-flex gap-2 align-items-center"
@@ -154,7 +136,6 @@
     let findUser = ""
 
     $(function () {
-
         $("#username").autocomplete({
             source: function (request, response) {
                 $.getJSON(path, {user: request.term}, response);
@@ -167,6 +148,65 @@
     if (frm) {
         frm.action = '/profile/admin' + $("#username").val();
     }
+
+</script>
+
+
+<script th:inline="javascript">
+
+    function setLevel(id) {
+        $('#save-button' + id).prop('disabled', false).prop('hidden', false);
+    }
+
+
+    async function updateLevel(id) {
+        let val = document.getElementById('selection-level' + id).value;
+
+        let updateLevel = {
+            id: id,
+            level: val
+        };
+
+        const url = '/profile/admin/save';
+
+
+
+
+
+
+
+        /* var response;
+
+         let json = $.post(url, {s: updateLevel}, response);
+
+         console.log(json);
+         console.log(response);
+
+
+         var posting = $.post( url, { s: updateLevel } );
+
+         // Put the results in a div
+         posting.done(function( data ) {
+             console.log(data)
+         });*/
+
+
+       /* let response = await fetch('/profile/admin/save', {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(updateLevel)
+        });
+
+        let result = await response.json();
+        alert(result.message);*/
+
+        //console.log(val, id);
+    }
+
+
 
 </script>
 
