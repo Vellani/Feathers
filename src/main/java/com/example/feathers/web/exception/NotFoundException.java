@@ -1,18 +1,13 @@
 package com.example.feathers.web.exception;
 
 
-public class NotFoundException extends RuntimeException {
+import com.example.feathers.util.SimplePair;
 
-    public static final int ERROR_CODE = 404;
-    public static final String ERROR = "The page you are trying to find does not exist!";
+public class NotFoundException extends RuntimeException implements CustomErrorInterface {
 
-    @Override
-    public String getMessage() {
+    private static final SimplePair<Integer, String> ERROR = new SimplePair<>(404, "The page you are trying to find does not exist!");
+
+    public SimplePair<Integer, String> getError() {
         return ERROR;
     }
-
-    public Integer getCode() {
-        return ERROR_CODE;
-    }
-
 }

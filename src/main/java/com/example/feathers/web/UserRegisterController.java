@@ -1,6 +1,6 @@
 package com.example.feathers.web;
 
-import com.example.feathers.application.event.UserCreatedEvent;
+import com.example.feathers.application.listener.event.UserCreatedEvent;
 import com.example.feathers.database.model.binding.UserRegisterBindingModel;
 import com.example.feathers.database.service.UserService;
 import org.springframework.context.ApplicationEvent;

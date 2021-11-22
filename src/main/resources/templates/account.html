@@ -52,7 +52,7 @@
                   <div th:if="${#fields.hasErrors('lastName')}" th:errorclass="error" th:errors="*{lastName}" style="color: red" />
                 </div>
               </div>
-              <div class="row mt-3">
+              <div class="row mt-3 pb-2">
                 <div class="col-md-12"><label class="labels">Address</label>
                   <input th:field="*{address}" type="text" class="form-control" value="" />
                   <div th:if="${#fields.hasErrors('address')}" th:errorclass="error" th:errors="*{address}" style="color: red" />
@@ -66,12 +66,10 @@
                   <div th:if="${#fields.hasErrors('licenseNumber')}" th:errorclass="error" th:errors="*{licenseNumber}" style="color: red" />
                 </div>
               </div>
-              <a th:href="@{/profile/details/password}" class="">
-              <button class="btn btn-warning" type="button">Change Password</button>
+              <a th:href="@{/profile/details/password}">
+                <button class="btn btn-warning" type="button">Change Password</button>
               </a>
               <div class="mt-5 text-center d-flex justify-content-between">
-                <button class="btn btn-warning" type="button" data-bs-toggle="modal"
-                        data-bs-target="#reviewModal">Review</button>
                 <button class="btn btn-primary profile-button" type="submit">Save Profile</button>
               </div>
             </div>

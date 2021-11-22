@@ -1,6 +1,6 @@
 package com.example.feathers.application.listener;
 
-import com.example.feathers.application.event.UserCreatedEvent;
+import com.example.feathers.application.listener.event.UserCreatedEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.event.EventListener;
@@ -15,8 +15,4 @@ public class UserManagementListener {
     public void userCreated(UserCreatedEvent userCreatedEvent) {
         LOGGER.info("User [" + userCreatedEvent.getUsername() + "] created!");
     }
-
-    /* TODO @EventListener(UserDeletedEvent.class)
-    public void userDeleted()*/
-
 }

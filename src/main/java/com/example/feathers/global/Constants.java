@@ -8,8 +8,9 @@ public class Constants {
     /*
     * TODO
     *  Add new AC inside Edit/Add Log screen return to Original Log
-    *  At some point ask user to Review Site
     *  Fix Long-Airport name causes it to not align
+    *  Fix Review Alignment
+    *  Polish the dashboard
     * */
 
 }

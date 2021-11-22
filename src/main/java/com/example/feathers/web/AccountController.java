@@ -70,7 +70,7 @@ public class AccountController {
             redirectAttributes.addFlashAttribute("updateUserDetailsBindingModel", updateUserDetailsBindingModel)
                     .addFlashAttribute("org.springframework.validation.BindingResult.updateUserDetailsBindingModel", bindingResult);
 
-            return "redirect:/details";
+            return "redirect:/profile/details";
         }
 
         updateUserDetailsBindingModel.setId(userService.findUserByUsername(principal.getName()).getId());

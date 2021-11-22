@@ -4,14 +4,17 @@ import com.example.feathers.database.model.binding.ReviewBindingModel;
 import com.example.feathers.database.model.entity.ReviewEntity;
 import com.example.feathers.database.model.entity.UserEntity;
 import com.example.feathers.database.model.service.ReviewServiceModel;
+import com.example.feathers.database.model.view.ReviewViewModel;
 import com.example.feathers.database.repository.ReviewRepository;
 import com.example.feathers.database.service.ReviewService;
 import com.example.feathers.database.service.UserService;
 import org.modelmapper.ModelMapper;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
@@ -40,4 +43,25 @@ public class ReviewServiceImpl implements ReviewService {
             reviewRepository.save(modelMapper.map(serviceModel, ReviewEntity.class));
         }
     }
+
+    @Cacheable("reviews")
+    @Override
+    public List<ReviewViewModel> findReviews() {
+        List<ReviewEntity> reviewsToDisplay = reviewRepository.findReviewsToDisplay();
+        List<ReviewViewModel> reviewList = new ArrayList<>();
+        for (ReviewEntity x : reviewsToDisplay) {
+            ReviewViewModel model = new ReviewViewModel();
+            model.setContent(x.getContent());
+            model.setFirstName(x.getCreator().getFirstName());
+            model.setRating(x.getRating());
+            reviewList.add(model);
+        }
+        return reviewList;
+    }
+
+
+
+
+
+
 }

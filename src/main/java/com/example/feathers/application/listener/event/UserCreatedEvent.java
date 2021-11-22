@@ -1,4 +1,4 @@
-package com.example.feathers.application.event;
+package com.example.feathers.application.listener.event;
 
 import org.springframework.context.ApplicationEvent;
 

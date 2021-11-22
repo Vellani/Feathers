@@ -56,11 +56,20 @@ public class ApplicationBeanConfiguration {
             }
         };
 
+        Converter<String, String> stringToNull = new Converter<>() {
+            @Override
+            public String convert(MappingContext<String, String> mappingContext) {
+                if (mappingContext.getSource() == null || mappingContext.getSource().trim().equals("")) return null;
+                return mappingContext.getSource().trim();
+            }
+        };
+
         // Safety measure to prevent attempts to map
         //Converter<byte[], MultipartFile> nullConverter = mappingContext -> null;
 
         modelMapper.addConverter(byteConverter);
         modelMapper.addConverter(rolesToString);
+        modelMapper.addConverter(stringToNull);
         //modelMapper.addConverter(nullConverter);
 
         return modelMapper;

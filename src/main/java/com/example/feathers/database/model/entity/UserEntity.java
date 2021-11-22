@@ -86,7 +86,7 @@ public class UserEntity extends BaseEntity {
         this.aircraft = aircraft;
     }
 
-    @Column(unique = true)
+    @Column
     public String getLicenseNumber() {
         return licenseNumber;
     }
