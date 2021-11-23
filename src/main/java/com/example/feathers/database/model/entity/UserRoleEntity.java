@@ -4,6 +4,7 @@ import com.example.feathers.database.model.entity.enums.UserRolesEnum;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "roles")

@@ -6,7 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -30,24 +32,35 @@ public class AdminController {
         }
 
         model.addAttribute("accounts", accounts);
+        model.addAttribute("selfDelete", model.containsAttribute("selfDelete"));
+
         return "admin";
     }
 
     @PostMapping("/admin/save")
     @ResponseBody
-    public ResponseEntity<String> updateUserLevel(@RequestParam(value = "id") Long id,
-                                                  @RequestParam(value = "level") Integer level) {
+    public ResponseEntity<String> updateUserLevel(@RequestBody String json,
+                                                  Principal principal) {
 
-        return ResponseEntity.ok("test");
+        boolean selfEdit = userService.setNewAccountLevel(json, principal.getName());
+        if (selfEdit) return ResponseEntity.unprocessableEntity().build();
+
+        return ResponseEntity.accepted().build();
     }
 
-
-
-
     @PostMapping("/admin/delete")
-    public String deleteUser(@RequestParam(value = "id") Long id) {
-        //userService.delete(id);
-        return "admin";
+    public String deleteUser(@RequestParam(value = "id") Long id,
+                             RedirectAttributes redirectAttributes,
+                             Principal principal) {
+
+        boolean selfDelete = userService.delete(id, principal.getName());
+
+        if (selfDelete) {
+            redirectAttributes.addFlashAttribute("selfDelete", true);
+            return "redirect:/profile/admin";
+        }
+
+        return "/profile/admin";
     }
 
 }

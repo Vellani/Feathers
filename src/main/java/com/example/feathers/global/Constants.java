@@ -7,10 +7,15 @@ public class Constants {
 
     /*
     * TODO
-    *  Add new AC inside Edit/Add Log screen return to Original Log
+    *  Remove Create AC from Log creation
     *  Fix Long-Airport name causes it to not align
     *  Fix Review Alignment
     *  Polish the dashboard
+    *  Aircraft Pictures
+    *  Fix update log removing GPX
+    *  Other Misc things
+    *  Unit testing
+    *  Deployment
     * */
 
 }

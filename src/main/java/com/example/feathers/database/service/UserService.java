@@ -25,10 +25,12 @@ public interface UserService {
 
     List<ListedAccountsViewModel> findUsersMatchingTheUsername(String username);
 
-    void delete(Long id);
+    boolean delete(Long id, String name);
 
     UpdateUserDetailsBindingModel findAccountDetailsByUsername(String name);
 
     void updateUserDetails(UpdateUserDetailsBindingModel updateUserDetailsBindingModel);
     void updatePassword(UpdateUserPasswordBindingModel updateUserPasswordBindingModel);
+
+    boolean setNewAccountLevel(String json, String name);
 }

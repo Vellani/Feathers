@@ -15,7 +15,7 @@ public class UserRoleUtil {
 
     public UserRoleUtil(UserRoleRepository userRoleRepository) {
 
-        if (userRoleRepository.count() == 0) {
+       /* if (userRoleRepository.count() == 0) {
             this.userRole = new UserRoleEntity().setRole(UserRolesEnum.USER);
             this.suspendedRole = new UserRoleEntity().setRole(UserRolesEnum.SUSPENDED);
             this.vipRole = new UserRoleEntity().setRole(UserRolesEnum.VIP);
@@ -33,7 +33,18 @@ public class UserRoleUtil {
             this.vipRole = userRoleRepository.findByRole(UserRolesEnum.VIP);
             this.adminRole = userRoleRepository.findByRole(UserRolesEnum.ADMIN);
 
+        }*/
+        if (userRoleRepository.count() == 0) {
+            userRoleRepository.save(new UserRoleEntity().setRole(UserRolesEnum.USER));
+            userRoleRepository.save(new UserRoleEntity().setRole(UserRolesEnum.ADMIN));
+            userRoleRepository.save(new UserRoleEntity().setRole(UserRolesEnum.VIP));
+            userRoleRepository.save(new UserRoleEntity().setRole(UserRolesEnum.SUSPENDED));
         }
+        this.userRole = userRoleRepository.findByRole(UserRolesEnum.USER);
+        this.suspendedRole = userRoleRepository.findByRole(UserRolesEnum.SUSPENDED);
+        this.vipRole = userRoleRepository.findByRole(UserRolesEnum.VIP);
+        this.adminRole = userRoleRepository.findByRole(UserRolesEnum.ADMIN);
+
     }
 
     public Set<UserRoleEntity> setUserRole() {
@@ -73,4 +84,15 @@ public class UserRoleUtil {
             return getSuspendedRole();
         }
     }
+
+    public Set<UserRoleEntity> setRoleFromString(String role) {
+        return switch (role) {
+            case "SUSPENDED" -> setSuspendedRole();
+            case "USER" -> setUserRole();
+            case "VIP" -> setVipRole();
+            case "ADMIN" -> setAdminRole();
+            default -> throw new IllegalStateException("Unexpected value: " + role);
+        };
+    }
+
 }

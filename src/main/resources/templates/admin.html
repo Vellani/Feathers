@@ -26,6 +26,7 @@
 <header th:replace="fragments/common :: header"></header>
 
 <main>
+    <input type="hidden" th:name="${_csrf.headerName}" th:value="${_csrf.token}" id="searchCsrf">
     <div class="logbook-container w-100 h-100vh d-inline-block overflow-auto">
 
         <!-- General Data -->
@@ -79,13 +80,12 @@
                         <article th:text="*{o.email}">email@email.com</article>
                     </div>
 
-                    <!-- TODO create on change application -->
                     <div class="col">
                         <select th:attr="onchange=|setLevel('*{o.getId()}')|"
                                 th:id="selection-level + *{o.getId()}"
                                 class="form-select" aria-label="Select Account Level" style="max-width: 180px">
                             <option th:each="b : ${T(com.example.feathers.database.model.entity.enums.UserRolesEnum).values()}"
-                                    th:value="*{b.ordinal()}" th:text="*{b.name()}"
+                                    th:value="*{b.name()}" th:text="*{b.name()}"
                                     th:selected="(*{b.name()} == ${o.roles})"></option>
                         </select>
                     </div>
@@ -164,49 +164,29 @@
 
         let updateLevel = {
             id: id,
-            level: val
+            roles: val
         };
 
         const url = '/profile/admin/save';
 
+        let csrf = document.getElementById('searchCsrf');
+        let csrfHeader = csrf.getAttribute('name');
+        let csrfValue = csrf.value;
 
-
-
-
-
-
-        /* var response;
-
-         let json = $.post(url, {s: updateLevel}, response);
-
-         console.log(json);
-         console.log(response);
-
-
-         var posting = $.post( url, { s: updateLevel } );
-
-         // Put the results in a div
-         posting.done(function( data ) {
-             console.log(data)
-         });*/
-
-
-       /* let response = await fetch('/profile/admin/save', {
+        let response = await fetch(url, {
             method: 'POST',
             credentials: 'include',
             headers: {
-                'Content-Type': 'application/json;charset=utf-8'
+                'Content-Type': 'application/json',
+                [csrfHeader]: csrfValue
             },
             body: JSON.stringify(updateLevel)
         });
 
+        // TODO add Success / Fail icon
         let result = await response.json();
-        alert(result.message);*/
-
-        //console.log(val, id);
+        alert(result.message);
     }
-
-
 
 </script>
 

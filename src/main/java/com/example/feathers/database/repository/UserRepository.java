@@ -1,6 +1,7 @@
 package com.example.feathers.database.repository;
 
 import com.example.feathers.database.model.entity.UserEntity;
+import com.example.feathers.database.model.entity.UserRoleEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Repository
 @Transactional
@@ -34,6 +36,8 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     @Query("Update UserEntity u set u.password = :encryptedPassword where u.id = :id")
     void updateUserPassword(String encryptedPassword, Long id);
 
-
+    @Modifying
+    @Query("Update UserEntity u set u.roles = :roles where u.id = :id")
+    void updateUserRoles(Set<UserRoleEntity> roles, Long id);
 
 }

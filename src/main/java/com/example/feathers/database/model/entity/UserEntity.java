@@ -15,6 +15,7 @@ public class UserEntity extends BaseEntity {
     private Set<UserRoleEntity> roles;
     private Set<LogEntity> logs;
     private Set<AircraftEntity> aircraft;
+    private ReviewEntity review;
 
     // Essential - Profile
     private String licenseNumber;
@@ -68,7 +69,7 @@ public class UserEntity extends BaseEntity {
         return this;
     }
 
-    @OneToMany(mappedBy = "creator")
+    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL)
     public Set<LogEntity> getLogs() {
         return logs;
     }
@@ -77,7 +78,7 @@ public class UserEntity extends BaseEntity {
         this.logs = logs;
     }
 
-    @OneToMany(mappedBy = "creator")
+    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL)
     public Set<AircraftEntity> getAircraft() {
         return aircraft;
     }
@@ -85,6 +86,16 @@ public class UserEntity extends BaseEntity {
     public void setAircraft(Set<AircraftEntity> aircraft) {
         this.aircraft = aircraft;
     }
+
+    @OneToOne(mappedBy = "creator", cascade = CascadeType.ALL)
+    public ReviewEntity getReview() {
+        return review;
+    }
+
+    public void setReview(ReviewEntity review) {
+        this.review = review;
+    }
+
 
     @Column
     public String getLicenseNumber() {
