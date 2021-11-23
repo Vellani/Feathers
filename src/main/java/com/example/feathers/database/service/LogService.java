@@ -20,4 +20,6 @@ public interface LogService {
     Integer countAllFlightsWithAircraft(AircraftEntity aircraft);
 
     Byte[] findSpecificGPXLog(Long id);
+
+    void updateLog(LogBindingModel logBindingModel);
 }

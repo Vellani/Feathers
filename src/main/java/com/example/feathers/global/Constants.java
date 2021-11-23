@@ -7,6 +7,7 @@ public class Constants {
 
     /*
     * TODO
+    *  Fix GPX not showing properly on map on the first time
     *  Remove Create AC from Log creation
     *  Fix Long-Airport name causes it to not align
     *  Fix Review Alignment

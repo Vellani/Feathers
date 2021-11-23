@@ -20,8 +20,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class LogServiceImpl implements LogService {
@@ -49,6 +51,22 @@ public class LogServiceImpl implements LogService {
         LogServiceModel serviceModel = createServiceModel(logBindingModel, username);
         LogEntity newLogEntity = modelMapper.map(serviceModel, LogEntity.class);
         logRepository.save(newLogEntity);
+    }
+
+    @Override
+    public void updateLog(LogBindingModel logBindingModel) {
+        LogEntity log = logRepository.findById(logBindingModel.getId()).orElseThrow();
+        // A bit overkill since all fields but GPX log cannot be empty, it is good practice tho
+        /*Stream.of(logBindingModel.getClass().getDeclaredFields()).filter(e -> !Objects.isNull(e)).forEach(field -> {
+            System.out.println(field.getName());
+        });*/
+        // TODO ugly but works
+        boolean empty = logBindingModel.getGpxLog().isEmpty();
+        Byte[] gpxLog = log.getGpxLog();
+        modelMapper.map(logBindingModel, log);
+
+        if (empty) log.setGpxLog(gpxLog);
+        logRepository.save(log);
     }
 
     private LogServiceModel createServiceModel(LogBindingModel logBindingModel, String username) {
@@ -81,6 +99,8 @@ public class LogServiceImpl implements LogService {
     public Byte[] findSpecificGPXLog(Long id) {
         return logRepository.findSpecificGPXLogById(id);
     }
+
+
 
 
     @Override

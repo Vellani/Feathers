@@ -1,13 +1,16 @@
 package com.example.feathers.application.config;
 
+import com.example.feathers.database.model.binding.LogBindingModel;
+import com.example.feathers.database.model.entity.LogEntity;
+import com.example.feathers.database.model.entity.UserEntity;
 import com.example.feathers.database.model.entity.UserRoleEntity;
 import com.example.feathers.database.repository.UserRoleRepository;
 import com.example.feathers.util.ObjectConverter;
 import com.example.feathers.util.UserRoleUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.modelmapper.Converter;
-import org.modelmapper.ModelMapper;
+import org.modelmapper.*;
+import org.modelmapper.builder.ConfigurableConditionExpression;
 import org.modelmapper.spi.MappingContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,6 +39,7 @@ public class ApplicationBeanConfiguration {
     public ModelMapper modelMapper() {
 
         ModelMapper modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setSkipNullEnabled(true);
 
         Converter<MultipartFile, Byte[]> byteConverter = new Converter<>() {
             @Override
@@ -48,6 +52,23 @@ public class ApplicationBeanConfiguration {
                 return null;
             }
         };
+
+        /*Condition<LogBindingModel, LogEntity> empty = new Condition<LogBindingModel, LogEntity>() {
+            @Override
+            public boolean applies(MappingContext<LogBindingModel, LogEntity> context) {
+                return context.getSource().getGpxLog().isEmpty();
+            }
+        };
+
+        ExpressionMap<LogBindingModel, LogEntity> map = new ExpressionMap<LogBindingModel, LogEntity>() {
+            @Override
+            public void configure(ConfigurableConditionExpression<LogBindingModel, LogEntity> mapping) {
+                mapping.when(empty).skip(LogBindingModel::getGpxLog, LogEntity::setGpxLog);
+            }
+        };
+
+        modelMapper.typeMap(LogBindingModel.class, LogEntity.class).addMappings(map);*/
+
 
         Converter<Set<UserRoleEntity>, String> rolesToString = new Converter<>() {
             @Override
@@ -65,8 +86,6 @@ public class ApplicationBeanConfiguration {
         };
 
         // Safety measure to prevent attempts to map
-        //Converter<byte[], MultipartFile> nullConverter = mappingContext -> null;
-
         modelMapper.addConverter(byteConverter);
         modelMapper.addConverter(rolesToString);
         modelMapper.addConverter(stringToNull);

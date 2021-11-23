@@ -72,7 +72,8 @@ public class LogController {
             return "redirect:log";
         }
 
-        logService.createNewLog(logBindingModel, principal.getName());
+        if (id == null) logService.createNewLog(logBindingModel, principal.getName());
+        else logService.updateLog(logBindingModel);
 
         return "redirect:logbook";
     }
