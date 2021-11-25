@@ -21,7 +21,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler
     public  ModelAndView genericHandler(Exception e) {
         ModelAndView modelAndView = new ModelAndView("error");
-        modelAndView.addObject("message", e.getMessage());
+        modelAndView.addObject("message", "Ooops, something went wrong. \n Our monkeys are on it!");
         //modelAndView.addObject("code", e.g);
         return modelAndView;
     }

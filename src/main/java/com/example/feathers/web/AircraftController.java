@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.security.Principal;
 
 @Controller
@@ -48,7 +49,7 @@ public class AircraftController {
                                  @Valid AircraftBindingModel aircraftBindingModel,
                                  BindingResult bindingResult,
                                  RedirectAttributes redirectAttributes,
-                                 Principal principal) {
+                                 Principal principal) throws IOException {
 
         // This ID set has the function of switching the method from "Create New" to "Update" aircraft
         // Id does not matter if ID is null when creating a new aircraft
@@ -65,7 +66,8 @@ public class AircraftController {
             return "redirect:";
         }
 
-        aircraftService.addNewAircraft(aircraftBindingModel, principal);
+        if (id == null) aircraftService.addNewAircraft(aircraftBindingModel, principal);
+        else aircraftService.updateAircraft(aircraftBindingModel);
 
         return "redirect:/profile/dashboard";
     }

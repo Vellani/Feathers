@@ -1,5 +1,7 @@
 package com.example.feathers.database.service.impl;
 
+import com.example.feathers.database.cloudinary.CloudinaryImage;
+import com.example.feathers.database.cloudinary.CloudinaryService;
 import com.example.feathers.database.model.binding.AircraftBindingModel;
 import com.example.feathers.database.model.entity.AircraftEntity;
 import com.example.feathers.database.model.entity.enums.AircraftClassEnum;
@@ -35,29 +37,56 @@ public class AircraftServiceImpl implements AircraftService {
     private final LogService logService;
     private final ModelMapper modelMapper;
     private final Gson gson;
+    private final CloudinaryService cloudinaryService;
 
     public AircraftServiceImpl(UserService userService,
                                AircraftRepository aircraftRepository,
                                @Lazy LogService logService,
                                ModelMapper modelMapper,
-                               Gson gson) {
+                               Gson gson,
+                               CloudinaryService cloudinaryService) {
         this.userService = userService;
         this.aircraftRepository = aircraftRepository;
         this.logService = logService;
         this.modelMapper = modelMapper;
         this.gson = gson;
+        this.cloudinaryService = cloudinaryService;
     }
 
     @Override
-    public void addNewAircraft(AircraftBindingModel aircraftBindingModel, Principal principal) {
+    public void addNewAircraft(AircraftBindingModel aircraftBindingModel, Principal principal) throws IOException {
         // Uppercassing everything
         aircraftBindingModel.setIcaoModelName(aircraftBindingModel.getIcaoModelName().toUpperCase());
         aircraftBindingModel.setRegistration(aircraftBindingModel.getRegistration().toUpperCase());
 
-        AircraftServiceModel middleManAircraft = modelMapper.map(aircraftBindingModel, AircraftServiceModel.class);
-        AircraftEntity aircraft = modelMapper.map(middleManAircraft, AircraftEntity.class);
+        AircraftServiceModel serviceModel = modelMapper.map(aircraftBindingModel, AircraftServiceModel.class);
+
+        if (!aircraftBindingModel.getPictureFile().isEmpty()) {
+            CloudinaryImage upload = cloudinaryService.upload(aircraftBindingModel.getPictureFile());
+            serviceModel.setPicturePublicId(upload.getPublicId()).setPictureUrl(upload.getUrl());
+        }
+
+        AircraftEntity aircraft = modelMapper.map(serviceModel, AircraftEntity.class);
         aircraft.setCreator(userService.findUserByUsername(principal.getName()));
         aircraftRepository.save(aircraft);
+    }
+
+    @Override
+    public void updateAircraft(AircraftBindingModel aircraftBindingModel) throws IOException {
+        AircraftEntity aircraftToUpdate = aircraftRepository.findById(aircraftBindingModel.getId()).orElseThrow();
+
+        AircraftServiceModel serviceModel = modelMapper.map(aircraftBindingModel, AircraftServiceModel.class);
+
+        if (!aircraftBindingModel.getPictureFile().isEmpty()) {
+            if (!aircraftToUpdate.getPictureUrl().isEmpty()) {
+                cloudinaryService.delete(aircraftToUpdate.getPicturePublicId());
+            }
+            CloudinaryImage upload = cloudinaryService.upload(aircraftBindingModel.getPictureFile());
+            serviceModel.setPictureUrl(upload.getPublicId()).setPictureUrl(upload.getUrl());
+        }
+
+        modelMapper.map(serviceModel, aircraftToUpdate);
+        aircraftRepository.save(aircraftToUpdate);
     }
 
     @Override
@@ -78,12 +107,11 @@ public class AircraftServiceImpl implements AircraftService {
     @Override
     public List<ListAircraftViewModel> findAllAircraftForUser(String name) {
         List<AircraftEntity> aircraftEntities = aircraftRepository.findByCreator_Username(name);
-        List<ListAircraftViewModel> collect = aircraftEntities.stream().map(e -> {
+        return aircraftEntities.stream().map(e -> {
             ListAircraftViewModel viewModel = modelMapper.map(e, ListAircraftViewModel.class);
             viewModel.setFlights(logService.countAllFlightsWithAircraft(e));
             return viewModel;
         }).collect(Collectors.toList());
-        return collect;
     }
 
     @Override

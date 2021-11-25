@@ -53,8 +53,6 @@ public class LogController {
                             RedirectAttributes redirectAttributes,
                             Principal principal) {
 
-        // This ID set has the function of switching the method from "Create New" to "Update" log
-        // Id does not matter if ID is null when creating a new Log
         logBindingModel.setId(id);
 
         // Instead of creating custom fields for each error, we can set them in the same *{field} of the original entity
@@ -84,10 +82,6 @@ public class LogController {
         logService.deleteById(id);
         return "redirect:/profile/logbook";
     }
-
-
-
-
 }
 
 

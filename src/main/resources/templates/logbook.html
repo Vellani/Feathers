@@ -133,7 +133,6 @@
     </div>
 </main>
 <footer th:replace="fragments/common :: footer"></footer>
-</body>
 
 <th:block th:replace="fragments/map-view :: map-scripts"></th:block>
 <script>
@@ -152,6 +151,7 @@
     });
 
     function showGpx(id) {
+
         var layer = omnivore.gpx('/api/param?gpx=' + id);
 
         myMap.eachLayer(function (layer) {
@@ -160,11 +160,15 @@
 
         baseLayer.addTo(myMap);
 
+
         layer.on('ready' , function() {
             myMap.fitBounds(layer.getBounds(), {padding: [5, 5]});
         }).addTo(myMap);
 
     }
 </script>
+
+</body>
+
 
 </html>

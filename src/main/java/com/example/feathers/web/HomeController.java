@@ -25,7 +25,10 @@ public class HomeController {
     }
 
 
-
+    @GetMapping("/gpx")
+    public String gpx() {
+        return "gpxVisuals";
+    }
 
 
 

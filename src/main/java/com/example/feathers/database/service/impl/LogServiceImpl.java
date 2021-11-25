@@ -60,7 +60,7 @@ public class LogServiceImpl implements LogService {
         /*Stream.of(logBindingModel.getClass().getDeclaredFields()).filter(e -> !Objects.isNull(e)).forEach(field -> {
             System.out.println(field.getName());
         });*/
-        // TODO ugly but works
+        // TODO through service model
         boolean empty = logBindingModel.getGpxLog().isEmpty();
         Byte[] gpxLog = log.getGpxLog();
         modelMapper.map(logBindingModel, log);
@@ -99,9 +99,6 @@ public class LogServiceImpl implements LogService {
     public Byte[] findSpecificGPXLog(Long id) {
         return logRepository.findSpecificGPXLogById(id);
     }
-
-
-
 
     @Override
     public List<ListedLogViewModel> getAllLogs(String username) {

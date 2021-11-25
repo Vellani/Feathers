@@ -9,7 +9,7 @@ import java.security.Principal;
 import java.util.List;
 
 public interface AircraftService {
-    void addNewAircraft(AircraftBindingModel aircraftBindingModel, Principal principal);
+    void addNewAircraft(AircraftBindingModel aircraftBindingModel, Principal principal) throws IOException;
 
     boolean alreadyExists(String registration);
 
@@ -31,4 +31,6 @@ public interface AircraftService {
     AircraftEntity findAircraftEntityById(Long id);
 
     boolean existByUsernameAndRegistration(String name, String registration);
+
+    void updateAircraft(AircraftBindingModel aircraftBindingModel) throws IOException;
 }

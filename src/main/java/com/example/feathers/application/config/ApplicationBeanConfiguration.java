@@ -1,8 +1,6 @@
 package com.example.feathers.application.config;
 
-import com.example.feathers.database.model.binding.LogBindingModel;
-import com.example.feathers.database.model.entity.LogEntity;
-import com.example.feathers.database.model.entity.UserEntity;
+import com.cloudinary.Cloudinary;
 import com.example.feathers.database.model.entity.UserRoleEntity;
 import com.example.feathers.database.repository.UserRoleRepository;
 import com.example.feathers.util.ObjectConverter;
@@ -10,7 +8,6 @@ import com.example.feathers.util.UserRoleUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.modelmapper.*;
-import org.modelmapper.builder.ConfigurableConditionExpression;
 import org.modelmapper.spi.MappingContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,15 +16,18 @@ import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.Set;
 
 @Configuration
 public class ApplicationBeanConfiguration {
 
     private final UserRoleRepository userRoleRepository;
+    private final CloudinaryConfiguration cloudinaryConfiguration;
 
-    public ApplicationBeanConfiguration(UserRoleRepository userRoleRepository) {
+    public ApplicationBeanConfiguration(UserRoleRepository userRoleRepository, CloudinaryConfiguration cloudinaryConfiguration) {
         this.userRoleRepository = userRoleRepository;
+        this.cloudinaryConfiguration = cloudinaryConfiguration;
     }
 
     @Bean
@@ -52,7 +52,7 @@ public class ApplicationBeanConfiguration {
                 return null;
             }
         };
-
+        // TODO Figure out how to use this shit
         /*Condition<LogBindingModel, LogEntity> empty = new Condition<LogBindingModel, LogEntity>() {
             @Override
             public boolean applies(MappingContext<LogBindingModel, LogEntity> context) {
@@ -112,4 +112,17 @@ public class ApplicationBeanConfiguration {
         return new ObjectConverter();
     }
 
+    @Bean
+    public Cloudinary cloudinary() {
+        return new Cloudinary(
+                Map.of(
+                        "cloud_name", cloudinaryConfiguration.getCloudName(),
+                        "api_key", cloudinaryConfiguration.getApiKey(),
+                        "api_secret", cloudinaryConfiguration.getApiSecret()
+                )
+        );
+    }
+
+
 }
+

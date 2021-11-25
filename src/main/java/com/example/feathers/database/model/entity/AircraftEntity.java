@@ -10,6 +10,8 @@ public class AircraftEntity extends BaseEntity {
 
     private String registration;
     private String icaoModelName;
+    private String pictureUrl;
+    private String picturePublicId;
     private AircraftClassEnum aircraftClass;
 
     private Integer numberOfEngines;
@@ -34,6 +36,24 @@ public class AircraftEntity extends BaseEntity {
 
     public void setIcaoModelName(String icaoModelName) {
         this.icaoModelName = icaoModelName;
+    }
+
+    @Column
+    public String getPictureUrl() {
+        return pictureUrl;
+    }
+
+    public void setPictureUrl(String pictureUrl) {
+        this.pictureUrl = pictureUrl;
+    }
+
+    @Column
+    public String getPicturePublicId() {
+        return picturePublicId;
+    }
+
+    public void setPicturePublicId(String picturePublicId) {
+        this.picturePublicId = picturePublicId;
     }
 
     @Column(nullable = false)

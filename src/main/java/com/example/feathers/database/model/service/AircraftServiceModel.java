@@ -8,8 +8,12 @@ public class AircraftServiceModel {
     private String registration;
     private String icaoModelName;
     private AircraftClassEnum aircraftClass;
+    private String pictureUrl;
+    private String picturePublicId;
 
     private Integer numberOfEngines;
+
+    private String owner;
 
     public AircraftServiceModel() {
     }
@@ -28,6 +32,24 @@ public class AircraftServiceModel {
 
     public void setRegistration(String registration) {
         this.registration = registration;
+    }
+
+    public String getPictureUrl() {
+        return pictureUrl;
+    }
+
+    public AircraftServiceModel setPictureUrl(String pictureUrl) {
+        this.pictureUrl = pictureUrl;
+        return this;
+    }
+
+    public String getPicturePublicId() {
+        return picturePublicId;
+    }
+
+    public AircraftServiceModel setPicturePublicId(String picturePublicId) {
+        this.picturePublicId = picturePublicId;
+        return this;
     }
 
     public String getIcaoModelName() {
@@ -54,4 +76,11 @@ public class AircraftServiceModel {
         this.numberOfEngines = numberOfEngines;
     }
 
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
 }

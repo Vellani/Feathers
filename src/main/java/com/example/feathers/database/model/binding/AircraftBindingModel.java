@@ -2,6 +2,7 @@ package com.example.feathers.database.model.binding;
 
 
 import com.example.feathers.database.model.entity.enums.AircraftClassEnum;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -12,6 +13,8 @@ public class AircraftBindingModel {
     private Long id;
     private String registration;
     private String icaoModelName;
+    private MultipartFile pictureFile;
+    private String pictureUrl;
     private AircraftClassEnum aircraftClass;
 
     private Integer numberOfEngines;
@@ -74,5 +77,20 @@ public class AircraftBindingModel {
 
     public void setOwner(String owner) {
         this.owner = owner;
+    }
+
+    public MultipartFile getPictureFile() {
+        return pictureFile;
+    }
+    public void setPictureFile(MultipartFile pictureFile) {
+        this.pictureFile = pictureFile;
+    }
+
+    public String getPictureUrl() {
+        return pictureUrl;
+    }
+
+    public void setPictureUrl(String pictureUrl) {
+        this.pictureUrl = pictureUrl;
     }
 }

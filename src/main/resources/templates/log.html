@@ -72,7 +72,6 @@
                     <div class="input-group mt-3">
                         <span class="input-group-text">Aircraft</span>
                         <input th:field="*{aircraft}" class="form-control" type="text" placeholder="Registration" required style="max-width: 200px;"/>
-                        <a th:href="@{/profile/aircraft}" class="btn btn-warning" type="button">Add New</a>
                     </div>
                     <div th:if="${#fields.hasErrors('aircraft')}" th:errorclass="error" th:errors="*{aircraft}" style="color: red" />
 
