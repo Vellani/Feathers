@@ -16,7 +16,6 @@ public class Constants {
     *  Deployment
     *  Picture format and delete button
     *  Finish "about.html", "gpxVisuals.html"
-    *  Optimize code
     *  1 More interceptor
     *  Finish Database clean-up schedule
     *  Reviews limit to 3 on fetch from database

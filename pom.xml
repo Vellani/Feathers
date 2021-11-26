@@ -84,10 +84,17 @@
             <artifactId>thymeleaf-extras-springsecurity5</artifactId>
             <version>3.0.4.RELEASE</version>
         </dependency>
+
+        <!--<dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>2.6.1</version>
+            <scope>test</scope>
+        </dependency>-->
         <dependency>
-            <groupId>com.cloudinary</groupId>
-            <artifactId>cloudinary</artifactId>
-            <version>1.0.14</version>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

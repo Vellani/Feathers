@@ -4,8 +4,10 @@ import com.example.feathers.database.service.AerodromeService;
 import com.example.feathers.database.service.AircraftService;
 import com.example.feathers.database.service.UserService;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+@Profile("!test")
 @Component
 public class InitialSetup implements CommandLineRunner {
 

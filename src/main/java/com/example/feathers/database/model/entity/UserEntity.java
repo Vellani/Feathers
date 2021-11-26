@@ -132,8 +132,9 @@ public class UserEntity extends BaseEntity {
         return address;
     }
 
-    public void setAddress(String address) {
+    public UserEntity setAddress(String address) {
         this.address = address;
+        return this;
     }
 
 

@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler({NotFoundException.class, SuspendedAccountException.class})
+   /* @ExceptionHandler({NotFoundException.class, SuspendedAccountException.class})
     public <T extends CustomErrorInterface> ModelAndView exceptionHandler(T e) {
         ModelAndView modelAndView = new ModelAndView("error");
         modelAndView.addObject("message", e.getError().getValue());
@@ -24,7 +24,7 @@ public class GlobalExceptionHandler {
         modelAndView.addObject("message", "Ooops, something went wrong. \n Our monkeys are on it!");
         //modelAndView.addObject("code", e.g);
         return modelAndView;
-    }
+    }*/
 
 
 }

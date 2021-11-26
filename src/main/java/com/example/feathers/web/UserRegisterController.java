@@ -36,13 +36,17 @@ public class UserRegisterController {
 
     @GetMapping("/register")
     public String registerHTML(Model model) {
-
         model.addAttribute("exists",
-                model.getAttribute("exists") == null ? false : model.getAttribute("exists"))
-                .addAttribute("passwordsMatch",
-                        model.getAttribute("passwordsMatch") == null ? true : model.getAttribute("passwordsMatch"));
+                model.getAttribute("exists") == null
+                        ? false
+                        : model.getAttribute("exists"));
 
-        return "register";
+        model.addAttribute("passwordsMatch",
+                model.getAttribute("passwordsMatch") == null
+                        ? true
+                        : model.getAttribute("passwordsMatch"));
+
+        return "sign-up";
     }
 
     @PostMapping("/register")

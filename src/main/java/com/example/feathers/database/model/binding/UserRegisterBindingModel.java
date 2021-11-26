@@ -21,8 +21,9 @@ public class UserRegisterBindingModel {
         return username;
     }
 
-    public void setUsername(String username) {
+    public UserRegisterBindingModel setUsername(String username) {
         this.username = username;
+        return this;
     }
 
     @Email(message = "Enter valid email.")
@@ -31,8 +32,9 @@ public class UserRegisterBindingModel {
         return email;
     }
 
-    public void setEmail(String email) {
+    public UserRegisterBindingModel setEmail(String email) {
         this.email = email;
+        return this;
     }
 
     @Size(min = 5, max = 20, message = "Password must be between 5 and 20 characters.")
@@ -41,8 +43,9 @@ public class UserRegisterBindingModel {
         return password;
     }
 
-    public void setPassword(String password) {
+    public UserRegisterBindingModel setPassword(String password) {
         this.password = password;
+        return this;
     }
 
 
@@ -52,7 +55,8 @@ public class UserRegisterBindingModel {
         return confirmPassword;
     }
 
-    public void setConfirmPassword(String confirmPassword) {
+    public UserRegisterBindingModel setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
+        return this;
     }
 }
