@@ -6,7 +6,6 @@ import javax.validation.constraints.Pattern;
 
 public class UpdateUserDetailsBindingModel {
 
-    private Long id;
     private String username;
     private String email;
     private String roles;
@@ -16,14 +15,6 @@ public class UpdateUserDetailsBindingModel {
     private String address;
 
     public UpdateUserDetailsBindingModel() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getUsername() {
@@ -55,7 +46,7 @@ public class UpdateUserDetailsBindingModel {
     }
 
 
-    @Pattern(regexp = "^(?:[A-z]{5,20}|)$", message = "First name must be between 5 and 20 characters.")
+    @Pattern(regexp = "^(?:[A-z]{2,20}|)$", message = "First name must be between 5 and 20 characters.")
     public String getFirstName() {
         return firstName;
     }
@@ -64,7 +55,7 @@ public class UpdateUserDetailsBindingModel {
         this.firstName = firstName;
     }
 
-    @Pattern(regexp = "^(?:[A-z]{5,20}|)$", message = "Last name must be between 5 and 20 characters.")
+    @Pattern(regexp = "^(?:[A-z]{2,20}|)$", message = "Last name must be between 5 and 20 characters.")
     public String getLastName() {
         return lastName;
     }

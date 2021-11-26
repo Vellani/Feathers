@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class InitialSetup implements CommandLineRunner {
 
-	private AerodromeService aerodromeService;
-	private AircraftService aircraftService;
-	private UserService userService;
+	private final AerodromeService aerodromeService;
+	private final AircraftService aircraftService;
+	private final UserService userService;
 
     public InitialSetup(AerodromeService aerodromeService, AircraftService aircraftService, UserService userService) {
         this.aerodromeService = aerodromeService;

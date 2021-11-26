@@ -32,6 +32,7 @@ public class AdminController {
         }
 
         model.addAttribute("accounts", accounts);
+        // TODO show "cannot delete self"
         model.addAttribute("selfDelete", model.containsAttribute("selfDelete"));
 
         return "admin";
@@ -60,7 +61,7 @@ public class AdminController {
             return "redirect:/profile/admin";
         }
 
-        return "/profile/admin";
+        return "redirect:/profile/admin";
     }
 
 }

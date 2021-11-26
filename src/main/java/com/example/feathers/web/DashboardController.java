@@ -20,7 +20,6 @@ public class DashboardController {
         this.aircraftService = aircraftService;
     }
 
-
     @GetMapping("")
     public String dashboard(Model model, Principal principal) {
 

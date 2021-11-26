@@ -1,6 +1,5 @@
 package com.example.feathers.database.service;
 
-import com.example.feathers.database.model.binding.UpdateUserPasswordBindingModel;
 import com.example.feathers.database.model.binding.UpdateUserDetailsBindingModel;
 import com.example.feathers.database.model.binding.UserRegisterBindingModel;
 import com.example.feathers.database.model.entity.UserEntity;
@@ -15,8 +14,6 @@ public interface UserService {
 
     void initialize();
 
-    UserEntity findById(int i);
-
     UserEntity findUserByUsername(String name);
 
     List<ListedAccountsViewModel> getAll();
@@ -29,8 +26,7 @@ public interface UserService {
 
     UpdateUserDetailsBindingModel findAccountDetailsByUsername(String name);
 
-    void updateUserDetails(UpdateUserDetailsBindingModel updateUserDetailsBindingModel);
-    void updatePassword(UpdateUserPasswordBindingModel updateUserPasswordBindingModel);
+    <T>  void updateUserDetails(T bindingModel, String name);
 
     boolean setNewAccountLevel(String json, String name);
 }

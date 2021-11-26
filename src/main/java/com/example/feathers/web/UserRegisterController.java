@@ -50,9 +50,7 @@ public class UserRegisterController {
                                   BindingResult bindingResult,
                                   RedirectAttributes redirectAttributes) {
 
-        // Could be done frontend to reduce server time but vulnerable to attacks, however, it is user-centered so no real damage done
         boolean passwordsMatch = userRegisterBindingModel.getPassword().equals(userRegisterBindingModel.getConfirmPassword());
-        // Should be done after the checking the rest of the predicates to reduce unnecessary database queries
         boolean userAlreadyExists = userService.userExists(userRegisterBindingModel.getUsername(), userRegisterBindingModel.getEmail());
 
         if (bindingResult.hasErrors() || !passwordsMatch || userAlreadyExists) {

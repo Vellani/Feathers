@@ -31,7 +31,7 @@ public class AircraftServiceModel {
     }
 
     public void setRegistration(String registration) {
-        this.registration = registration;
+        this.registration = registration.toUpperCase();
     }
 
     public String getPictureUrl() {
@@ -57,7 +57,7 @@ public class AircraftServiceModel {
     }
 
     public void setIcaoModelName(String icaoModelName) {
-        this.icaoModelName = icaoModelName;
+        this.icaoModelName = icaoModelName.toUpperCase();
     }
 
     public AircraftClassEnum getAircraftClass() {

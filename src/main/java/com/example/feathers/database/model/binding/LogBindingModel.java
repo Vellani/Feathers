@@ -145,7 +145,8 @@ public class LogBindingModel {
         return hasGPX;
     }
 
-    public void setHasGPX(boolean hasGPX) {
+    public LogBindingModel setHasGPX(boolean hasGPX) {
         this.hasGPX = hasGPX;
+        return this;
     }
 }

@@ -7,7 +7,7 @@ import java.security.Principal;
 import java.util.List;
 
 public interface ReviewService {
-    void save(ReviewBindingModel reviewBindingModel, Principal principal);
+    void save(ReviewBindingModel reviewBindingModel, String currentAccountName);
 
     List<ReviewViewModel> findReviews();
 }

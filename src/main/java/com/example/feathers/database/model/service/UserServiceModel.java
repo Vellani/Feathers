@@ -1,7 +1,5 @@
 package com.example.feathers.database.model.service;
 
-import com.example.feathers.database.model.entity.ReviewEntity;
-
 public class UserServiceModel {
     // Used to Register New User and Update Old one
 

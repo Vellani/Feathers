@@ -11,8 +11,6 @@ import java.util.Optional;
 @Repository
 public interface AircraftRepository extends JpaRepository<AircraftEntity, Long> {
 
-    boolean existsByRegistration(String registration);
-
     Optional<AircraftEntity> findByRegistration(String registration);
 
     @Query("select a.registration from AircraftEntity a where a.creator.username like :username and a.registration like %:reg%")

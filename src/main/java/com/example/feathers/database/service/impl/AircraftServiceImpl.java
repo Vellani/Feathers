@@ -54,11 +54,7 @@ public class AircraftServiceImpl implements AircraftService {
     }
 
     @Override
-    public void addNewAircraft(AircraftBindingModel aircraftBindingModel, Principal principal) throws IOException {
-        // Uppercassing everything
-        aircraftBindingModel.setIcaoModelName(aircraftBindingModel.getIcaoModelName().toUpperCase());
-        aircraftBindingModel.setRegistration(aircraftBindingModel.getRegistration().toUpperCase());
-
+    public void addNewAircraft(AircraftBindingModel aircraftBindingModel, String currentAccountName) throws IOException {
         AircraftServiceModel serviceModel = modelMapper.map(aircraftBindingModel, AircraftServiceModel.class);
 
         if (!aircraftBindingModel.getPictureFile().isEmpty()) {
@@ -67,7 +63,7 @@ public class AircraftServiceImpl implements AircraftService {
         }
 
         AircraftEntity aircraft = modelMapper.map(serviceModel, AircraftEntity.class);
-        aircraft.setCreator(userService.findUserByUsername(principal.getName()));
+        aircraft.setCreator(userService.findUserByUsername(currentAccountName));
         aircraftRepository.save(aircraft);
     }
 
@@ -91,7 +87,7 @@ public class AircraftServiceImpl implements AircraftService {
 
     @Override
     public boolean alreadyExists(String registration) {
-        return aircraftRepository.existsByRegistration(registration);
+        return aircraftRepository.findByRegistration(registration).isPresent();
     }
 
     @Override
@@ -101,7 +97,7 @@ public class AircraftServiceImpl implements AircraftService {
 
     @Override
     public AircraftEntity findByRegistration(String registration) {
-        return aircraftRepository.findByRegistration(registration).orElse(null);
+        return aircraftRepository.findByRegistration(registration).orElseThrow();
     }
 
     @Override
@@ -121,21 +117,18 @@ public class AircraftServiceImpl implements AircraftService {
 
     @Override
     public boolean isOwnerOfAircraft(Long id, String name) {
-        if (id == null) return true;
-        Optional<AircraftEntity> exists = aircraftRepository.findByIdAndCreator_Username(id, name);
-        return exists.isPresent();
+        if (id == null) return true; // if id == null -> new aircraft
+        return aircraftRepository.findByIdAndCreator_Username(id, name).isPresent();
     }
 
     @Override
     public AircraftBindingModel findById(Long id) {
-        AircraftEntity aircraftEntity = aircraftRepository.findById(id).orElse(null);
-        return modelMapper.map(aircraftEntity, AircraftBindingModel.class);
+        return modelMapper.map(aircraftRepository.findById(id).orElseThrow(), AircraftBindingModel.class);
     }
 
     @Override
     public AircraftEntity findAircraftEntityById(Long id) {
-        // .orElse(null) is irrelevant since we try to delete real ID
-        return aircraftRepository.findById(id).orElse(null);
+        return aircraftRepository.findById(id).orElseThrow();
     }
 
     @Override
@@ -157,7 +150,7 @@ public class AircraftServiceImpl implements AircraftService {
             collect.forEach(e -> {
                 AircraftEntity aircraft = modelMapper.map(e, AircraftEntity.class);
                 aircraft.setAircraftClass(AircraftClassEnum.valueOf(e.getAircraftClass()));
-                aircraft.setCreator(userService.findById(2)); // TODO Make more aircraft ?
+                aircraft.setCreator(userService.findUserByUsername("Normal")); // TODO Make more aircraft ?
 
                 aircraftRepository.save(aircraft);
             });

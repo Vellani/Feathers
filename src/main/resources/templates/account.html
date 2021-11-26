@@ -24,7 +24,7 @@
 <!-- HEADER -->
 <header th:replace="fragments/common :: header"></header>
     <main>
-      <form th:method="POST" th:action="@{/profile/details(id = *{getId()})}" th:object="${updateUserDetailsBindingModel}">
+      <form th:method="POST" th:action="@{/profile/details}" th:object="${updateUserDetailsBindingModel}">
       <div class="hero-container rounded bg-white">
         <div class="row" style="max-width: 100%">
 
@@ -33,7 +33,7 @@
                 <img class="rounded-circle mt-5" width="150px"
                      src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" />
               <span th:text="*{username}" class="font-weight-bold"></span>
-              <span th:text="|*{roles} account|" class="text-black-50"></span><span> </span>
+              <span th:text="|*{roles} account|" class="text-black-50"></span>
             </div>
           </div>
           

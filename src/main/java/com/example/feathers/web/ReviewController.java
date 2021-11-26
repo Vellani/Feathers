@@ -54,7 +54,7 @@ public class ReviewController {
         ApplicationEvent event = new ReviewEvent(this);
         applicationEventPublisher.publishEvent(event);
 
-        reviewService.save(reviewBindingModel, principal);
+        reviewService.save(reviewBindingModel, principal.getName());
 
         return "redirect:/profile/logbook";
     }

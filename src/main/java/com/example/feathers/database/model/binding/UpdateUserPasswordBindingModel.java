@@ -5,19 +5,10 @@ import javax.validation.constraints.Size;
 
 public class UpdateUserPasswordBindingModel {
 
-    private Long id;
     private String password;
     private String confirmPassword;
 
     public UpdateUserPasswordBindingModel() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     @Size(min = 5, max = 20, message = "Password must be between 5 and 20 characters.")

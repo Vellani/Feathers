@@ -38,7 +38,7 @@ public class AerodromeServiceImpl implements AerodromeService {
 
     @Override
     public AerodromeEntity findByName(String aerodrome) {
-        return aerodromeRepository.findByName(aerodrome).orElse(null);
+        return aerodromeRepository.findByName(aerodrome).orElseThrow();
     }
 
     @Override

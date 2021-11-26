@@ -29,17 +29,16 @@ public class AircraftController {
     }
 
     @ModelAttribute
-    public AircraftBindingModel aircraftBindingModel() {
-        return new AircraftBindingModel();
+    public AircraftBindingModel aircraftBindingModel(Long id) {
+        return id != null
+                ? aircraftService.findById(id)
+                : new AircraftBindingModel();
     }
 
     @PreAuthorize("@aircraftServiceImpl.isOwnerOfAircraft(#id, #principal.name)")
     @GetMapping("")
     public String aircraftAdd(@RequestParam(required = false) Long id, Model model, Principal principal) {
-        model.addAttribute("aircraftBindingModel",
-                id != null
-                ? aircraftService.findById(id)
-                : aircraftBindingModel());
+        model.addAttribute("aircraftBindingModel", aircraftBindingModel(id));
         return "aircraft";
     }
 
@@ -51,11 +50,8 @@ public class AircraftController {
                                  RedirectAttributes redirectAttributes,
                                  Principal principal) throws IOException {
 
-        // This ID set has the function of switching the method from "Create New" to "Update" aircraft
-        // Id does not matter if ID is null when creating a new aircraft
         aircraftBindingModel.setId(id);
 
-        // If id == null then we this method is "Create" then we need a check for unique Username-Registrations
         if(id == null && aircraftService.existByUsernameAndRegistration(principal.getName(), aircraftBindingModel.getRegistration())) {
             bindingResult.rejectValue("registration", "error.aircraftBindingModel", "Registration already exists.");
         }
@@ -66,7 +62,7 @@ public class AircraftController {
             return "redirect:";
         }
 
-        if (id == null) aircraftService.addNewAircraft(aircraftBindingModel, principal);
+        if (id == null) aircraftService.addNewAircraft(aircraftBindingModel, principal.getName());
         else aircraftService.updateAircraft(aircraftBindingModel);
 
         return "redirect:/profile/dashboard";
@@ -75,9 +71,6 @@ public class AircraftController {
     @PreAuthorize("@aircraftServiceImpl.isOwnerOfAircraft(#id, #principal.name)")
     @PostMapping("/delete")
     public String deleteAircraft(@RequestParam(value = "id") Long id, Principal principal, RedirectAttributes redirectAttributes) {
-
-
-        // TODO: Frontend ask user if sure to delete with all Logs connected with this AC and delete Logs then AC from DB
         Integer countOfLogsWithAircraft = logService.countAllFlightsWithAircraft(aircraftService.findAircraftEntityById(id));
 
         if (countOfLogsWithAircraft > 0) {

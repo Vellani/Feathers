@@ -56,10 +56,9 @@ public class LogServiceImpl implements LogService {
     @Override
     public void updateLog(LogBindingModel logBindingModel) {
         LogEntity log = logRepository.findById(logBindingModel.getId()).orElseThrow();
-        // A bit overkill since all fields but GPX log cannot be empty, it is good practice tho
-        /*Stream.of(logBindingModel.getClass().getDeclaredFields()).filter(e -> !Objects.isNull(e)).forEach(field -> {
-            System.out.println(field.getName());
-        });*/
+
+        // All this mess is a result of the ModelMapper fiasco of 2021, couldn't get it to have a
+        // conditional where if gpxLog.isEmpty().skip the mapping
         // TODO through service model
         boolean empty = logBindingModel.getGpxLog().isEmpty();
         Byte[] gpxLog = log.getGpxLog();
@@ -70,19 +69,11 @@ public class LogServiceImpl implements LogService {
     }
 
     private LogServiceModel createServiceModel(LogBindingModel logBindingModel, String username) {
-
-        AircraftEntity aircraft = aircraftService.findByRegistration(logBindingModel.getAircraft());
-        AerodromeEntity depAerodrome = aerodromeService.findByName(logBindingModel.getDepartureAerodrome());
-        AerodromeEntity arrAerodrome = aerodromeService.findByName(logBindingModel.getArrivalAerodrome());
-
-        LogServiceModel logServiceModel = modelMapper.map(logBindingModel, LogServiceModel.class);
-        logServiceModel.setDepartureAerodrome(depAerodrome)
-                .setArrivalAerodrome(arrAerodrome)
-                .setAircraft(aircraft)
+        return modelMapper.map(logBindingModel, LogServiceModel.class)
+                .setDepartureAerodrome(aerodromeService.findByName(logBindingModel.getDepartureAerodrome()))
+                .setArrivalAerodrome(aerodromeService.findByName(logBindingModel.getArrivalAerodrome()))
+                .setAircraft(aircraftService.findByRegistration(logBindingModel.getAircraft()))
                 .setCreator(userService.findUserByUsername(username));
-
-
-        return logServiceModel;
     }
 
     @Override
@@ -124,24 +115,15 @@ public class LogServiceImpl implements LogService {
 
     @Override
     public LogBindingModel findById(Long id) {
-        LogEntity logEntity = logRepository.findById(id).orElse(null);
-        if (logEntity != null) {
-            LogBindingModel map = modelMapper.map(logEntity, LogBindingModel.class);
-            map.setHasGPX(logEntity.getGpxLog().length != 0);
-            return map;
-        } else {
-            return null;
-        }
+        LogEntity logEntity = logRepository.findById(id).orElseThrow();
+        return modelMapper.map(logEntity, LogBindingModel.class)
+                .setHasGPX(logEntity.getGpxLog().length != 0);
     }
 
     @Override
     public boolean isOwnerOfLog(Long logID, String name) {
-
         if (logID == null) return true;
-
-        Optional<LogEntity> exists = logRepository.findByIdAndCreator_Username(logID, name);
-        return exists.isPresent();
+        return logRepository.findByIdAndCreator_Username(logID, name).isPresent();
     }
-
 
 }

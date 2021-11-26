@@ -22,8 +22,9 @@ public class ReviewEntity extends BaseEntity {
         return creator;
     }
 
-    public void setCreator(UserEntity creator) {
+    public ReviewEntity setCreator(UserEntity creator) {
         this.creator = creator;
+        return this;
     }
 
     @Column

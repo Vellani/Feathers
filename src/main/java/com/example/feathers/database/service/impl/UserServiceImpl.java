@@ -15,6 +15,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -46,26 +47,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void registerNewUser(UserRegisterBindingModel userRegisterBindingModel) {
-        UserServiceModel middleMan = modelMapper.map(userRegisterBindingModel, UserServiceModel.class);
-        // Re-sets the password (so i dont have to type every field manually
-        String password = userRegisterBindingModel.getPassword();
-        String encode = passwordEncoder.encode(password);
-        middleMan.setPassword(encode);
+        UserServiceModel serviceModel = modelMapper.map(userRegisterBindingModel, UserServiceModel.class);
+        serviceModel.setPassword(passwordEncoder.encode(userRegisterBindingModel.getPassword()));
 
-        UserEntity finalNewUser = modelMapper.map(middleMan, UserEntity.class);
+        UserEntity finalNewUser = modelMapper.map(serviceModel, UserEntity.class);
         finalNewUser.setRoles(userRoleUtil.setUserRole());
 
         userRepository.save(finalNewUser);
     }
 
     @Override
-    public UserEntity findById(int i) {
-        return userRepository.findById(2L).orElse(null);
-    }
-
-    @Override
     public UserEntity findUserByUsername(String name) {
-        return userRepository.findByUsername(name).orElse(null);
+        return userRepository.findByUsername(name).orElseThrow();
     }
 
     @Override
@@ -83,35 +76,34 @@ public class UserServiceImpl implements UserService {
         return mapUserEntityListToListedAccountViewList(userRepository.findUsersMatchingUsername(username));
     }
 
+    private List<ListedAccountsViewModel> mapUserEntityListToListedAccountViewList(List<UserEntity> list) {
+        return list.stream().map(e -> modelMapper.map(e, ListedAccountsViewModel.class)).collect(Collectors.toList());
+    }
+
+    @Transactional
     @Override
     public boolean delete(Long id, String adminName) {
         UserEntity userToDelete = userRepository.findById(id).orElseThrow();
-        boolean selfDelete = userToDelete.getUsername().equals(adminName);
-        if (selfDelete) return true;
+        if (userToDelete.getUsername().equals(adminName)) return true;
 
-        userToDelete.setRoles(null);
-        userRepository.save(userToDelete);
         userRepository.delete(userToDelete);
         return false;
     }
 
     @Override
     public UpdateUserDetailsBindingModel findAccountDetailsByUsername(String name) {
-        UserEntity user = this.findUserByUsername(name);
-        return modelMapper.map(user, UpdateUserDetailsBindingModel.class);
+        return modelMapper.map(this.findUserByUsername(name), UpdateUserDetailsBindingModel.class);
     }
 
     @Override
-    public void updateUserDetails(UpdateUserDetailsBindingModel updateUserDetailsBindingModel) {
-        // Useless service model tbh
-        UserServiceModel u = modelMapper.map(updateUserDetailsBindingModel, UserServiceModel.class);
-        userRepository.updateUserDetails(u.getFirstName(), u.getLastName(), u.getAddress(), u.getLicenseNumber(), u.getEmail(), u.getId());
-    }
-
-    @Override
-    public void updatePassword(UpdateUserPasswordBindingModel updateUserPasswordBindingModel) {
-        String encryptedPassword = passwordEncoder.encode(updateUserPasswordBindingModel.getPassword());
-        userRepository.updateUserPassword(encryptedPassword, updateUserPasswordBindingModel.getId());
+    public <T> void updateUserDetails(T bindingModel, String accountName) {
+        UserServiceModel currentServiceModel = modelMapper.map(bindingModel, UserServiceModel.class);
+        if (currentServiceModel.getPassword() != null) {
+            currentServiceModel.setPassword(passwordEncoder.encode(currentServiceModel.getPassword()));
+        }
+        UserEntity currentUser = userRepository.findByUsername(accountName).orElseThrow();
+        modelMapper.map(currentServiceModel, currentUser);
+        userRepository.save(currentUser);
     }
 
     @Override
@@ -129,9 +121,7 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
-    private List<ListedAccountsViewModel> mapUserEntityListToListedAccountViewList(List<UserEntity> list) {
-        return list.stream().map(e -> modelMapper.map(e, ListedAccountsViewModel.class)).collect(Collectors.toList());
-    }
+
 
     @Override
     public void initialize() {

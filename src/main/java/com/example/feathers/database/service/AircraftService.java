@@ -9,7 +9,7 @@ import java.security.Principal;
 import java.util.List;
 
 public interface AircraftService {
-    void addNewAircraft(AircraftBindingModel aircraftBindingModel, Principal principal) throws IOException;
+    void addNewAircraft(AircraftBindingModel aircraftBindingModel, String currentAccountName) throws IOException;
 
     boolean alreadyExists(String registration);
 

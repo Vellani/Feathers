@@ -8,6 +8,7 @@ import com.example.feathers.database.service.LogService;
 import com.example.feathers.database.service.ReviewService;
 import com.example.feathers.database.service.UserService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -35,16 +36,6 @@ public class AccountController {
         return logService.getAllLogs(principal.getName());
     }
 
-    @GetMapping("/")
-    public String profile() {
-        return "redirect:logbook";
-    }
-
-    @GetMapping("/logbook")
-    public String profileLogbook() {
-        return "logbook";
-    }
-
     @ModelAttribute
     public UpdateUserPasswordBindingModel updateUserPasswordBindingModel() {
         return new UpdateUserPasswordBindingModel();
@@ -53,6 +44,16 @@ public class AccountController {
     @ModelAttribute
     public UpdateUserDetailsBindingModel updateUserDetailsBindingModel(Principal principal) {
         return userService.findAccountDetailsByUsername(principal.getName());
+    }
+
+    @GetMapping("/")
+    public String profile() {
+        return "redirect:logbook";
+    }
+
+    @GetMapping("/logbook")
+    public String profileLogbook() {
+        return "logbook";
     }
 
     @GetMapping("/details")
@@ -73,9 +74,7 @@ public class AccountController {
             return "redirect:/profile/details";
         }
 
-        updateUserDetailsBindingModel.setId(userService.findUserByUsername(principal.getName()).getId());
-        userService.updateUserDetails(updateUserDetailsBindingModel);
-
+        userService.updateUserDetails(updateUserDetailsBindingModel, principal.getName());
         return "account";
     }
 
@@ -105,8 +104,7 @@ public class AccountController {
             return "redirect:password";
         }
 
-        updateUserPasswordBindingModel.setId(userService.findUserByUsername(principal.getName()).getId());
-        userService.updatePassword(updateUserPasswordBindingModel);
+        userService.updateUserDetails(updateUserPasswordBindingModel, principal.getName());
         return "account";
     }
 

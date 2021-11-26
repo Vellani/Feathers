@@ -29,22 +29,20 @@ public class LogController {
     }
 
     @ModelAttribute
-    public LogBindingModel logBindingModel() {
-        return new LogBindingModel();
+    public LogBindingModel logBindingModel(Long id) {
+        return id != null
+                ? logService.findById(id)
+                : new LogBindingModel();
     }
 
     // Dual purpose GET for show creation page with blanks or show existing log
     @PreAuthorize("@logServiceImpl.isOwnerOfLog(#id, #principal.name)")
     @GetMapping("")
     public String logAdd(@RequestParam(required = false) Long id, Model model, Principal principal) {
-        model.addAttribute("logBindingModel",
-                id != null
-                        ? logService.findById(id)
-                        : logBindingModel());
+        model.addAttribute("logBindingModel", logBindingModel(id));
         return "log";
     }
 
-    // Dual purpose POST method for Save/Update Log
     @PreAuthorize("@logServiceImpl.isOwnerOfLog(#id, #principal.name)")
     @PostMapping("")
     public String logAddNew(@RequestParam(required = false) Long id,
@@ -57,11 +55,11 @@ public class LogController {
 
         // Instead of creating custom fields for each error, we can set them in the same *{field} of the original entity
         if (!aerodromeService.existsByName(logBindingModel.getDepartureAerodrome()))
-            bindingResult.rejectValue("departureAerodrome", "error.logBindingModel", "Aerodrome not fount.");
+            bindingResult.rejectValue("departureAerodrome", "error.logBindingModel", "Aerodrome not found.");
         if (!aerodromeService.existsByName(logBindingModel.getArrivalAerodrome()))
-            bindingResult.rejectValue("arrivalAerodrome", "error.logBindingModel","Aerodrome not fount.");
+            bindingResult.rejectValue("arrivalAerodrome", "error.logBindingModel","Aerodrome not found.");
         if (!aircraftService.alreadyExists(logBindingModel.getAircraft()))
-            bindingResult.rejectValue("aircraft", "error.logBindingModel","Registration not fount.");
+            bindingResult.rejectValue("aircraft", "error.logBindingModel","Registration not found.");
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("logBindingModel", logBindingModel)
