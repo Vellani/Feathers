@@ -144,7 +144,7 @@ public class UserServiceImpl implements UserService {
                         break;
                     default: break;
                 }
-                user.setEmail("account_email(" + i + ")@test.test")
+                user.setEmail("account_email" + i + "@test.test")
                         .setPassword(passwordEncoder.encode("12345"));
                 userRepository.save(user);
             }

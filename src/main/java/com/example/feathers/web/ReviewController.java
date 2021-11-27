@@ -39,7 +39,7 @@ public class ReviewController {
     }
 
     @PostMapping("/review")
-    public String updatePassword(@Valid ReviewBindingModel reviewBindingModel,
+    public String updateReview(@Valid ReviewBindingModel reviewBindingModel,
                                  BindingResult bindingResult,
                                  RedirectAttributes redirectAttributes,
                                  Principal principal) {

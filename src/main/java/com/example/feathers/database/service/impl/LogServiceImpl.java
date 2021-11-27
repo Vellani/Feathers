@@ -68,6 +68,7 @@ public class LogServiceImpl implements LogService {
         logRepository.save(log);
     }
 
+    // TODO maybe check of owner creates a log with own aircraft
     private LogServiceModel createServiceModel(LogBindingModel logBindingModel, String username) {
         return modelMapper.map(logBindingModel, LogServiceModel.class)
                 .setDepartureAerodrome(aerodromeService.findByName(logBindingModel.getDepartureAerodrome()))
