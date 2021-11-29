@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -30,8 +31,8 @@ public class AutocompleteController {
     public ResponseEntity<List<String>> getRegistrations(@RequestParam(value = "reg", required = false) String reg, Principal principal) {
         List<String> registrations = validateString(reg)
                 ? aircraftService.findAllMatchingRegistrations(principal.getName(), reg.toUpperCase())
-                : null;
-        return registrations == null
+                : new ArrayList<>();
+        return registrations.isEmpty()
                 ? ResponseEntity.notFound().build()
                 : ResponseEntity.ok(registrations);
     }
@@ -39,9 +40,9 @@ public class AutocompleteController {
     @RequestMapping(params = "aero")
     public ResponseEntity<List<String>> getAerodromes(@RequestParam(value = "aero", required = false) String aero) {
         List<String> aerodromes = validateString(aero)
-                ? aerodromeService.findAllMatchingAerodromes(aero.toUpperCase())
-                : null;
-        return aerodromes == null
+                ? aerodromeService.findAllMatchingAerodromes(aero)
+                : new ArrayList<>();
+        return aerodromes.isEmpty()
                 ? ResponseEntity.notFound().build()
                 : ResponseEntity.ok(aerodromes);
     }
@@ -51,8 +52,8 @@ public class AutocompleteController {
     public ResponseEntity<List<String>> getUsers(@RequestParam(value = "user", required = false) String user) {
         List<String> userString = validateString(user)
                 ? userService.findUsersForAdmin(user)
-                : null;
-        return userString == null
+                : new ArrayList<>();
+        return userString.isEmpty()
                 ? ResponseEntity.notFound().build()
                 : ResponseEntity.ok(userString);
     }

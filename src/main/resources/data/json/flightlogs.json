@@ -1,0 +1,98 @@
+[
+  {
+    "date-of-departure": "2021-11-28",
+    "dep-aero": "Sofia Airport",
+    "dep-time": "10:00",
+    "arr-aero": "Helsinki East-Redstone Airport",
+    "arr-time": "13:00",
+    "landings": 1,
+    "registration":"LZ-ABP",
+    "pic":"Self",
+    "owner":"Normal",
+    "gpx-file": "src/main/resources/data/gpx/long-journey.gpx"
+  },
+  {
+    "date-of-departure":"2021-11-10",
+    "dep-aero":"La Gomera Airport",
+    "dep-time":"15:00",
+    "arr-aero":"Texel Airfield",
+    "arr-time":"18:00",
+    "landings": 1,
+    "registration":"LZ-IDL",
+    "pic":"Self",
+    "owner":"Normal",
+    "gpx-file": "src/main/resources/data/gpx/balchik-balchik.gpx"
+  },
+  {
+    "date-of-departure":"2021-11-11",
+    "dep-aero":"Brussels Airport",
+    "dep-time":"21:00",
+    "arr-aero":"Exeter International Airport",
+    "arr-time":"22:00",
+    "landings": 1,
+    "registration":"LZ-SPE",
+    "pic":"Self",
+    "owner":"Normal",
+    "gpx-file": "src/main/resources/data/gpx/brac-brac.gpx"
+  },
+  {
+    "date-of-departure":"2021-11-12",
+    "dep-aero":"Jerez Airport",
+    "dep-time":"02:00",
+    "arr-aero":"London City Airport",
+    "arr-time":"04:00",
+    "landings": 1,
+    "registration":"LZ-IDL",
+    "pic":"Self",
+    "owner":"Normal",
+    "gpx-file": "src/main/resources/data/gpx/chisinau-varna.gpx"
+  },
+  {
+    "date-of-departure":"2021-11-13",
+    "dep-aero":"Madrid-Cuatro Vientos Airport",
+    "dep-time":"07:00",
+    "arr-aero":"Düsseldorf Airport",
+    "arr-time":"09:00",
+    "landings": 1,
+    "registration":"LZ-IDL",
+    "pic":"Self",
+    "owner":"Normal",
+    "gpx-file": "src/main/resources/data/gpx/florina-xanthi.gpx"
+  },
+  {
+    "date-of-departure":"2021-11-14",
+    "dep-aero":"Budapest Liszt Ferenc International Airport",
+    "dep-time":"17:00",
+    "arr-aero":"Bantry Aerodrome",
+    "arr-time":"20:00",
+    "landings": 1,
+    "registration":"OK-9AD",
+    "pic":"Self",
+    "owner":"Normal",
+    "gpx-file": "src/main/resources/data/gpx/lesnovo-sof-low-pass.gpx"
+  },
+  {
+    "date-of-departure":"2021-11-15",
+    "dep-aero":"Greiz-Obergrochlitz Airport",
+    "dep-time":"11:40",
+    "arr-aero":"Vienna International Airport",
+    "arr-time":"14:20",
+    "landings": 1,
+    "registration":"LZ-IDL",
+    "pic":"Self",
+    "owner":"Normal",
+    "gpx-file": "src/main/resources/data/gpx/sofia-brac.gpx"
+  },
+  {
+    "date-of-departure":"2021-11-16",
+    "dep-aero":"Aérodrome de Saint-Dié - Remomeix",
+    "dep-time":"15:00",
+    "arr-aero":"Athens Hellenikon International Airport",
+    "arr-time":"19:00",
+    "landings": 1,
+    "registration":"LZ-RAT",
+    "pic":"Self",
+    "owner":"Normal",
+    "gpx-file": "src/main/resources/data/gpx/malevo-malevo.gpx"
+  }
+]

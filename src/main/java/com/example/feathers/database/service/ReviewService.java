@@ -10,4 +10,6 @@ public interface ReviewService {
     void save(ReviewBindingModel reviewBindingModel, String currentAccountName);
 
     List<ReviewViewModel> findReviews();
+
+    void cleanUp();
 }

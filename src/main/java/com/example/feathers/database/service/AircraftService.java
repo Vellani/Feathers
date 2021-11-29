@@ -13,10 +13,6 @@ public interface AircraftService {
 
     boolean alreadyExists(String registration);
 
-    void initialize() throws IOException;
-
-    String findAircraftData() throws IOException;
-
     List<String> findAllMatchingRegistrations(String username, String reg);
 
     AircraftEntity findByRegistration(String registration);
@@ -33,4 +29,8 @@ public interface AircraftService {
     boolean existByUsernameAndRegistration(String name, String registration);
 
     void updateAircraft(AircraftBindingModel aircraftBindingModel) throws IOException;
+
+    void cleanUp();
+
+    void startDebugMode() throws IOException;
 }

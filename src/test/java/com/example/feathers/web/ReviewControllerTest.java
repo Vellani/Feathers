@@ -3,7 +3,6 @@ package com.example.feathers.web;
 import com.example.feathers.database.model.entity.UserEntity;
 import com.example.feathers.database.repository.ReviewRepository;
 import com.example.feathers.database.repository.UserRepository;
-import com.example.feathers.database.service.ReviewService;
 import com.example.feathers.util.UserRoleUtil;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@ActiveProfiles("test")
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -89,14 +87,11 @@ class ReviewControllerTest {
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("content", "Some awesome Review")
                         .param("rating", "5")
-                        //.accept(MediaType.APPLICATION_JSON)
                         .with(csrf())
         )
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/profile/logbook"));
-
         assertFalse(reviewRepository.findAll().isEmpty());
-
     }
 
     @Test

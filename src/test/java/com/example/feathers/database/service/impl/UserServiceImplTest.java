@@ -6,76 +6,84 @@ import com.example.feathers.database.model.entity.UserRoleEntity;
 import com.example.feathers.database.model.entity.enums.UserRolesEnum;
 import com.example.feathers.database.repository.UserRepository;
 import com.example.feathers.database.repository.UserRoleRepository;
+import com.example.feathers.database.service.UserService;
 import com.example.feathers.util.UserRoleUtil;
 import com.google.gson.Gson;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@ExtendWith(MockitoExtension.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@AutoConfigureMockMvc
 @TestPropertySource(
         locations = "classpath:application-integrationtest.properties")
 class UserServiceImplTest {
 
-    private UserEntity testUserEntity;
-    private UserServiceImpl userService;
-
-    @Mock
+    @Autowired
+    private UserService userService;
+    @Autowired
     private UserRoleUtil userRoleUtil;
+    @Autowired
+    private UserRepository userRepository;
 
-    @Mock
-    private UserRepository mockedUserRepository;
+    private UserEntity testUser;
+    private static final String PASSWORD = "12345";
 
     @BeforeEach
     void init() {
-        userService = new UserServiceImpl(mockedUserRepository,
-                new ModelMapper(), new Pbkdf2PasswordEncoder(), userRoleUtil, new Gson());
+        testUser = new UserEntity();
+        testUser
+                .setUsername("Testy")
+                .setPassword(PASSWORD)
+                .setEmail("testy@test.test")
+                .setRoles(userRoleUtil.setVipRole())
+                .setFirstName("JOHNNY");
 
-        testUserEntity = new UserEntity();
-        testUserEntity.setUsername("Admin");
-        testUserEntity.setEmail("account_email0@test.test");
-        testUserEntity.setPassword("12345");
-        testUserEntity.setRoles(Set.of(new UserRoleEntity().setRole(UserRolesEnum.ADMIN)));
+        userRepository.save(testUser);
+    }
+
+    @AfterEach
+    void clean() {
+        userRepository.deleteAll();
     }
 
     @Test
     void testUserExists() {
-        Mockito.when(mockedUserRepository.existsByUsernameOrEmail(testUserEntity.getUsername(), testUserEntity.getEmail()))
-                .thenReturn(true);
-        assertTrue(userService.userExists(testUserEntity.getUsername(), testUserEntity.getEmail()));
+        assertTrue(userService.userExists(testUser.getUsername(), testUser.getEmail()));
     }
 
     @Test
     void testRegisterNewUser() {
-
-        Mockito.when(userRoleUtil.setUserRole()).thenReturn(Set.of(new UserRoleEntity().setRole(UserRolesEnum.USER)));
-        Mockito.when(mockedUserRepository.count()).thenReturn(1L);
-
         UserRegisterBindingModel urbm = new UserRegisterBindingModel()
-                .setUsername("Testy")
-                .setPassword("12345")
-                .setConfirmPassword("12345")
-                .setEmail("testy@test.test");
-
+                .setUsername("TestyTwo")
+                .setPassword("123456")
+                .setConfirmPassword("123456")
+                .setEmail("testytwo@test.test");
         userService.registerNewUser(urbm);
-        assertEquals(1L, mockedUserRepository.count());
-
+        assertEquals(2L, userRepository.count());
     }
-
 
 
 

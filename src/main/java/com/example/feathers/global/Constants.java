@@ -4,6 +4,7 @@ public class Constants {
 
     public static final String AIRCRAFT_PATH = "src/main/resources/data/json/aircraft.json";
     public static final String AERODROMES_PATH = "src/main/resources/data/json/airportsEU.json";
+    public static final String FLIGHT_LOG_DATA = "src/main/resources/data/json/flightlogs.json";
 
     /*
     * TODO
@@ -17,9 +18,6 @@ public class Constants {
     *  Picture format and delete button
     *  Finish "about.html", "gpxVisuals.html"
     *  1 More interceptor
-    *  Finish Database clean-up schedule
-    *  Reviews limit to 3 on fetch from database
-    *  Autocomplete order alphabetically
     * */
 
 }

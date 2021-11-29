@@ -47,18 +47,15 @@ public class AerodromeServiceImpl implements AerodromeService {
     }
 
     @Override
-    public String findAerodromeData() throws IOException {
-        return Files.readString(Path.of(AERODROMES_PATH));
-    }
-
-    @Override
     public void initialize() throws IOException {
-        // A few concessions had to be made as the whole database was close to 100k entries.
-        // Only EU aerodromes a left here and only ones with ICAO code length of 4 characters.
         if (aerodromeRepository.count() == 0) {
             System.out.println("---------- Initializing Database | Stand by as it may take up to a minute! -------------");
+            Set<AerodromeSeed> collect = Arrays.stream(
+                    gson.fromJson(
+                            Files.readString(Path.of(AERODROMES_PATH)),
+                            AerodromeSeed[].class))
+                    .collect(Collectors.toSet());
 
-            Set<AerodromeSeed> collect = Arrays.stream(gson.fromJson(findAerodromeData(), AerodromeSeed[].class)).collect(Collectors.toSet());
             collect.forEach(e -> {
                 AerodromeEntity aerodrome = modelMapper.map(e, AerodromeEntity.class);
                 if (aerodrome.getIcaoCode().length() == 4) aerodromeRepository.save(aerodrome);

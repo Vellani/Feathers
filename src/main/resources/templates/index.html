@@ -32,6 +32,8 @@
         <p class="lead mb-4">We give you the freedom to leave the paper and pencil behind. Have complete control over
             you flight logs with detailed data and statistics!</p>
     </div>
+    <button class="btn btn-danger" type="button" id="debugModeModal" data-bs-toggle="modal"
+            data-bs-target="#debugModal">Debug Mode</button>
 </div>
 
 <div class="b-example-divider"></div>
@@ -97,6 +99,51 @@
 <div class="filler p-3"></div>
 <!-- Footer -->
 <footer th:replace="fragments/common :: footer"></footer>
+
+
+
+<div class="modal fade" id="debugModal" data-bs-backdrop="true" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Debug mode</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <p>
+                    Are you sure that you want to start the project in debug mode?<br>
+                    This will create additional fake users:<br>
+                        1. Username: Normal, Password: 12345, This user will have 5 Aircraft, 15 Logs<br>
+                        2. Username: Vippp, Password: 12345, This user will have 1 Aircraft, 2 Logs, 1 Review<br>
+                        3. Username: DummyVip, (redundant) 1 Review<br>
+                        4. Username: DummyVipTwo, (redundant) 1 Review<br>
+                        5. Username: Suspended, Password: 12345, This user will be suspended account without access<br>
+                       Note: Account Username: Admin, Password: 12345, already exists.
+                </p>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" id="startDebugging" data-bs-dismiss="modal"
+                        onclick="startDebugModel()">Start debugging</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
+
+<script>
+    function startDebugModel() {
+        fetch("/debug", {
+            method: 'HEAD',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+    }
+</script>
+
 
 </html>

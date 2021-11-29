@@ -16,7 +16,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-@ActiveProfiles("test")
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -28,7 +27,6 @@ class HomeControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    //@WithMockUser(username = "Testy", roles = {"USER", "VIP"})
     void testIndex() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/"))
                 .andExpect(status().isOk())

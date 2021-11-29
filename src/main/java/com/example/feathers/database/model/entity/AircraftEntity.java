@@ -25,8 +25,9 @@ public class AircraftEntity extends BaseEntity {
         return registration;
     }
 
-    public void setRegistration(String registration) {
+    public AircraftEntity setRegistration(String registration) {
         this.registration = registration;
+        return this;
     }
 
     @Column(nullable = false)
@@ -34,8 +35,9 @@ public class AircraftEntity extends BaseEntity {
         return icaoModelName;
     }
 
-    public void setIcaoModelName(String icaoModelName) {
+    public AircraftEntity setIcaoModelName(String icaoModelName) {
         this.icaoModelName = icaoModelName;
+        return this;
     }
 
     @Column
@@ -43,8 +45,9 @@ public class AircraftEntity extends BaseEntity {
         return pictureUrl;
     }
 
-    public void setPictureUrl(String pictureUrl) {
+    public AircraftEntity setPictureUrl(String pictureUrl) {
         this.pictureUrl = pictureUrl;
+        return this;
     }
 
     @Column
@@ -52,8 +55,9 @@ public class AircraftEntity extends BaseEntity {
         return picturePublicId;
     }
 
-    public void setPicturePublicId(String picturePublicId) {
+    public AircraftEntity setPicturePublicId(String picturePublicId) {
         this.picturePublicId = picturePublicId;
+        return this;
     }
 
     @Column(nullable = false)
@@ -61,8 +65,9 @@ public class AircraftEntity extends BaseEntity {
         return aircraftClass;
     }
 
-    public void setAircraftClass(AircraftClassEnum aircraftClass) {
+    public AircraftEntity setAircraftClass(AircraftClassEnum aircraftClass) {
         this.aircraftClass = aircraftClass;
+        return this;
     }
 
     @Column(nullable = false)
@@ -70,8 +75,9 @@ public class AircraftEntity extends BaseEntity {
         return numberOfEngines;
     }
 
-    public void setNumberOfEngines(Integer numberOfEngines) {
+    public AircraftEntity setNumberOfEngines(Integer numberOfEngines) {
         this.numberOfEngines = numberOfEngines;
+        return this;
     }
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -79,8 +85,9 @@ public class AircraftEntity extends BaseEntity {
         return creator;
     }
 
-    public void setCreator(UserEntity creator) {
+    public AircraftEntity setCreator(UserEntity creator) {
         this.creator = creator;
+        return this;
     }
 
     @Override

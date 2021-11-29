@@ -4,6 +4,7 @@ import com.example.feathers.database.model.binding.LogBindingModel;
 import com.example.feathers.database.model.entity.AircraftEntity;
 import com.example.feathers.database.model.view.ListedLogViewModel;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface LogService {
@@ -22,4 +23,9 @@ public interface LogService {
     Byte[] findSpecificGPXLog(Long id);
 
     void updateLog(LogBindingModel logBindingModel);
+
+    void cleanUp();
+
+    void startDebugMode() throws IOException;
+
 }

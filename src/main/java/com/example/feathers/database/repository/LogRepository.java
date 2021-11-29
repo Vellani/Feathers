@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,4 +27,7 @@ public interface LogRepository extends JpaRepository<LogEntity, Long> {
     @Query("Select l.gpxLog from LogEntity l where l.id = :id")
     Byte[] findSpecificGPXLogById(Long id);
 
+    @Transactional
+    @Query("Delete from LogEntity l where l.creator is null or l.aircraft is null")
+    void cleanUpDatabase();
 }

@@ -25,14 +25,12 @@ public class DatabaseCleaner {
         this.reviewService = reviewService;
     }
 
-    @Scheduled(cron = "0 0 2 ? * SUN") //Every Sunday at 02:00
+    @Scheduled(cron = "0 0 2 ? * SUN") //Every Sunday at 02:00 (24h)
     public void cleanDatabase() {
         LOGGER.info("Starting scheduled Database clean-up!");
-        // If for some reason IDs are null -> Clean Up
-        // TODO
-        /*logService.cleanUp();
+        logService.cleanUp();
         reviewService.cleanUp();
-        aircraftService.cleanUp();*/
+        aircraftService.cleanUp();
 
     }
 

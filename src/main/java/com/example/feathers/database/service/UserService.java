@@ -29,4 +29,7 @@ public interface UserService {
     <T>  void updateUserDetails(T bindingModel, String name);
 
     boolean setNewAccountLevel(String json, String name);
+
+    void startDebugMode();
+
 }

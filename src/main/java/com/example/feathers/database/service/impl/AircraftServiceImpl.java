@@ -87,6 +87,11 @@ public class AircraftServiceImpl implements AircraftService {
     }
 
     @Override
+    public void cleanUp() {
+        aircraftRepository.cleanUpDatabase();
+    }
+
+    @Override
     public boolean alreadyExists(String registration) {
         return aircraftRepository.findByRegistration(registration).isPresent();
     }
@@ -138,20 +143,19 @@ public class AircraftServiceImpl implements AircraftService {
     }
 
     @Override
-    public String findAircraftData() throws IOException {
-        return Files.readString(Path.of(AIRCRAFT_PATH));
-    }
-
-    @Override
-    public void initialize() throws IOException {
+    public void startDebugMode() throws IOException {
         if (aircraftRepository.count() == 0) {
             // Does not go through the Service Model since this is Custom initialize
-            Set<AircraftSeed> collect = Arrays.stream(gson.fromJson(findAircraftData(), AircraftSeed[].class)).collect(Collectors.toSet());
+            Set<AircraftSeed> collect = Arrays.stream(
+                    gson.fromJson(
+                            Files.readString(Path.of(AIRCRAFT_PATH)),
+                            AircraftSeed[].class))
+                    .collect(Collectors.toSet());
 
             collect.forEach(e -> {
                 AircraftEntity aircraft = modelMapper.map(e, AircraftEntity.class);
                 aircraft.setAircraftClass(AircraftClassEnum.valueOf(e.getAircraftClass()));
-                aircraft.setCreator(userService.findUserByUsername("Normal")); // TODO Make more aircraft ?
+                aircraft.setCreator(userService.findUserByUsername(e.getOwner()));
 
                 aircraftRepository.save(aircraft);
             });

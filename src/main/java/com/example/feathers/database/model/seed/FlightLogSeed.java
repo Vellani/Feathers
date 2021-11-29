@@ -1,49 +1,58 @@
-package com.example.feathers.database.model.binding;
+package com.example.feathers.database.model.seed;
 
 import com.example.feathers.database.model.common.CommonLogInterface;
-import com.example.feathers.database.model.entity.UserEntity;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PastOrPresent;
-import javax.validation.constraints.Positive;
-import java.sql.Blob;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class LogBindingModel implements CommonLogInterface {
+public class FlightLogSeed implements CommonLogInterface {
 
-    private Long id;
+
+    @Expose
+    @SerializedName("date-of-departure")
     private LocalDate dateOfLog;
+
+    @Expose
+    @SerializedName("dep-time")
     private LocalTime departureTime;
+
+    @Expose
+    @SerializedName("arr-time")
     private LocalTime arrivalTime;
+
+    @Expose
+    @SerializedName("dep-aero")
     private String departureAerodrome;
+
+    @Expose
+    @SerializedName("arr-aero")
     private String arrivalAerodrome;
+
+    @Expose
+    @SerializedName("registration")
     private String aircraft;
+
+    @Expose
     private Integer landings;
+
+    @Expose
+    @SerializedName("pic")
     private String pilotInCommandName;
-    private UserEntity creator;
-    //private Integer aircraftID;
 
-    private String remarks;
-    private MultipartFile gpxLog;
-    private boolean hasGPX;
+    @Expose
+    @SerializedName("owner")
+    private String creator;
 
-    public LogBindingModel() {
+    @Expose
+    @SerializedName("gpx-file")
+    private String gpxLog;
+
+    public FlightLogSeed() {
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @PastOrPresent(message = "The date cannot be in the future.")
-    @NotNull(message = "Missing date.")
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     public LocalDate getDateOfLog() {
         return dateOfLog;
     }
@@ -52,8 +61,6 @@ public class LogBindingModel implements CommonLogInterface {
         this.dateOfLog = dateOfLog;
     }
 
-    @NotNull(message = "Missing departure time.")
-    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
     public LocalTime getDepartureTime() {
         return departureTime;
     }
@@ -62,8 +69,6 @@ public class LogBindingModel implements CommonLogInterface {
         this.departureTime = departureTime;
     }
 
-    @NotNull(message = "Missing arrival time.")
-    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
     public LocalTime getArrivalTime() {
         return arrivalTime;
     }
@@ -72,7 +77,6 @@ public class LogBindingModel implements CommonLogInterface {
         this.arrivalTime = arrivalTime;
     }
 
-    @NotNull(message = "Missing departure aerodrome.")
     public String getDepartureAerodrome() {
         return departureAerodrome;
     }
@@ -81,7 +85,6 @@ public class LogBindingModel implements CommonLogInterface {
         this.departureAerodrome = departureAerodrome;
     }
 
-    @NotNull(message = "Missing arrival aerodrome.")
     public String getArrivalAerodrome() {
         return arrivalAerodrome;
     }
@@ -90,7 +93,6 @@ public class LogBindingModel implements CommonLogInterface {
         this.arrivalAerodrome = arrivalAerodrome;
     }
 
-    @NotNull(message = "Missing registration.")
     public String getAircraft() {
         return aircraft;
     }
@@ -99,8 +101,6 @@ public class LogBindingModel implements CommonLogInterface {
         this.aircraft = aircraft;
     }
 
-    @NotNull(message = "Set the number of landings.")
-    @Positive(message = "The landings cannot be negative or 0.")
     public Integer getLandings() {
         return landings;
     }
@@ -109,7 +109,6 @@ public class LogBindingModel implements CommonLogInterface {
         this.landings = landings;
     }
 
-    @NotNull(message = "Missing Pilot in command.")
     public String getPilotInCommandName() {
         return pilotInCommandName;
     }
@@ -118,36 +117,19 @@ public class LogBindingModel implements CommonLogInterface {
         this.pilotInCommandName = pilotInCommandName;
     }
 
-    public String getRemarks() {
-        return remarks;
-    }
-
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
-    }
-
-    public UserEntity getCreator() {
+    public String getCreator() {
         return creator;
     }
 
-    public void setCreator(UserEntity creator) {
+    public void setCreator(String creator) {
         this.creator = creator;
     }
 
-    public MultipartFile getGpxLog() {
+    public String getGpxLog() {
         return gpxLog;
     }
 
-    public void setGpxLog(MultipartFile gpxLog) {
+    public void setGpxLog(String gpxLog) {
         this.gpxLog = gpxLog;
-    }
-
-    public boolean isHasGPX() {
-        return hasGPX;
-    }
-
-    public LogBindingModel setHasGPX(boolean hasGPX) {
-        this.hasGPX = hasGPX;
-        return this;
     }
 }

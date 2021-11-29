@@ -1,6 +1,5 @@
 package com.example.feathers.web;
 
-import com.example.feathers.database.model.binding.UserRegisterBindingModel;
 import com.example.feathers.database.model.entity.UserEntity;
 import com.example.feathers.database.repository.UserRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -13,18 +12,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 
-@ActiveProfiles("test")
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -69,8 +65,6 @@ class UserLoginControllerTest {
                 .andExpect(model().attributeExists("invalid"));
     }
 
-
-
    @Test
    @WithMockUser(username = "Testy", roles = "USER")
    void testSuccessLogin() throws Exception {
@@ -79,7 +73,6 @@ class UserLoginControllerTest {
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("username", testUser.getUsername())
                         .param("password", PASSWORD)
-                        //.accept(MediaType.APPLICATION_JSON)
                         .with(csrf())
         )
                 .andExpect(status().is3xxRedirection())

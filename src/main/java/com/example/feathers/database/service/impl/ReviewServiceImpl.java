@@ -44,7 +44,7 @@ public class ReviewServiceImpl implements ReviewService {
     @Cacheable("reviews")
     @Override
     public List<ReviewViewModel> findReviews() {
-        return reviewRepository.findReviewsToDisplay().stream().map(e ->
+        return reviewRepository.findReviewsToDisplay().stream().limit(3).map(e ->
                 new ReviewViewModel()
                         .setContent(e.getContent())
                         .setFirstName(e.getCreator().getFirstName())
@@ -52,9 +52,10 @@ public class ReviewServiceImpl implements ReviewService {
                 .collect(Collectors.toList());
     }
 
-
-
-
+    @Override
+    public void cleanUp() {
+        reviewRepository.cleanUpDatabase();
+    }
 
 
 }

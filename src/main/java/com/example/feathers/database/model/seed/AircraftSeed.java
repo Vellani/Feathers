@@ -16,6 +16,9 @@ public class AircraftSeed {
     @Expose
     @SerializedName("number_of_engines")
     private Integer numberOfEngines;
+    @Expose
+    @SerializedName("owner")
+    private String owner;
 
     public AircraftSeed() {
     }
@@ -50,5 +53,13 @@ public class AircraftSeed {
 
     public void setNumberOfEngines(Integer numberOfEngines) {
         this.numberOfEngines = numberOfEngines;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 }

@@ -121,34 +121,39 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
-
-
     @Override
     public void initialize() {
-
         if (userRepository.count() == 0) {
-            for (int i = 0; i < 4; i++) {
-                UserEntity user = new UserEntity();
-                switch (i) {
-                    case 0: user.setUsername("Admin");
-                        user.setRoles(userRoleUtil.setAdminRole());
-                        break;
-                    case 1: user.setUsername("Normal");
-                        user.setRoles(userRoleUtil.setUserRole());
-                        break;
-                    case 2: user.setUsername("Vippp");
-                        user.setRoles(userRoleUtil.setVipRole());
-                        break;
-                    case 3: user.setUsername("Suspended");
-                        user.setRoles(userRoleUtil.setSuspendedRole());
-                        break;
-                    default: break;
-                }
-                user.setEmail("account_email" + i + "@test.test")
-                        .setPassword(passwordEncoder.encode("12345"));
-                userRepository.save(user);
-            }
+            UserEntity user = new UserEntity();
+            user.setUsername("Admin")
+                    .setRoles(userRoleUtil.setAdminRole())
+                    .setEmail("admin@test.test")
+                    .setPassword(passwordEncoder.encode("12345"));
+            userRepository.save(user);
         }
+    }
+
+    @Override
+    public void startDebugMode() {
+        for (int i = 0; i < 3; i++) {
+            UserEntity user = new UserEntity();
+            switch (i) {
+                case 0: user.setUsername("Normal");
+                    user.setRoles(userRoleUtil.setUserRole());
+                    break;
+                case 1: user.setUsername("Vippp");
+                    user.setRoles(userRoleUtil.setVipRole());
+                    break;
+                case 2: user.setUsername("Suspended");
+                    user.setRoles(userRoleUtil.setSuspendedRole());
+                    break;
+                default: break;
+            }
+            user.setEmail(user.getUsername() + "@test.test")
+                    .setPassword(passwordEncoder.encode("12345"));
+            userRepository.save(user);
+        }
+
     }
 
 

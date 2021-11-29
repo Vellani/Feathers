@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public interface AerodromeRepository extends JpaRepository<AerodromeEntity, Long> {
 
-    @Query("select a.name from AerodromeEntity a where a.name like %:aero%")
+    @Query("select a.name from AerodromeEntity a where a.name like %:aero% order by a.name")
     List<String> findAllMatchingAerodromes(String aero);
 
     Optional<AerodromeEntity> findByName(String name);
