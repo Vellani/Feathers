@@ -7,5 +7,4 @@ public interface CommonLogInterface {
     String getArrivalAerodrome();
     String getAircraft();
 
-
 }

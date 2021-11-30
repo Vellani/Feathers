@@ -9,11 +9,9 @@ public class Constants {
     /*
     * TODO
     *  Fix GPX not showing properly on map on the first time
-    *  Fix Long-Airport name causes it to not align
+    *  Fix overflow behind footer
     *  Fix Review Alignment
     *  Polish the dashboard
-    *  Other Misc things
-    *  Unit testing
     *  Deployment
     *  Picture format and delete button
     *  Finish "about.html", "gpxVisuals.html"

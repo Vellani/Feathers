@@ -1,6 +1,5 @@
 package com.example.feathers.database.service.impl;
 
-import com.example.feathers.database.model.binding.UpdateUserPasswordBindingModel;
 import com.example.feathers.database.model.binding.UpdateUserDetailsBindingModel;
 import com.example.feathers.database.model.binding.UpdateUserRoleBindingModel;
 import com.example.feathers.database.model.binding.UserRegisterBindingModel;
@@ -10,6 +9,7 @@ import com.example.feathers.database.model.service.UserServiceModel;
 import com.example.feathers.database.repository.UserRepository;
 import com.example.feathers.database.service.UserService;
 import com.example.feathers.util.UserRoleUtil;
+import com.example.feathers.web.exception.impl.UserNotFoundException;
 import com.google.gson.Gson;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserEntity findUserByUsername(String name) {
-        return userRepository.findByUsername(name).orElseThrow();
+        return userRepository.findByUsername(name).orElseThrow(UserNotFoundException::new);
     }
 
     @Override
@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public boolean delete(Long id, String adminName) {
-        UserEntity userToDelete = userRepository.findById(id).orElseThrow();
+        UserEntity userToDelete = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
         if (userToDelete.getUsername().equals(adminName)) return true;
 
         userRepository.delete(userToDelete);
@@ -101,7 +101,7 @@ public class UserServiceImpl implements UserService {
         if (currentServiceModel.getPassword() != null) {
             currentServiceModel.setPassword(passwordEncoder.encode(currentServiceModel.getPassword()));
         }
-        UserEntity currentUser = userRepository.findByUsername(accountName).orElseThrow();
+        UserEntity currentUser = userRepository.findByUsername(accountName).orElseThrow(UserNotFoundException::new);
         modelMapper.map(currentServiceModel, currentUser);
         userRepository.save(currentUser);
     }
@@ -114,7 +114,7 @@ public class UserServiceImpl implements UserService {
 
         if (Objects.requireNonNull(currentAdminUser).getId().equals(Long.parseLong(uurbm.getId()))) return true;
 
-        UserEntity userToChange = userRepository.findById(Long.parseLong(uurbm.getId())).orElseThrow();
+        UserEntity userToChange = userRepository.findById(Long.parseLong(uurbm.getId())).orElseThrow(UserNotFoundException::new);
 
         userToChange.setRoles(userRoleUtil.setRoleFromString(uurbm.getRoles()));
         userRepository.save(userToChange);

@@ -4,7 +4,6 @@ import com.example.feathers.database.model.binding.LogBindingModel;
 import com.example.feathers.database.model.common.CommonLogInterface;
 import com.example.feathers.database.model.entity.AircraftEntity;
 import com.example.feathers.database.model.entity.LogEntity;
-import com.example.feathers.database.model.seed.AircraftSeed;
 import com.example.feathers.database.model.seed.FlightLogSeed;
 import com.example.feathers.database.model.view.ListedLogViewModel;
 import com.example.feathers.database.service.LogService;
@@ -13,6 +12,7 @@ import com.example.feathers.database.repository.LogRepository;
 import com.example.feathers.database.service.AerodromeService;
 import com.example.feathers.database.service.AircraftService;
 import com.example.feathers.database.service.UserService;
+import com.example.feathers.web.exception.impl.FlightLogNotFoundException;
 import com.google.gson.Gson;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -22,9 +22,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import static com.example.feathers.global.Constants.AIRCRAFT_PATH;
 import static com.example.feathers.global.Constants.FLIGHT_LOG_DATA;
 
 @Service
@@ -60,11 +58,11 @@ public class LogServiceImpl implements LogService {
 
     @Override
     public void updateLog(LogBindingModel logBindingModel) {
-        LogEntity log = logRepository.findById(logBindingModel.getId()).orElseThrow();
+        LogEntity log = logRepository.findById(logBindingModel.getId()).orElseThrow(FlightLogNotFoundException::new);
 
         // All this mess is a result of the ModelMapper fiasco of 2021, couldn't get it to have a
         // conditional where if gpxLog.isEmpty().skip the mapping
-        LogServiceModel serviceModel = modelMapper.map(logBindingModel, LogServiceModel.class);
+        LogServiceModel serviceModel = createServiceModel(logBindingModel, log.getCreator().getUsername());
         boolean empty = logBindingModel.getGpxLog().isEmpty();
         Byte[] gpxLog = log.getGpxLog();
 
@@ -75,6 +73,7 @@ public class LogServiceImpl implements LogService {
     }
 
     private <T extends CommonLogInterface> LogServiceModel createServiceModel(T inputModel, String username) {
+
         return modelMapper.map(inputModel, LogServiceModel.class)
                 .setDepartureAerodrome(aerodromeService.findByName(inputModel.getDepartureAerodrome()))
                 .setArrivalAerodrome(aerodromeService.findByName(inputModel.getArrivalAerodrome()))
@@ -121,7 +120,7 @@ public class LogServiceImpl implements LogService {
 
     @Override
     public LogBindingModel findById(Long id) {
-        LogEntity logEntity = logRepository.findById(id).orElseThrow();
+        LogEntity logEntity = logRepository.findById(id).orElseThrow(FlightLogNotFoundException::new);
         return modelMapper.map(logEntity, LogBindingModel.class)
                 .setHasGPX(logEntity.getGpxLog().length != 0);
     }

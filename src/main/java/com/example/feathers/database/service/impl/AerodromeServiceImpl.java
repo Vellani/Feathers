@@ -4,6 +4,7 @@ import com.example.feathers.database.model.entity.AerodromeEntity;
 import com.example.feathers.database.model.seed.AerodromeSeed;
 import com.example.feathers.database.repository.AerodromeRepository;
 import com.example.feathers.database.service.AerodromeService;
+import com.example.feathers.web.exception.impl.AerodromeDoesNotExistException;
 import com.google.gson.Gson;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,7 @@ public class AerodromeServiceImpl implements AerodromeService {
 
     @Override
     public AerodromeEntity findByName(String aerodrome) {
-        return aerodromeRepository.findByName(aerodrome).orElseThrow();
+        return aerodromeRepository.findByName(aerodrome).orElseThrow(AerodromeDoesNotExistException::new);
     }
 
     @Override

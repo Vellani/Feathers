@@ -78,7 +78,7 @@ public class UserEntity extends BaseEntity {
         this.logs = logs;
     }
 
-    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     public Set<AircraftEntity> getAircraft() {
         return aircraft;
     }

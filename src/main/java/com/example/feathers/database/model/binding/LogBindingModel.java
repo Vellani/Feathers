@@ -24,7 +24,6 @@ public class LogBindingModel implements CommonLogInterface {
     private Integer landings;
     private String pilotInCommandName;
     private UserEntity creator;
-    //private Integer aircraftID;
 
     private String remarks;
     private MultipartFile gpxLog;
@@ -37,8 +36,9 @@ public class LogBindingModel implements CommonLogInterface {
         return id;
     }
 
-    public void setId(Long id) {
+    public LogBindingModel setId(Long id) {
         this.id = id;
+        return this;
     }
 
     @PastOrPresent(message = "The date cannot be in the future.")
@@ -48,8 +48,9 @@ public class LogBindingModel implements CommonLogInterface {
         return dateOfLog;
     }
 
-    public void setDateOfLog(LocalDate dateOfLog) {
+    public LogBindingModel setDateOfLog(LocalDate dateOfLog) {
         this.dateOfLog = dateOfLog;
+        return this;
     }
 
     @NotNull(message = "Missing departure time.")
@@ -58,8 +59,9 @@ public class LogBindingModel implements CommonLogInterface {
         return departureTime;
     }
 
-    public void setDepartureTime(LocalTime departureTime) {
+    public LogBindingModel setDepartureTime(LocalTime departureTime) {
         this.departureTime = departureTime;
+        return this;
     }
 
     @NotNull(message = "Missing arrival time.")
@@ -68,8 +70,9 @@ public class LogBindingModel implements CommonLogInterface {
         return arrivalTime;
     }
 
-    public void setArrivalTime(LocalTime arrivalTime) {
+    public LogBindingModel setArrivalTime(LocalTime arrivalTime) {
         this.arrivalTime = arrivalTime;
+        return this;
     }
 
     @NotNull(message = "Missing departure aerodrome.")
@@ -77,8 +80,9 @@ public class LogBindingModel implements CommonLogInterface {
         return departureAerodrome;
     }
 
-    public void setDepartureAerodrome(String departureAerodrome) {
+    public LogBindingModel setDepartureAerodrome(String departureAerodrome) {
         this.departureAerodrome = departureAerodrome;
+        return this;
     }
 
     @NotNull(message = "Missing arrival aerodrome.")
@@ -86,8 +90,9 @@ public class LogBindingModel implements CommonLogInterface {
         return arrivalAerodrome;
     }
 
-    public void setArrivalAerodrome(String arrivalAerodrome) {
+    public LogBindingModel setArrivalAerodrome(String arrivalAerodrome) {
         this.arrivalAerodrome = arrivalAerodrome;
+        return this;
     }
 
     @NotNull(message = "Missing registration.")
@@ -95,8 +100,9 @@ public class LogBindingModel implements CommonLogInterface {
         return aircraft;
     }
 
-    public void setAircraft(String aircraft) {
+    public LogBindingModel setAircraft(String aircraft) {
         this.aircraft = aircraft;
+        return this;
     }
 
     @NotNull(message = "Set the number of landings.")
@@ -105,8 +111,9 @@ public class LogBindingModel implements CommonLogInterface {
         return landings;
     }
 
-    public void setLandings(Integer landings) {
+    public LogBindingModel setLandings(Integer landings) {
         this.landings = landings;
+        return this;
     }
 
     @NotNull(message = "Missing Pilot in command.")
@@ -114,32 +121,36 @@ public class LogBindingModel implements CommonLogInterface {
         return pilotInCommandName;
     }
 
-    public void setPilotInCommandName(String pilotInCommandName) {
+    public LogBindingModel setPilotInCommandName(String pilotInCommandName) {
         this.pilotInCommandName = pilotInCommandName;
+        return this;
     }
 
     public String getRemarks() {
         return remarks;
     }
 
-    public void setRemarks(String remarks) {
+    public LogBindingModel setRemarks(String remarks) {
         this.remarks = remarks;
+        return this;
     }
 
     public UserEntity getCreator() {
         return creator;
     }
 
-    public void setCreator(UserEntity creator) {
+    public LogBindingModel setCreator(UserEntity creator) {
         this.creator = creator;
+        return this;
     }
 
     public MultipartFile getGpxLog() {
         return gpxLog;
     }
 
-    public void setGpxLog(MultipartFile gpxLog) {
+    public LogBindingModel setGpxLog(MultipartFile gpxLog) {
         this.gpxLog = gpxLog;
+        return this;
     }
 
     public boolean isHasGPX() {

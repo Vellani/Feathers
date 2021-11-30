@@ -22,8 +22,6 @@
   background-image: url(/images/png/dot-pattern.png);
   background-repeat: no-repeat;
   background-position: top;
-  min-height: 100%;
-  position: absolute;
   background-size: cover;
   z-index: 0;
   transition: inherit;
@@ -31,6 +29,5 @@
 
 .center-screen {
   position: relative;
-
   margin-top: 50%;
 }

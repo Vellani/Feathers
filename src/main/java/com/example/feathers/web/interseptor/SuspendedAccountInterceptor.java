@@ -1,10 +1,7 @@
 package com.example.feathers.web.interseptor;
 
 import com.example.feathers.util.UserRoleUtil;
-import com.example.feathers.web.exception.SuspendedAccountException;
-import org.springframework.security.authentication.event.AuthenticationFailureBadCredentialsEvent;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import com.example.feathers.web.exception.impl.SuspendedAccountException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 

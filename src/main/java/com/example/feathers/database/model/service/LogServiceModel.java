@@ -17,12 +17,12 @@ public class LogServiceModel {
     private LocalTime arrivalTime;
     private AerodromeEntity departureAerodrome;
     private AerodromeEntity arrivalAerodrome;
+    private AircraftEntity aircraft;
     private Integer landings;
+    private String pilotInCommandName;
     private UserEntity creator;
     private Byte[] gpxLog;
 
-    private String pilotInCommandName;
-    private AircraftEntity aircraft;
     private String remarks;
 
     public LogServiceModel() {
@@ -127,4 +127,6 @@ public class LogServiceModel {
     public void setGpxLog(Byte[] gpxLog) {
         this.gpxLog = gpxLog;
     }
+
+
 }

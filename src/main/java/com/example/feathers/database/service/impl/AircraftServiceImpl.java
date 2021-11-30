@@ -12,19 +12,17 @@ import com.example.feathers.database.repository.AircraftRepository;
 import com.example.feathers.database.service.AircraftService;
 import com.example.feathers.database.service.LogService;
 import com.example.feathers.database.service.UserService;
+import com.example.feathers.web.exception.impl.AircraftDoesNotExistException;
 import com.google.gson.Gson;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -70,7 +68,8 @@ public class AircraftServiceImpl implements AircraftService {
 
     @Override
     public void updateAircraft(AircraftBindingModel aircraftBindingModel) throws IOException {
-        AircraftEntity aircraftToUpdate = aircraftRepository.findById(aircraftBindingModel.getId()).orElseThrow();
+        AircraftEntity aircraftToUpdate = aircraftRepository.findById(aircraftBindingModel.getId())
+                .orElseThrow(AircraftDoesNotExistException::new);
 
         AircraftServiceModel serviceModel = modelMapper.map(aircraftBindingModel, AircraftServiceModel.class);
 
@@ -103,7 +102,7 @@ public class AircraftServiceImpl implements AircraftService {
 
     @Override
     public AircraftEntity findByRegistration(String registration) {
-        return aircraftRepository.findByRegistration(registration).orElseThrow();
+        return aircraftRepository.findByRegistration(registration).orElseThrow(AircraftDoesNotExistException::new);
     }
 
     @Override
@@ -129,12 +128,13 @@ public class AircraftServiceImpl implements AircraftService {
 
     @Override
     public AircraftBindingModel findById(Long id) {
-        return modelMapper.map(aircraftRepository.findById(id).orElseThrow(), AircraftBindingModel.class);
+        return modelMapper.map(aircraftRepository.findById(id).orElseThrow(AircraftDoesNotExistException::new),
+                AircraftBindingModel.class);
     }
 
     @Override
     public AircraftEntity findAircraftEntityById(Long id) {
-        return aircraftRepository.findById(id).orElseThrow();
+        return aircraftRepository.findById(id).orElseThrow(AircraftDoesNotExistException::new);
     }
 
     @Override

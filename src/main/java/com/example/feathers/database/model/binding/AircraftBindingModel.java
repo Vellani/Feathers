@@ -27,8 +27,9 @@ public class AircraftBindingModel {
         return id;
     }
 
-    public void setId(Long id) {
+    public AircraftBindingModel setId(Long id) {
         this.id = id;
+        return this;
     }
 
     @Size(min = 4, max = 8, message = "The aircraft registration must be between 4 and 8 characters.")
@@ -37,8 +38,9 @@ public class AircraftBindingModel {
         return registration;
     }
 
-    public void setRegistration(String registration) {
+    public AircraftBindingModel setRegistration(String registration) {
         this.registration = registration;
+        return this;
     }
 
     @Size(min = 4, max = 8, message = "The aircraft model must be between 4 and 8 characters.")
@@ -47,8 +49,9 @@ public class AircraftBindingModel {
         return icaoModelName;
     }
 
-    public void setIcaoModelName(String icaoModelName) {
+    public AircraftBindingModel setIcaoModelName(String icaoModelName) {
         this.icaoModelName = icaoModelName;
+        return this;
     }
 
     @NotNull
@@ -56,8 +59,9 @@ public class AircraftBindingModel {
         return aircraftClass;
     }
 
-    public void setAircraftClass(AircraftClassEnum aircraftClass) {
+    public AircraftBindingModel setAircraftClass(AircraftClassEnum aircraftClass) {
         this.aircraftClass = aircraftClass;
+        return this;
     }
 
     @NotNull(message = "Please input the number of engines.")
@@ -66,8 +70,9 @@ public class AircraftBindingModel {
         return numberOfEngines;
     }
 
-    public void setNumberOfEngines(Integer numberOfEngines) {
+    public AircraftBindingModel setNumberOfEngines(Integer numberOfEngines) {
         this.numberOfEngines = numberOfEngines;
+        return this;
     }
 
     @Size(max = 500, message = "You have exceeded the maximum of 500 allowed characters.")
@@ -75,22 +80,25 @@ public class AircraftBindingModel {
         return owner;
     }
 
-    public void setOwner(String owner) {
+    public AircraftBindingModel setOwner(String owner) {
         this.owner = owner;
+        return this;
     }
 
     public MultipartFile getPictureFile() {
         return pictureFile;
     }
-    public void setPictureFile(MultipartFile pictureFile) {
+    public AircraftBindingModel setPictureFile(MultipartFile pictureFile) {
         this.pictureFile = pictureFile;
+        return this;
     }
 
     public String getPictureUrl() {
         return pictureUrl;
     }
 
-    public void setPictureUrl(String pictureUrl) {
+    public AircraftBindingModel setPictureUrl(String pictureUrl) {
         this.pictureUrl = pictureUrl;
+        return this;
     }
 }
