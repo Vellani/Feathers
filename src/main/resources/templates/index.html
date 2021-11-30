@@ -37,8 +37,8 @@
         <div class="b-example-divider"></div>
 
         <!-- Icon Tray -->
-        <div class="container px-4 py-1" id="icon-grid">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
+        <div class="container px-4" id="icon-grid">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-4">
                 <div class="col d-flex align-items-start">
                     <svg class="bi text-muted flex-shrink-0 me-3" height="1.75em" width="1.75em">
                         <use xlink:href="/images/svg/svgmaster.svg#speedometer2"/>
@@ -81,20 +81,19 @@
 
         <div class="b-example-divider"></div>
 
-        <div class="container px-4 py-1">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 g-3 py-5 d-flex justify-content-center">
+        <div class="container px-4 py-4">
+            <div class="row gap-3">
 
-                <div th:each="o : ${reviews}" class="col d-flex align-items-start">
+                <div th:each="o : ${reviews}" class="displaycard col d-flex align-items-start p-2">
                     <div class="d-flex flex-column align-items-center">
                         <h4 th:text="*{o.getFirstName()}" class="fw-bold mb-0"></h4>
-                        <p th:text="*{o.getContent()}" style="text-align:center"></p>
+                        <span th:text="*{o.getContent()}" style="text-align:center"></span>
                         <h5 th:text="|*{o.getRating()} / 5|" style="text-align:center"></h5>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="filler p-3"></div>
     </div>
 <div id="footer" th:replace="fragments/common :: footer"></div>
 

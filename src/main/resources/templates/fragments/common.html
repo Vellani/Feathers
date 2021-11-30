@@ -118,7 +118,7 @@
     </div>
 </div>
 
-<div th:fragment="footer" id="footer" class="d-flex flex-wrap justify-content-between align-items-center py-3 mt-1 border-top">
+<div th:fragment="footer" id="footer" class="d-flex flex-wrap justify-content-between align-items-center mt-1 border-top">
     <div class="col-md-4 d-flex align-items-center">
         <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
             <svg class="black-as-night" width="30" height="24">
@@ -127,6 +127,13 @@
         </a>
         <span class="text-muted">&copy; 2021 Don't steal my idea, Inc</span>
     </div>
+
+    <a class="nounderline text-muted" th:href="@{/about}">
+        <svg class="black-as-night" width="60" height="60">
+            <use xlink:href="/images/svg/feathers-logo.svg#feathers_logo"/>
+        </svg>
+        About us
+    </a>
 
     <ul class="nav mx-3 col-md-4 justify-content-end list-unstyled d-flex">
         <li class="ms-3">

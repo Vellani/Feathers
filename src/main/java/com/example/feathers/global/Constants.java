@@ -9,12 +9,10 @@ public class Constants {
     /*
     * TODO
     *  Fix GPX not showing properly on map on the first time
-    *  Fix overflow behind footer
-    *  Fix Review Alignment
     *  Polish the dashboard
     *  Deployment
     *  Picture format and delete button
-    *  Finish "about.html", "gpxVisuals.html"
+    *  Finish "gpxVisuals.html"
     *  1 More interceptor
     * */
 

@@ -29,7 +29,7 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
 
         http.authorizeRequests()
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                .antMatchers("/", "/user/login", "/user/register", "/debug").permitAll()
+                .antMatchers("/", "/user/login", "/user/register", "/about", "/debug").permitAll()
                 .antMatchers("/profile/admin").hasRole(userRoleUtil.getAdminRole().getRole().name())
                 //.antMatchers("/profile/dashboard").hasRole(UserRolesEnum.VIP.name())
                 .antMatchers("/**").hasRole(userRoleUtil.getUserRole().getRole().name())

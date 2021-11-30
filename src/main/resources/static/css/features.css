@@ -27,6 +27,25 @@ body {
   background-color: white;
 }
 
+a.nounderline {
+  text-decoration: none;
+}
+
+.displaycard {
+  border-radius: 5px;
+  background-color: rgba(0, 83, 255, 0.05) !important;
+  background-image: url(/images/svg/quotes.svg);
+  background-position-x: 10px;
+  background-position-y: 10px;
+  background-size: 60px;
+  background-repeat: no-repeat;
+
+}
+
+/*svg:hover {
+  fill: #bbb642;
+}*/
+
 .b-example-divider {
     height: 1.5rem;
     background-color: rgba(0, 0, 0, .1);

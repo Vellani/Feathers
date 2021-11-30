@@ -12,14 +12,19 @@
 </head>
 
 
-<header th:replace="fragments/common :: header"></header>
-<body class="hero-container text-center">
-    <div class="row d-flex align-items-center" style="height: 100%">
-        <div class = "col">
-            <h5 th:text="${message}"></h5>
-            <h5 th:text="'Error Code: ' + ${code}"></h5>
+<body>
+<div id="container" class="hero-container text-center">
+    <div id="header" th:replace="fragments/common :: header"></div>
+    <div id="body">
+        <div class="row d-flex align-items-center" style="height: 100%">
+            <div class = "col">
+                <h5 th:text="${message}"></h5>
+             <h5 th:text="'Error Code: ' + ${code}"></h5>
+            </div>
         </div>
         <div class = "col error-container"></div>
     </div>
+    <div id="footer" th:replace="fragments/common :: footer"></div>
+</div>
 </body>
 </html>
