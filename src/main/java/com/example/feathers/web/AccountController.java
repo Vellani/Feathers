@@ -61,6 +61,11 @@ public class AccountController {
         return "account";
     }
 
+    @GetMapping("/gpx")
+    public String gpx() {
+        return "gpxVisuals";
+    }
+
     @PostMapping("/details")
     public String updateSettings(@Valid UpdateUserDetailsBindingModel updateUserDetailsBindingModel,
                                  BindingResult bindingResult,

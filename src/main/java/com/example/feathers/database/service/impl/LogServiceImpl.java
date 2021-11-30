@@ -151,4 +151,9 @@ public class LogServiceImpl implements LogService {
 
     }
 
+    @Override
+    public List<Byte[]> findAllGpxFilesForUsername(String username) {
+        return logRepository.findAllGpxFilesForUsername(username);
+    }
+
 }

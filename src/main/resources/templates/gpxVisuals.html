@@ -16,17 +16,28 @@
 </head>
 
 <body>
-<!-- HEADER -->
-<header th:replace="fragments/common :: header"></header>
-
-<main style="height: 100%; width: 100%">
-    <div id="gpxMap" style="height: 100%; width: 100%"></div>
-</main>
-<footer th:replace="fragments/common :: footer"></footer>
+<input type="hidden" th:name="${_csrf.headerName}" th:value="${_csrf.token}" id="searchCsrf">
+<div id="container" class="hero-container">
+    <div id="header" th:replace="fragments/common :: header"></div>
+    <div id="body" class="d-flex justfy-content-center">
+        <div class="flex-fill">
+            <div class="d-flex justify-content-between mx-5">
+                <div class="d-flex justify-content-start">
+                    <input class="form-control"  type="file" accept=".gpx"  id="files" name="files" multiple>
+                </div>
+                <div class="d-flex justify-content-end gap-3">
+                    <a class="btn btn-warning rounded-5" onclick="loadGpxFile()" type="button">Show All Flights</a>
+                    <a class="btn btn-warning rounded-5" onclick="reloadMap()" type="button">Clear</a>
+                </div>
+            </div>
+            <div id="gpxMap" class="d-flex flex-fill mx-5 my-2" style="height: 600px;z-index: 0"></div>
+        </div>
+    </div>
+    <div id="footer" th:replace="fragments/common :: footer"></div>
+</div>
 <script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.3.1/leaflet-omnivore.min.js'></script>
-
 <script>
-    var myMap = L.map("gpxMap");
+    var myMap = L.map("gpxMap").setView([48.505, 15.09], 5);
 
     let baseLayer = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw", {
         maxZoom: 18,
@@ -35,11 +46,69 @@
         zoomOffset: -1,
     }).addTo(myMap);
 
-    var layer = omnivore.gpx('/api/param?gpx=' + 2);
 
-    layer.on('ready', function () {
-        myMap.fitBounds(layer.getBounds(), {padding: [5, 5]});
-    }).addTo(myMap);
+    function reloadMap() {
+        myMap.eachLayer(function (layer) {
+            myMap.removeLayer(layer);
+        });
+        baseLayer.addTo(myMap);
+    }
+
+    const url = '/profile/gpx/all';
+    let csrf = document.getElementById('searchCsrf');
+    let csrfHeader = csrf.getAttribute('name');
+    let csrfValue = csrf.value;
+
+    async function loadGpxFile() {
+
+        let response = await fetch(url, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/xml',
+                [csrfHeader]: csrfValue
+            }
+        })
+        let newVar = await response.json();
+        newVar.forEach(function (e) {
+            var layer = omnivore.gpx.parse(e);
+            layer.addTo(myMap);
+        })
+    }
+
+    $(document).ready(function() {
+        $("#files").on("change", handleFileSelect);
+    });
+
+    function handleFileSelect() {
+        let files = this.files;
+        let fr= new FileReader(),
+            number = 0,
+            size = this.files.length;
+
+        execute();
+
+        function execute() {
+            if (number >= size) return;
+
+            const file = files[number];
+            fr.readAsText(file);
+
+            fr.onload = function () {
+                const layer = omnivore.gpx.parse(fr.result);
+                layer.setStyle({
+                    color: 'rgb(149,83,255)',
+                    weight: 2
+                });
+                layer.addTo(myMap);
+                number++;
+                execute();
+            };
+        }
+
+    }
+
+
 </script>
 </body>
 

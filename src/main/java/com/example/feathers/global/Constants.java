@@ -12,7 +12,6 @@ public class Constants {
     *  Polish the dashboard
     *  Deployment
     *  Picture format and delete button
-    *  Finish "gpxVisuals.html"
     *  1 More interceptor
     * */
 

@@ -28,4 +28,5 @@ public interface LogService {
 
     void startDebugMode() throws IOException;
 
+    List<Byte[]> findAllGpxFilesForUsername(String username);
 }

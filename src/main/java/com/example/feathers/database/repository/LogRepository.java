@@ -27,7 +27,14 @@ public interface LogRepository extends JpaRepository<LogEntity, Long> {
     @Query("Select l.gpxLog from LogEntity l where l.id = :id")
     Byte[] findSpecificGPXLogById(Long id);
 
+    @Query("Select l.gpxLog from LogEntity l where l.creator.username like :username")
+    List<Byte[]> findAllGpxFilesForUsername(String username);
+
     @Transactional
     @Query("Delete from LogEntity l where l.creator is null or l.aircraft is null")
     void cleanUpDatabase();
+
+
+
+
 }

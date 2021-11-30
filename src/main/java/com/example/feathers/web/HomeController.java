@@ -30,11 +30,6 @@ public class HomeController {
         return "index";
     }
 
-    @GetMapping("/gpx")
-    public String gpx() {
-        return "gpxVisuals";
-    }
-
     @GetMapping("/about")
     public String about() {
         return "about";
