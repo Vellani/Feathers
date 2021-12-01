@@ -16,11 +16,9 @@ import java.util.List;
 public class HomeController {
 
     private final ReviewService reviewService;
-    private final InitialSetup initialSetup;
 
-    public HomeController(ReviewService reviewService, InitialSetup initialSetup) {
+    public HomeController(ReviewService reviewService) {
         this.reviewService = reviewService;
-        this.initialSetup = initialSetup;
     }
 
     @GetMapping("/")
@@ -34,13 +32,5 @@ public class HomeController {
     public String about() {
         return "about";
     }
-
-    @GetMapping("/debug")
-    @ResponseStatus(value = HttpStatus.OK)
-    public void startDebug() throws IOException {
-        initialSetup.loadEasyDebug();
-    }
-
-
 
 }

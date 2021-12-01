@@ -59,7 +59,7 @@ public class AircraftController {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("aircraftBindingModel", aircraftBindingModel)
                     .addFlashAttribute("org.springframework.validation.BindingResult.aircraftBindingModel", bindingResult);
-            return "redirect:";
+            return "redirect:aircraft";
         }
 
         if (id == null) aircraftService.addNewAircraft(aircraftBindingModel, principal.getName());

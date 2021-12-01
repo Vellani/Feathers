@@ -3,6 +3,7 @@ package com.example.feathers.database.service;
 import com.example.feathers.database.model.binding.AircraftBindingModel;
 import com.example.feathers.database.model.entity.AircraftEntity;
 import com.example.feathers.database.model.view.ListAircraftViewModel;
+import com.example.feathers.util.SimplePair;
 
 import java.io.IOException;
 import java.security.Principal;
@@ -33,4 +34,5 @@ public interface AircraftService {
     void cleanUp();
 
     void startDebugMode() throws IOException;
+
 }

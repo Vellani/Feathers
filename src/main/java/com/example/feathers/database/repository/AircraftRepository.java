@@ -1,6 +1,7 @@
 package com.example.feathers.database.repository;
 
 import com.example.feathers.database.model.entity.AircraftEntity;
+import com.example.feathers.util.SimplePair;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

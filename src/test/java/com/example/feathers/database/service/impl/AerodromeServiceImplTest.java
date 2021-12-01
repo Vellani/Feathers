@@ -1,6 +1,7 @@
 package com.example.feathers.database.service.impl;
 
 import com.example.feathers.database.service.AerodromeService;
+import com.example.feathers.web.exception.impl.AerodromeDoesNotExistException;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ class AerodromeServiceImplTest {
     @Test
     void testFindByName() {
         assertEquals("Sofia Airport", aerodromeService.findByName("Sofia Airport").getName());
-        assertThrows(NoSuchElementException.class, () -> aerodromeService.findByName("Sofia THROW"));
+        assertThrows(AerodromeDoesNotExistException.class, () -> aerodromeService.findByName("Sofia THROW"));
     }
 
     @Test

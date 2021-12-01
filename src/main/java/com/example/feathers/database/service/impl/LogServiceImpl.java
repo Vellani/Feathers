@@ -12,6 +12,7 @@ import com.example.feathers.database.repository.LogRepository;
 import com.example.feathers.database.service.AerodromeService;
 import com.example.feathers.database.service.AircraftService;
 import com.example.feathers.database.service.UserService;
+import com.example.feathers.util.SimplePair;
 import com.example.feathers.web.exception.impl.FlightLogNotFoundException;
 import com.google.gson.Gson;
 import org.modelmapper.ModelMapper;
@@ -23,7 +24,7 @@ import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.example.feathers.global.Constants.FLIGHT_LOG_DATA;
+import static com.example.feathers.global.Constants.FLIGHT_LOGS_PATH;
 
 @Service
 public class LogServiceImpl implements LogService {
@@ -73,7 +74,6 @@ public class LogServiceImpl implements LogService {
     }
 
     private <T extends CommonLogInterface> LogServiceModel createServiceModel(T inputModel, String username) {
-
         return modelMapper.map(inputModel, LogServiceModel.class)
                 .setDepartureAerodrome(aerodromeService.findByName(inputModel.getDepartureAerodrome()))
                 .setArrivalAerodrome(aerodromeService.findByName(inputModel.getArrivalAerodrome()))
@@ -132,6 +132,30 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
+    public List<Byte[]> findAllGpxFilesForUsername(String username) {
+        return logRepository.findAllGpxFilesForUsername(username);
+    }
+
+    @Override
+    public SimplePair<String, Integer> findMostUsedAircraft() {
+        // May be  good idea to put a limit in the query itself
+        List<SimplePair<String, Integer>> list =
+                logRepository.findMostUsedAircraft();
+        if (list.isEmpty()) return new SimplePair<>("", null);
+        return list.get(0);
+    }
+
+    @Override
+    public SimplePair<SimplePair<String, Integer>, SimplePair<String, Integer>> findMostUsedAirport() {
+        List<SimplePair<String, Integer>> depList =
+                logRepository.findMostUsedDepAirport();
+        List<SimplePair<String, Integer>> arrList =
+                logRepository.findMostUsedArrAirport();
+        if (depList.isEmpty() || arrList.isEmpty()) return null;
+        return new SimplePair<>(depList.get(0), arrList.get(0));
+    }
+
+    @Override
     public void cleanUp() {
         logRepository.cleanUpDatabase();
     }
@@ -140,7 +164,7 @@ public class LogServiceImpl implements LogService {
     public void startDebugMode() throws IOException {
         Set<FlightLogSeed> collect = Arrays.stream(
                 gson.fromJson(
-                        Files.readString(Path.of(FLIGHT_LOG_DATA)),
+                        Files.readString(Path.of(FLIGHT_LOGS_PATH)),
                         FlightLogSeed[].class))
                 .collect(Collectors.toSet());
 
@@ -149,11 +173,6 @@ public class LogServiceImpl implements LogService {
                 .map(m -> modelMapper.map(m, LogEntity.class))
                 .forEach(logRepository::save);
 
-    }
-
-    @Override
-    public List<Byte[]> findAllGpxFilesForUsername(String username) {
-        return logRepository.findAllGpxFilesForUsername(username);
     }
 
 }

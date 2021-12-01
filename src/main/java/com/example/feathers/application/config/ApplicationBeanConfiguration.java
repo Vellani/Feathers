@@ -10,7 +10,6 @@ import org.modelmapper.*;
 import org.modelmapper.spi.MappingContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,8 +23,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.Set;
-
-import static com.example.feathers.global.Constants.FLIGHT_LOG_DATA;
 
 @Configuration
 public class ApplicationBeanConfiguration {
@@ -74,7 +71,7 @@ public class ApplicationBeanConfiguration {
 
             }
         };
-        // TODO Figure out how to use this shit
+        // TODO Figure out how to use this properly
         /*Condition<LogBindingModel, LogEntity> empty = new Condition<LogBindingModel, LogEntity>() {
             @Override
             public boolean applies(MappingContext<LogBindingModel, LogEntity> context) {

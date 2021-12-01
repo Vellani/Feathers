@@ -9,6 +9,7 @@ import com.example.feathers.database.repository.AircraftRepository;
 import com.example.feathers.database.repository.UserRepository;
 import com.example.feathers.database.service.AircraftService;
 import com.example.feathers.util.UserRoleUtil;
+import com.example.feathers.web.exception.impl.AircraftDoesNotExistException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -106,13 +107,13 @@ class AircraftServiceImplTest {
     @Test
     void testFindByRegistration() {
         assertNotNull(aircraftService.findByRegistration("LZ-TEST"));
-        assertThrows(NoSuchElementException.class, () -> aircraftService.findByRegistration("LZ-NULL"));
+        assertThrows(AircraftDoesNotExistException.class, () -> aircraftService.findByRegistration("LZ-NULL"));
     }
 
     @Test
     void testDeleteById() {
         aircraftService.deleteById(aircraftRepository.findByRegistration("LZ-TEST").get().getId());
-        assertThrows(NoSuchElementException.class, () -> aircraftService.findByRegistration("LZ-TEST"));
+        assertThrows(AircraftDoesNotExistException.class, () -> aircraftService.findByRegistration("LZ-TEST"));
     }
 
     // Oh for F* sake
@@ -137,7 +138,7 @@ class AircraftServiceImplTest {
         userRepository.save(testUserTwo);
 
         aircraftService.startDebugMode();
-        assertEquals(14, aircraftRepository.findAll().size());
+        assertEquals(1, aircraftRepository.findAll().size());
     }
 
 

@@ -34,9 +34,9 @@ class HomeControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "Testy", roles = {"USER", "VIP"})
+    @WithMockUser(username = "Admin", roles = {"USER", "VIP"})
     void testGpxVisuals() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/gpx"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/profile/gpx"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("gpxVisuals"));
     }

@@ -21,11 +21,9 @@ import java.security.Principal;
 public class ReviewController {
 
     private final ReviewService reviewService;
-    private final ApplicationEventPublisher applicationEventPublisher;
 
-    public ReviewController(ReviewService reviewService, ApplicationEventPublisher applicationEventPublisher) {
+    public ReviewController(ReviewService reviewService) {
         this.reviewService = reviewService;
-        this.applicationEventPublisher = applicationEventPublisher;
     }
 
     @ModelAttribute
@@ -50,9 +48,6 @@ public class ReviewController {
 
             return "redirect:review";
         }
-
-        ApplicationEvent event = new ReviewEvent(this);
-        applicationEventPublisher.publishEvent(event);
 
         reviewService.save(reviewBindingModel, principal.getName());
 

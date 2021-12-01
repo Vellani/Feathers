@@ -12,17 +12,20 @@ import com.example.feathers.database.repository.AircraftRepository;
 import com.example.feathers.database.service.AircraftService;
 import com.example.feathers.database.service.LogService;
 import com.example.feathers.database.service.UserService;
+import com.example.feathers.util.SimplePair;
 import com.example.feathers.web.exception.impl.AircraftDoesNotExistException;
 import com.google.gson.Gson;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -115,14 +118,20 @@ public class AircraftServiceImpl implements AircraftService {
         }).collect(Collectors.toList());
     }
 
+    @Transactional
     @Override
     public void deleteById(Long id) {
+        AircraftEntity aircraft = findAircraftEntityById(id);
+        cloudinaryService.delete(aircraft.getPicturePublicId());
+        aircraft.setPicturePublicId(null);
+        aircraft.setPictureUrl(null);
+        aircraftRepository.save(aircraft);
         aircraftRepository.deleteById(id);
     }
 
     @Override
     public boolean isOwnerOfAircraft(Long id, String name) {
-        if (id == null) return true; // if id == null -> new aircraft
+        if (id == null) return true;
         return aircraftRepository.findByIdAndCreator_Username(id, name).isPresent();
     }
 

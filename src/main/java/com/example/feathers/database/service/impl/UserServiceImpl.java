@@ -127,6 +127,7 @@ public class UserServiceImpl implements UserService {
             UserEntity user = new UserEntity();
             user.setUsername("Admin")
                     .setRoles(userRoleUtil.setAdminRole())
+                    .setFirstName("Joshua")
                     .setEmail("admin@test.test")
                     .setPassword(passwordEncoder.encode("12345"));
             userRepository.save(user);
@@ -135,7 +136,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void startDebugMode() {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 4; i++) {
             UserEntity user = new UserEntity();
             switch (i) {
                 case 0: user.setUsername("Normal");
@@ -143,9 +144,14 @@ public class UserServiceImpl implements UserService {
                     break;
                 case 1: user.setUsername("Vippp");
                     user.setRoles(userRoleUtil.setVipRole());
+                    user.setFirstName("Alexander");
                     break;
                 case 2: user.setUsername("Suspended");
                     user.setRoles(userRoleUtil.setSuspendedRole());
+                    break;
+                case 3: user.setUsername("Filler");
+                    user.setRoles(userRoleUtil.setVipRole());
+                    user.setFirstName("Anthony");
                     break;
                 default: break;
             }

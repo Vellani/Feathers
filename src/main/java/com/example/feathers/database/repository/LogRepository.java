@@ -3,6 +3,7 @@ package com.example.feathers.database.repository;
 import com.example.feathers.database.model.entity.AircraftEntity;
 import com.example.feathers.database.model.entity.LogEntity;
 import com.example.feathers.database.model.entity.UserEntity;
+import com.example.feathers.util.SimplePair;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -29,6 +30,19 @@ public interface LogRepository extends JpaRepository<LogEntity, Long> {
 
     @Query("Select l.gpxLog from LogEntity l where l.creator.username like :username")
     List<Byte[]> findAllGpxFilesForUsername(String username);
+
+
+    @Query("Select new com.example.feathers.util.SimplePair(l.aircraft.registration, count(l)) " +
+            "from LogEntity l group by l.aircraft.registration order by count(l) desc")
+    List<SimplePair<String, Integer>> findMostUsedAircraft();
+
+    @Query("Select new com.example.feathers.util.SimplePair(l.departureAerodrome.name, count(l)) " +
+            "from LogEntity l group by l.departureAerodrome.name order by count(l) desc")
+    List<SimplePair<String, Integer>> findMostUsedDepAirport();
+
+    @Query("Select new com.example.feathers.util.SimplePair(l.arrivalAerodrome.name, count(l)) " +
+            "from LogEntity l group by l.arrivalAerodrome.name order by count(l) desc")
+    List<SimplePair<String, Integer>> findMostUsedArrAirport();
 
     @Transactional
     @Query("Delete from LogEntity l where l.creator is null or l.aircraft is null")

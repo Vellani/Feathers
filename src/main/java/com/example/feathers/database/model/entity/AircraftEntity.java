@@ -3,6 +3,7 @@ package com.example.feathers.database.model.entity;
 import com.example.feathers.database.model.entity.enums.AircraftClassEnum;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "aircraft")
@@ -13,12 +14,14 @@ public class AircraftEntity extends BaseEntity {
     private String pictureUrl;
     private String picturePublicId;
     private AircraftClassEnum aircraftClass;
+    private Set<LogEntity> logs;
 
     private Integer numberOfEngines;
     private UserEntity creator;
 
     public AircraftEntity() {
     }
+
 
     @Column(unique = true, nullable = false)
     public String getRegistration() {
@@ -90,8 +93,17 @@ public class AircraftEntity extends BaseEntity {
         return this;
     }
 
+    @OneToMany(mappedBy = "aircraft", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    public Set<LogEntity> getLogs() {
+        return logs;
+    }
+
+    public void setLogs(Set<LogEntity> logs) {
+        this.logs = logs;
+    }
+
     @Override
     public String toString() {
-        return registration;
+        return this.getRegistration();
     }
 }

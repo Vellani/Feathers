@@ -60,6 +60,8 @@ class AircraftControllerTest {
 
     @BeforeEach
     void init() throws IOException {
+        userRepository.deleteAll();
+        aircraftRepository.deleteAll();
 
         multipartFile = new MockMultipartFile(
                 "0",

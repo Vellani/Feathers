@@ -16,41 +16,37 @@
 
 <div id="container" class="logbook-container w-100 h-100vh d-inline-block">
     <div id="header" th:replace="fragments/common :: header"></div>
-    <div id="body">
-            <div class="px-4 py-0" id="icon-grid">
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 g-4 py-4">
+    <div id="body" class="d-flex justify-content-center">
+        <div class="flex-fill">
 
-                    <!-- this is the first view for statistics -->
-                    <div class="col">
-                        <div class="card card-cover text-white bg-dark rounded-5 shadow-lg">
+                        <div class="list-group statistics" style="max-width: 600px;">
                             <div class="d-flex align-items-center m-3">
                                 <svg class="bi text-muted me-3" height="1.75em" width="1.75em">
                                     <use xlink:href="..\static\images\svg\svgmaster.svg#toggles2"/>
                                 </svg>
                                 <div>
-                                    <p class="fw-bold mb-0">Total Logs: 630</p>
-                                    <p class="fw-bold mb-0">Total Flight Time: 4000:34</p>
+                                    <p th:text="|Most used aircraft is ${mostUsedAircraft.getKey()}
+                                    with ${mostUsedAircraft.getValue()} flight(s)|" class="fw-bold mb-0"></p>
+                                    <p th:text="|Most departed from airport is ${mostUsedDepAerodrome.getKey()}
+                                    with ${mostUsedDepAerodrome.getValue()} visit(s)|" class="fw-bold mb-0"></p>
+                                    <p th:text="|Most arrived at airport is ${mostUsedArrAerodrome.getKey()}
+                                    with ${mostUsedArrAerodrome.getValue()} visit(s)|" class="fw-bold mb-0"></p>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- This is the View containing the aircraft -->
-                    <div class="col">
-
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert"
+                        <div class="alert alert-danger alert-dismissible fade show list-group" role="alert" style="max-width: 600px;"
                              th:if="${cannotdelete}">
                             <div>Cannot Delete aircraft that exists in Flight logs!</div>
                             <button aria-label="Close" class="btn-close" data-bs-dismiss="alert" type="button"></button>
                         </div>
 
-                        <div class="d-flex justify-content-end pb-3" aria-current="true">
+                        <div class="d-flex justify-content-center pb-3 mt-3" aria-current="true">
                             <a class="btn btn-warning rounded-5" th:href="@{/profile/aircraft}" type="button">Add new
-                                Flight</a>
+                                Aircraft</a>
                         </div>
 
-                        <div class="list-group">
-
+                        <div class="list-group" style="max-width: 600px">
                             <!-- This is a Card for each Aircraft -->
                             <div aria-current="true" class="list-group-item list-group-item-action"
                                  th:each="o : ${aircraft}">
@@ -123,45 +119,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- This is the view for all aerodromes -->
-                    <div class="col">
-                        <div class="card card-cover text-white bg-dark rounded-5 shadow-lg">
-                            <div class="d-flex align-items-center m-3">
-                                <div class="list-group w-100">
-                                    <!-- remove this if there are aerodromes -->
-                                    <div aria-current="true"
-                                         class="list-group-item list-group-item-action d-flex justify-content-center">
-                                        <h5>There seems to be nothing here</h5>
-                                    </div>
-
-                                    <!-- This is a Card for each aerodrome -->
-                                    <div aria-current="true" class="list-group-item list-group-item-action">
-                                        <div class="d-flex justify-content-between">
-                                            <div class="row w-100 d-flex align-items-center" style="margin: 0">
-                                                <div style="width: auto">
-                                                    <img alt="twbs"
-                                                         class="rounded-circle flex-shrink-0" height="45"
-                                                         src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.downloadclipart.net%2Flarge%2F8751-flag-of-eu-design.png&f=1&nofb=1"
-                                                         width="45"/>
-                                                </div>
-                                                <div class="col-4 flex-fill">
-                                                    <div class="d-flex gap-2 w-100 justify-content-between">
-                                                        <div>
-                                                            <p class="mb-0">Sofia (LBSF)</p>
-                                                            <p class="mb-0 opacity-75">Times visited: 23</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
     </div>
     <div id="footer" th:replace="fragments/common :: footer"></div>

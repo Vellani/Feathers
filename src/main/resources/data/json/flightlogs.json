@@ -37,9 +37,9 @@
   },
   {
     "date-of-departure":"2021-11-12",
-    "dep-aero":"Jerez Airport",
+    "dep-aero":"Sofia Airport",
     "dep-time":"02:00",
-    "arr-aero":"London City Airport",
+    "arr-aero":"Vienna International Airport",
     "arr-time":"04:00",
     "landings": 1,
     "registration":"LZ-IDL",
