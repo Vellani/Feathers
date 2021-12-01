@@ -14,12 +14,21 @@ public class AircraftEntity extends BaseEntity {
     private String pictureUrl;
     private String picturePublicId;
     private AircraftClassEnum aircraftClass;
-    private Set<LogEntity> logs;
 
     private Integer numberOfEngines;
     private UserEntity creator;
 
     public AircraftEntity() {
+    }
+
+    @ManyToOne
+    public UserEntity getCreator() {
+        return creator;
+    }
+
+    public AircraftEntity setCreator(UserEntity creator) {
+        this.creator = creator;
+        return this;
     }
 
 
@@ -83,24 +92,6 @@ public class AircraftEntity extends BaseEntity {
         return this;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    public UserEntity getCreator() {
-        return creator;
-    }
-
-    public AircraftEntity setCreator(UserEntity creator) {
-        this.creator = creator;
-        return this;
-    }
-
-    @OneToMany(mappedBy = "aircraft", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    public Set<LogEntity> getLogs() {
-        return logs;
-    }
-
-    public void setLogs(Set<LogEntity> logs) {
-        this.logs = logs;
-    }
 
     @Override
     public String toString() {

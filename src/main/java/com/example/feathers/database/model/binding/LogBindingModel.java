@@ -23,7 +23,6 @@ public class LogBindingModel implements CommonLogInterface {
     private String aircraft;
     private Integer landings;
     private String pilotInCommandName;
-    private UserEntity creator;
 
     private String remarks;
     private MultipartFile gpxLog;
@@ -132,15 +131,6 @@ public class LogBindingModel implements CommonLogInterface {
 
     public LogBindingModel setRemarks(String remarks) {
         this.remarks = remarks;
-        return this;
-    }
-
-    public UserEntity getCreator() {
-        return creator;
-    }
-
-    public LogBindingModel setCreator(UserEntity creator) {
-        this.creator = creator;
         return this;
     }
 

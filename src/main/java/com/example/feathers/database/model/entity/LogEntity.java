@@ -100,7 +100,7 @@ public class LogEntity extends BaseEntity {
         this.pilotInCommandName = pilotInCommandName;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     public AircraftEntity getAircraft() {
         return aircraft;
     }

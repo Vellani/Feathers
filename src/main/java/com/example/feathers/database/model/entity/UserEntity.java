@@ -1,5 +1,7 @@
 package com.example.feathers.database.model.entity;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
@@ -78,7 +80,7 @@ public class UserEntity extends BaseEntity {
         this.logs = logs;
     }
 
-    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL)
     public Set<AircraftEntity> getAircraft() {
         return aircraft;
     }

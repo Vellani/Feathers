@@ -122,7 +122,6 @@ class LogServiceImplTest {
         logService.createNewLog(logBindingModel, "Testy");
         assertEquals(1, logRepository.count());
         logBindingModel.setId(1L);
-        logBindingModel.setCreator(testUser);
         logBindingModel.setDepartureAerodrome("Plovdiv International Airport");
 
         logService.updateLog(logBindingModel);

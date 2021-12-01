@@ -118,14 +118,10 @@ public class AircraftServiceImpl implements AircraftService {
         }).collect(Collectors.toList());
     }
 
-    @Transactional
     @Override
     public void deleteById(Long id) {
         AircraftEntity aircraft = findAircraftEntityById(id);
         cloudinaryService.delete(aircraft.getPicturePublicId());
-        aircraft.setPicturePublicId(null);
-        aircraft.setPictureUrl(null);
-        aircraftRepository.save(aircraft);
         aircraftRepository.deleteById(id);
     }
 
