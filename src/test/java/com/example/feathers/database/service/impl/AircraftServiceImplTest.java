@@ -138,7 +138,7 @@ class AircraftServiceImplTest {
         userRepository.save(testUserTwo);
 
         aircraftService.startDebugMode();
-        assertEquals(1, aircraftRepository.findAll().size());
+        assertEquals(14, aircraftRepository.findAll().size());
     }
 
 

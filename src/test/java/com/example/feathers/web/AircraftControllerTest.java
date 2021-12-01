@@ -118,7 +118,7 @@ class AircraftControllerTest {
         // Same aircraft cant be saved twice
         mockMvc.perform(request)
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl(""));
+                .andExpect(redirectedUrl("aircraft"));
 
         assertEquals(1, aircraftRepository.findAll().size());
 

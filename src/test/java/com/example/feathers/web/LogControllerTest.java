@@ -163,7 +163,7 @@ class LogControllerTest {
                         .with(csrf())
         )
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/profile/logbook"));
+                .andExpect(redirectedUrl("logbook"));
 
         assertTrue(logRepository.findAll().isEmpty());
 
