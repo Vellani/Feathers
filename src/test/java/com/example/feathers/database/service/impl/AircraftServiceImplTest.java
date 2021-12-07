@@ -4,7 +4,6 @@ import com.example.feathers.database.model.binding.AircraftBindingModel;
 import com.example.feathers.database.model.entity.UserEntity;
 import com.example.feathers.database.model.entity.UserRoleEntity;
 import com.example.feathers.database.model.entity.enums.AircraftClassEnum;
-import com.example.feathers.database.model.entity.enums.UserRolesEnum;
 import com.example.feathers.database.repository.AircraftRepository;
 import com.example.feathers.database.repository.UserRepository;
 import com.example.feathers.database.service.AircraftService;

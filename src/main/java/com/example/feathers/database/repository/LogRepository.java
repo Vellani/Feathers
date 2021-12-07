@@ -33,16 +33,16 @@ public interface LogRepository extends JpaRepository<LogEntity, Long> {
 
 
     @Query("Select new com.example.feathers.util.SimplePair(l.aircraft.registration, count(l)) " +
-            "from LogEntity l group by l.aircraft.registration order by count(l) desc")
-    List<SimplePair<String, Integer>> findMostUsedAircraft();
+            "from LogEntity l where l.creator.username like :username group by l.aircraft.registration order by count(l) desc")
+    List<SimplePair<String, Integer>> findMostUsedAircraft(String username);
 
     @Query("Select new com.example.feathers.util.SimplePair(l.departureAerodrome.name, count(l)) " +
-            "from LogEntity l group by l.departureAerodrome.name order by count(l) desc")
-    List<SimplePair<String, Integer>> findMostUsedDepAirport();
+            "from LogEntity l where l.creator.username like :username group by l.departureAerodrome.name order by count(l) desc")
+    List<SimplePair<String, Integer>> findMostUsedDepAirport(String username);
 
     @Query("Select new com.example.feathers.util.SimplePair(l.arrivalAerodrome.name, count(l)) " +
-            "from LogEntity l group by l.arrivalAerodrome.name order by count(l) desc")
-    List<SimplePair<String, Integer>> findMostUsedArrAirport();
+            "from LogEntity l where l.creator.username like :username group by l.arrivalAerodrome.name order by count(l) desc")
+    List<SimplePair<String, Integer>> findMostUsedArrAirport(String username);
 
     @Transactional
     @Query("Delete from LogEntity l where l.creator is null or l.aircraft is null")

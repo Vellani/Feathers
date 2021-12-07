@@ -138,20 +138,20 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
-    public SimplePair<String, Integer> findMostUsedAircraft() {
+    public SimplePair<String, Integer> findMostUsedAircraft(String username) {
         // May be  good idea to put a limit in the query itself
         List<SimplePair<String, Integer>> list =
-                logRepository.findMostUsedAircraft();
+                logRepository.findMostUsedAircraft(username);
         if (list.isEmpty()) return new SimplePair<>("", null);
         return list.get(0);
     }
 
     @Override
-    public SimplePair<SimplePair<String, Integer>, SimplePair<String, Integer>> findMostUsedAirport() {
+    public SimplePair<SimplePair<String, Integer>, SimplePair<String, Integer>> findMostUsedAirport(String username) {
         List<SimplePair<String, Integer>> depList =
-                logRepository.findMostUsedDepAirport();
+                logRepository.findMostUsedDepAirport(username);
         List<SimplePair<String, Integer>> arrList =
-                logRepository.findMostUsedArrAirport();
+                logRepository.findMostUsedArrAirport(username);
         if (depList.isEmpty() || arrList.isEmpty()) return null;
         return new SimplePair<>(depList.get(0), arrList.get(0));
     }

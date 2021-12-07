@@ -8,17 +8,18 @@
     <title>Feathers Logbook</title>
 
     <th:block th:replace="fragments/common :: main-css"></th:block>
-    <th:block th:replace="fragments/map-view :: map-scripts"></th:block>
     <th:block th:replace="fragments/map-view :: map-initialize-scripts"></th:block>
+    <th:block th:replace="fragments/map-view :: map-scripts"></th:block>
 
 </head>
 
 <body>
+
+<div th:replace="fragments/map-view :: map"></div>
+
 <div id="container" class="hero-container text-center">
 <div id="header" th:replace="fragments/common :: header"></div>
-
 <div id="body">
-    <div th:replace="fragments/map-view :: map"></div>
 
     <main class="form-custom-add">
         <div class="d-flex flex-column">
@@ -98,7 +99,7 @@
     </main>
 </div>
 <div id="footer" th:replace="fragments/common :: footer"></div>
-<div>
+</div>
 </body>
 <!-- Autocomplete Scripts -->
 <script>

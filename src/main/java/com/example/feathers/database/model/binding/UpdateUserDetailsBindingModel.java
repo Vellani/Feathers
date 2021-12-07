@@ -46,7 +46,7 @@ public class UpdateUserDetailsBindingModel {
     }
 
 
-    @Pattern(regexp = "^(?:[A-z]{2,20}|)$", message = "First name must be between 5 and 20 characters.")
+    @Pattern(regexp = "^(?:[A-z]{2,20}|)$", message = "First name must be between 2 and 20 characters.")
     public String getFirstName() {
         return firstName;
     }
@@ -55,7 +55,7 @@ public class UpdateUserDetailsBindingModel {
         this.firstName = firstName;
     }
 
-    @Pattern(regexp = "^(?:[A-z]{2,20}|)$", message = "Last name must be between 5 and 20 characters.")
+    @Pattern(regexp = "^(?:[A-z]{2,20}|)$", message = "Last name must be between 2 and 20 characters.")
     public String getLastName() {
         return lastName;
     }

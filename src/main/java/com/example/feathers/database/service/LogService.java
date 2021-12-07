@@ -31,7 +31,7 @@ public interface LogService {
 
     List<Byte[]> findAllGpxFilesForUsername(String username);
 
-    SimplePair<String, Integer> findMostUsedAircraft();
+    SimplePair<String, Integer> findMostUsedAircraft(String username);
 
-    SimplePair<SimplePair<String, Integer>, SimplePair<String, Integer>>findMostUsedAirport();
+    SimplePair<SimplePair<String, Integer>, SimplePair<String, Integer>>findMostUsedAirport(String username);
 }

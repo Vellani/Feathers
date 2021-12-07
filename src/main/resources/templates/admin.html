@@ -38,9 +38,15 @@
                     </div>
 
                     <div class="col">
+                        <div class="alert alert-danger alert-dismissible fade show list-group px-2" role="alert" style="max-width: 600px;"
+                             th:if="${selfDelete}">
+                            <div>Cannot delete yourself!</div>
+                            <button aria-label="Close" class="btn-close" data-bs-dismiss="alert" type="button"></button>
+                        </div>
                     </div>
 
                     <div class="col"></div>
+
 
                     <div class="col">
                         <div class="card card-cover text-white bg-dark rounded-5 shadow-lg">
@@ -59,11 +65,12 @@
 
 
             <div class="container px-4 py-1">
+
                 <div class="list-group">
 
                     <!-- This is a single user card -->
                     <div th:each="o : ${accounts}"
-                         class="d-flex list-group-item list-group-item-action row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 align-items-center"
+                         class="d-flex flex-wrap list-group-item list-group-item-action row-cols-1 row-cols-sm-3 row-cols-md-4 row-cols-lg-4 align-items-center"
                          aria-current="true">
 
                         <div class="col">

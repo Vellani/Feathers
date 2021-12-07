@@ -30,6 +30,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.example.feathers.global.Constants.AIRCRAFT_PATH;
+import static com.example.feathers.global.Constants.DEFAULT_AIRCRAFT_PICTURE;
 
 @Service
 public class AircraftServiceImpl implements AircraftService {
@@ -114,6 +115,8 @@ public class AircraftServiceImpl implements AircraftService {
         return aircraftEntities.stream().map(e -> {
             ListAircraftViewModel viewModel = modelMapper.map(e, ListAircraftViewModel.class);
             viewModel.setFlights(logService.countAllFlightsWithAircraft(e));
+            if (viewModel.getPictureUrl() == null)
+                viewModel.setPictureUrl(DEFAULT_AIRCRAFT_PICTURE);
             return viewModel;
         }).collect(Collectors.toList());
     }
@@ -133,8 +136,11 @@ public class AircraftServiceImpl implements AircraftService {
 
     @Override
     public AircraftBindingModel findById(Long id) {
-        return modelMapper.map(aircraftRepository.findById(id).orElseThrow(AircraftDoesNotExistException::new),
+        AircraftBindingModel viewAircraft = modelMapper.map(aircraftRepository.findById(id).orElseThrow(AircraftDoesNotExistException::new),
                 AircraftBindingModel.class);
+        if (viewAircraft.getPictureUrl() == null)
+            viewAircraft.setPictureUrl(DEFAULT_AIRCRAFT_PICTURE);
+        return viewAircraft;
     }
 
     @Override

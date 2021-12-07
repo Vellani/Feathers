@@ -30,11 +30,11 @@ public class DashboardController {
         List<ListAircraftViewModel> aircraft = aircraftService.findAllAircraftForUser(principal.getName());
         model.addAttribute("aircraft", aircraft);
 
-        SimplePair<String, Integer> mostUsedAircraft = logService.findMostUsedAircraft();
+        SimplePair<String, Integer> mostUsedAircraft = logService.findMostUsedAircraft(principal.getName());
         model.addAttribute("mostUsedAircraft", mostUsedAircraft);
 
         SimplePair<SimplePair<String, Integer>, SimplePair<String, Integer>> mostUsedAirport =
-                logService.findMostUsedAirport();
+                logService.findMostUsedAirport(principal.getName());
         model.addAttribute("mostUsedDepAerodrome", mostUsedAirport != null
                 ? mostUsedAirport.getKey()
                 : new SimplePair<>("null", 0));

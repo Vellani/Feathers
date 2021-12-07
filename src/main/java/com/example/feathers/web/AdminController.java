@@ -32,7 +32,6 @@ public class AdminController {
         }
 
         model.addAttribute("accounts", accounts);
-        // TODO show "cannot delete self"
         model.addAttribute("selfDelete", model.containsAttribute("selfDelete"));
 
         return "admin";
