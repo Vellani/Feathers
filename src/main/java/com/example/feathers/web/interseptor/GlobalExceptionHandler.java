@@ -16,14 +16,14 @@ public class GlobalExceptionHandler {
         return modelAndView;
     }
 
-    @ExceptionHandler
+    /*@ExceptionHandler
     public  ModelAndView genericHandler(Exception e) {
         ModelAndView modelAndView = new ModelAndView("error");
         modelAndView.addObject("message", "Ooops, something went wrong. \n " +
                 "Our one single person in charge of keeping this website running is on it!"); // fun fact, i am not on it
         modelAndView.addObject("code", e.getMessage());
         return modelAndView;
-    }
+    }*/
 
 
 }

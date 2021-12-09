@@ -91,6 +91,9 @@
                         <div class="col"></div>
 
                         <div class="col d-flex justify-content-end">
+
+                            <!--<div class="spinner-border text-warning" role="status" th:id="updateSpinner + *{o.getId()}" hidden></div>-->
+
                             <div class="btn-group">
 
                                 <button type="button" disabled hidden class="btn btn-outline-success"
@@ -150,6 +153,7 @@
 
 
 <script th:inline="javascript">
+
 
     function setLevel(id) {
         $('#save-button' + id).prop('disabled', false).prop('hidden', false);

@@ -78,7 +78,7 @@ public class LogController {
     @PostMapping("/delete")
     public String logDelete(@RequestParam(value = "id") Long id, Principal principal) {
         logService.deleteById(id);
-        return "redirect:logbook";
+        return "redirect:/profile/logbook";
     }
 }
 
