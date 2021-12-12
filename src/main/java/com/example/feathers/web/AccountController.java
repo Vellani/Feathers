@@ -57,7 +57,10 @@ public class AccountController {
     }
 
     @GetMapping("/details")
-    public String profileSettings() {
+    public String profileSettings(Model model) {
+        if (model.containsAttribute("success")) {
+            model.addAttribute("success", true);
+        }
         return "account";
     }
 
@@ -80,6 +83,11 @@ public class AccountController {
         }
 
         userService.updateUserDetails(updateUserDetailsBindingModel, principal.getName());
+
+        if (!bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("success", true);
+            return "redirect:/profile/details";
+        }
         return "account";
     }
 

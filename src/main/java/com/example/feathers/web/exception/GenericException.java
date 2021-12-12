@@ -2,7 +2,7 @@ package com.example.feathers.web.exception;
 
 import com.example.feathers.util.SimplePair;
 
-public class GenericException extends RuntimeException{
+public class GenericException extends RuntimeException {
 
     protected static SimplePair<Integer, String> error;
 

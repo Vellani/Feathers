@@ -38,7 +38,7 @@ public class AircraftController {
     @PreAuthorize("@aircraftServiceImpl.isOwnerOfAircraft(#id, #principal.name)")
     @GetMapping("")
     public String aircraftAdd(@RequestParam(required = false) Long id, Model model, Principal principal) {
-        model.addAttribute("aircraftBindingModel", aircraftBindingModel(id));
+        if (id != null) model.addAttribute("aircraftBindingModel", aircraftBindingModel(id));
         return "aircraft";
     }
 

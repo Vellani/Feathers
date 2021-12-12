@@ -10,12 +10,9 @@
 .error-container {
   background-image: url(/images/png/aircraft.png);
   background-repeat: no-repeat;
-  background-position: center ;
+  background-position: center;
   background-size: contain;
-  z-index: 0;
-  transition: inherit;
-  min-width: 30%;
-  min-height: 30%;
+  min-height: 500px;
 }
 
 .logbook-container {

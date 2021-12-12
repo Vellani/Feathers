@@ -15,12 +15,10 @@
 <body>
 <div id="container" class="hero-container text-center">
     <div id="header" th:replace="fragments/common :: header"></div>
-    <div id="body">
-        <div class="row d-flex align-items-center" style="height: 100%">
-            <div class = "col">
-                <h5 th:text="${message}"></h5>
-             <h5 th:text="'Error Code: ' + ${code}"></h5>
-            </div>
+    <div id="body" class="row d-flex align-items-center">
+        <div class = "col">
+            <h5 th:text="${message}"></h5>
+            <h5 th:text="'Error Code: ' + ${code}"></h5>
         </div>
         <div class = "col error-container"></div>
     </div>

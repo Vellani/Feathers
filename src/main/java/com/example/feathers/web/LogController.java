@@ -39,7 +39,7 @@ public class LogController {
     @PreAuthorize("@logServiceImpl.isOwnerOfLog(#id, #principal.name)")
     @GetMapping("")
     public String logAdd(@RequestParam(required = false) Long id, Model model, Principal principal) {
-        model.addAttribute("logBindingModel", logBindingModel(id));
+        if (id != null) model.addAttribute("logBindingModel", logBindingModel(id));
         return "log";
     }
 
