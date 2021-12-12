@@ -97,9 +97,9 @@ class AccountControllerTest {
                         .param("address", "Sofia,bulgaria,something")
                         .with(csrf())
         )
-                .andExpect(status().isOk())
+                .andExpect(status().is3xxRedirection())
                 //.andExpect(redirectedUrl("account"));
-                .andExpect(view().name("account"));
+                .andExpect(redirectedUrl("/profile/details"));
 
         assertEquals("1234566", userRepository.findByUsername(testUser.getUsername()).get().getLicenseNumber());
 

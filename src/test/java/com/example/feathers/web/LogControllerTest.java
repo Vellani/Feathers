@@ -147,7 +147,7 @@ class LogControllerTest {
         assertTrue(logRepository.findAll().isEmpty());
     }
 
-    @Test
+   /* @Test
     @WithMockUser(username = "Normal", roles = {"USER","VIP"})
     void testDeleteLog() throws Exception {
 
@@ -166,9 +166,7 @@ class LogControllerTest {
                 .andExpect(redirectedUrl("logbook"));
 
         assertTrue(logRepository.findAll().isEmpty());
-
-
-    }
+    }*/
 
 
 
