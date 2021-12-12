@@ -5,6 +5,7 @@ import com.example.feathers.database.model.entity.UserEntity;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Positive;
@@ -74,7 +75,7 @@ public class LogBindingModel implements CommonLogInterface {
         return this;
     }
 
-    @NotNull(message = "Missing departure aerodrome.")
+    @NotBlank(message = "Missing departure aerodrome.")
     public String getDepartureAerodrome() {
         return departureAerodrome;
     }
@@ -84,7 +85,7 @@ public class LogBindingModel implements CommonLogInterface {
         return this;
     }
 
-    @NotNull(message = "Missing arrival aerodrome.")
+    @NotBlank(message = "Missing arrival aerodrome.")
     public String getArrivalAerodrome() {
         return arrivalAerodrome;
     }
@@ -94,7 +95,7 @@ public class LogBindingModel implements CommonLogInterface {
         return this;
     }
 
-    @NotNull(message = "Missing registration.")
+    @NotBlank(message = "Missing registration.")
     public String getAircraft() {
         return aircraft;
     }
@@ -104,7 +105,7 @@ public class LogBindingModel implements CommonLogInterface {
         return this;
     }
 
-    @NotNull(message = "Set the number of landings.")
+    @NotBlank(message = "Set the number of landings.")
     @Positive(message = "The landings cannot be negative or 0.")
     public Integer getLandings() {
         return landings;
@@ -115,7 +116,7 @@ public class LogBindingModel implements CommonLogInterface {
         return this;
     }
 
-    @NotNull(message = "Missing Pilot in command.")
+    @NotBlank(message = "Missing Pilot in command.")
     public String getPilotInCommandName() {
         return pilotInCommandName;
     }

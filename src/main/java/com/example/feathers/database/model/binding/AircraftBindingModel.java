@@ -4,6 +4,7 @@ package com.example.feathers.database.model.binding;
 import com.example.feathers.database.model.entity.enums.AircraftClassEnum;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
@@ -33,7 +34,7 @@ public class AircraftBindingModel {
     }
 
     @Size(min = 4, max = 8, message = "The aircraft registration must be between 4 and 8 characters.")
-    @NotNull
+    @NotBlank
     public String getRegistration() {
         return registration;
     }
@@ -44,7 +45,7 @@ public class AircraftBindingModel {
     }
 
     @Size(min = 4, max = 8, message = "The aircraft model must be between 4 and 8 characters.")
-    @NotNull
+    @NotBlank
     public String getIcaoModelName() {
         return icaoModelName;
     }
@@ -64,7 +65,7 @@ public class AircraftBindingModel {
         return this;
     }
 
-    @NotNull(message = "Please input the number of engines.")
+    @NotBlank(message = "Please input the number of engines.")
     @Positive(message = "The engines must be a positive number.")
     public Integer getNumberOfEngines() {
         return numberOfEngines;

@@ -1,6 +1,7 @@
 package com.example.feathers.database.model.binding;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
@@ -26,7 +27,7 @@ public class UpdateUserDetailsBindingModel {
     }
 
     @Email(message = "Enter valid email.")
-    @NotNull
+    @NotBlank
     public String getEmail() {
         return email;
     }

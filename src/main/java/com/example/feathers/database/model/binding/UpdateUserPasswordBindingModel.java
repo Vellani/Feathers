@@ -1,5 +1,6 @@
 package com.example.feathers.database.model.binding;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -12,7 +13,7 @@ public class UpdateUserPasswordBindingModel {
     }
 
     @Size(min = 5, max = 20, message = "Password must be between 5 and 20 characters.")
-    @NotNull
+    @NotBlank
     public String getPassword() {
         return password;
     }
@@ -22,7 +23,7 @@ public class UpdateUserPasswordBindingModel {
     }
 
     @Size(min = 5, max = 20, message = "Password must be between 5 and 20 characters.")
-    @NotNull
+    @NotBlank
     public String getConfirmPassword() {
         return confirmPassword;
     }
