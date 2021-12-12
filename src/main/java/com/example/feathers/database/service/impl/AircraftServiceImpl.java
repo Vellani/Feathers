@@ -78,7 +78,7 @@ public class AircraftServiceImpl implements AircraftService {
         AircraftServiceModel serviceModel = modelMapper.map(aircraftBindingModel, AircraftServiceModel.class);
 
         if (!aircraftBindingModel.getPictureFile().isEmpty()) {
-            if (!aircraftToUpdate.getPictureUrl().isEmpty()) {
+            if (aircraftToUpdate.getPictureUrl() != null && !aircraftToUpdate.getPictureUrl().isEmpty()) {
                 cloudinaryService.delete(aircraftToUpdate.getPicturePublicId());
             }
             CloudinaryImage upload = cloudinaryService.upload(aircraftBindingModel.getPictureFile());

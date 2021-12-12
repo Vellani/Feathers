@@ -13,7 +13,6 @@ public class Constants {
     * TODO
     *  Fix GPX not showing properly on map on the first time
     *  Deployment
-    *  Picture format and delete button
     * */
 
 }

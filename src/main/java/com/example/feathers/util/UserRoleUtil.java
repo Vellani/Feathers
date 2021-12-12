@@ -7,6 +7,7 @@ import com.example.feathers.database.repository.UserRoleRepository;
 import java.util.Set;
 
 public class UserRoleUtil {
+    // Boilerplate Code to make user roles more easily managed
 
     private final UserRoleEntity userRole;
     private final UserRoleEntity suspendedRole;

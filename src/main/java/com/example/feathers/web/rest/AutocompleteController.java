@@ -53,6 +53,7 @@ public class AutocompleteController {
         List<String> userString = validateString(user)
                 ? userService.findUsersForAdmin(user)
                 : new ArrayList<>();
+
         return userString.isEmpty()
                 ? ResponseEntity.notFound().build()
                 : ResponseEntity.ok(userString);

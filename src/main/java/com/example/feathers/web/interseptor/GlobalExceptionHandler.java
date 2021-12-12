@@ -28,7 +28,7 @@ public class GlobalExceptionHandler {
         return modelAndView;
     }*/
 
-    // TODO not working properly
+
     @ExceptionHandler({Throwable.class, NoHandlerFoundException.class})
     public ModelAndView genericHandler(HttpServletRequest request, Throwable e) {
         ModelAndView modelAndView = new ModelAndView("error");
