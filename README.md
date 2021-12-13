@@ -11,7 +11,7 @@ The purpose of the mock-practice-project is to keep track of every flight logged
 * Set Database username and password
 * Set Cloudinary information
 * Run the application and wait up to a minute to innitialize the data
-* If you decide to use the project in "Debug mode" you can so 
+* If you decide to use the project in "Debug mode" you can do so 
   from the index page, after reading the instructions provided
 
 # Dependencies and Technologies
@@ -29,4 +29,4 @@ The purpose of the mock-practice-project is to keep track of every flight logged
   * JavaScript (w/ Jquery library)
   * CSS 
   * Leaflet (w/ Omnivore plugin)
-  * 
+  
