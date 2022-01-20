@@ -20,46 +20,7 @@
             <hr>
             <h1>About the author</h1>
 
-            <p>I hold a Bachelor's degree in Aeronautical Engineering. With some modest experience as a commercial pilot
-            executing high-risk wildlife vaccination flights commissioned by the European Union.</p>
-            <p>It is precisely because of that the idea for an electronic logbook was born. I did create
-            some initial versions for excel and android. I still use those as this project is very rough around the edges
-            and will need some serious work in order to function at full capacity, as currently a lot of real-world
-            applications are impossible due to missing features.</p>
-            <p>You can check out the links in the footer for the github source code and other interesting stuff.</p>
-
-            <hr>
-            <h2>The website</h2>
-            <p>The purpose of the website is to keep track of every flight. I have included <i>mostly</i> all european aerodromes.
-            That includes about 4000 entries into database, which are seeded from a json file at the start of the application.</p>
-            <p>Free registration for features access.</p>
-            <p>The main feature is the Logbook, pretty self-evident from the title of the website. In order to use it,
-                the user must first set up at least one aircraft by filling in the details from the Dashboard -> Add Aircraft.
-                Adding a new Log features extensive help for fast input and better experience for the user. <br>
-                - Datetime picker, Autocomplete Aerodrome names, Autocomplete Aircraft registration that the user has added,
-                GpX file upload and showcase</p>
-
-            <p>The Logbook can display all logs, automatically adding the correct flags for the countries each aerodrome is
-                located in. We have the option to Edit a specific log, view its GPX track or delete it. The counter at the
-                top of the page keeps track of all logs.</p>
-
-            <p>As mentioned before the user has access to the dashboard where aircraft can be added,
-                data including pictures, changed or deleted. Each user can also change any of his/hers profile details,
-                excluding the username.</p>
-
-            <p>A VIP user can also review the website and leave comments (because we want confirmation bias in our favor when
-                it comes to ratings). Up to three random Reviews will be selected and previewed on the home page for all,
-                logged-in or not, visitors (and they don’t know that we have selected only reviews where the Reviewer has added
-                his first name in the account settings page AND has given us 5 stars, sneaky). If we have someone trying to be
-                cheeky and play around with the users’ capabilities and authorities we have secured all controllers with a required
-                authentication. Privacy-sensitive information exchange between user and server is done with a POST request that
-                exchanges CSRF tokens. Our admins also have access to the admin panel. Through it we can search for a specific
-                user or any user matching the searched for string or partial match to it. The admin can change users’ role
-                or delete him. For obvious privacy concerns the admin cannot look, change or delete any data, log, aircraft,
-                or especially passwords, of any user. The admin also cannot change his own account role or delete himself
-                (so sad, I know). For debug purposes the admin has access to personal logbook, dashboard and review page.
-            </p>
-
+           
 
         </main>
 
